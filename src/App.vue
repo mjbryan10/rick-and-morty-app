@@ -4,17 +4,38 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
-#app {
+@font-face {
+  font-family: 'get_schwifty';
+  src: url('./assets/fonts/get_schwifty-webfont.woff2') format('woff2'),
+    url('./assets/fonts/get_schwifty-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+} */
+#app {
+  font-family: 'letter-gothic-std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  background-color: #f5f5f5;
+;
+}
+
+h1 {
+  font-family: 'get_schwifty';
+  font-size: 4rem;
 }
 
 #nav {
