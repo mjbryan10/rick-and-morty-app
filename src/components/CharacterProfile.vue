@@ -1,19 +1,19 @@
 <template>
   <div v-if="!loading">
+    <h2>{{ character.name }}</h2>
     <img :src="character.image" :alt="character.name" />
-    <h3>
-      {{ character.name }}
-    </h3>
     <h4>
       {{ character.species }} <span v-if="character.type">({{ character.type }})</span>
     </h4>
-    <p>First Episode: {{firstEpisode.name}} </p>
+    <h3>First Episode:</h3>
+    <EpisodeInfo v-if="character.episode.length" :url="character.episode[0]" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { Character, Episode } from '@/types/Interfaces';
+import EpisodeInfo from './EpisodeInfo.vue';
 
 interface State {
   loading: boolean;
@@ -26,6 +26,9 @@ const CharacterProfile = Vue.extend({
   name: 'CharacterProfile',
   props: {
     id: Number,
+  },
+  components: {
+    EpisodeInfo,
   },
   data(): State {
     return {

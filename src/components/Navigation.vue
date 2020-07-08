@@ -15,7 +15,7 @@ export default Navigation;
 <style lang="scss">
 #nav {
   padding: 30px;
-
+  /* position: fixed; */
   a {
     font-weight: bold;
     color: #2c3e50;
