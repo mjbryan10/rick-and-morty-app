@@ -1,17 +1,19 @@
 <template>
   <div class="home">
-    <EntriesPage msg="Welcome to Your Vue.js App"/>
+    <h1>Rick and Morty Characterdex</h1>
+    <h2>Your database of Rick and Morty characters</h2>
+    <CharactersLandingList/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import EntriesPage from '@/components/EntriesPage.vue';
+import CharactersLandingList from '@/components/CharactersLandingList.vue';
 
 export default {
   name: 'Home',
   components: {
-    EntriesPage,
+    CharactersLandingList,
   },
 };
 </script>
