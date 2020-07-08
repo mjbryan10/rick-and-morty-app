@@ -1,7 +1,7 @@
 <template>
   <div class="EntiresTopTen">
     <h1>{{ msg }}</h1>
-    <Spinner v-if="isLoading" />
+    <Spinner v-if="loading" />
     <div v-else>
       <input type="text" v-model="searchVal" placeholder="Type to search" />
       <button @click="toggleAtoZ">Click me!</button>
@@ -33,7 +33,7 @@ interface State {
   showLess: boolean;
   listAtoZ: boolean;
   searchVal: string;
-  isLoading: boolean;
+  loading: boolean;
   error: string;
 }
 
@@ -50,7 +50,7 @@ const CharactersLandingList = Vue.extend({
       showLess: true,
       listAtoZ: true,
       searchVal: '',
-      isLoading: true,
+      loading: true,
       error: '',
     };
   },
@@ -58,11 +58,11 @@ const CharactersLandingList = Vue.extend({
    * On component created lifecycle, fetches the API data and populates data fields.
    */
   created() {
-    this.isLoading = true;
+    this.loading = true;
     this.fetchCharacters()
       .then((res) => {
         this.results = res.results;
-        this.isLoading = false;
+        this.loading = false;
       })
       .catch((error) => {
         this.error = error.toString();

@@ -1,9 +1,9 @@
 <template>
-  <a class="card-container">
+  <router-link class="card-container" :to="`character/${character.id}`">
     <span class="link-span">Find out more..</span>
     <img :src="character.image" />
     <h4>{{ character.name }}</h4>
-  </a>
+  </router-link>
 </template>
 
 <script lang="ts">
@@ -26,8 +26,10 @@ export default CharacterCard;
   /* background-color: #202329; */
   background-color: #2c3e50;
   color: #f5f5f5;
+  color: #f5f5f5;
   border-radius: 0.5rem;
   overflow: hidden;
+  text-decoration: none;
   cursor: pointer;
   img {
     transition: opacity 1s;
@@ -37,8 +39,8 @@ export default CharacterCard;
       opacity: 0.7;
     }
     .link-span {
-      top:50%;
-      margin-top:-12.5px;
+      top: 50%;
+      margin-top: -12.5px;
     }
   }
   .link-span {

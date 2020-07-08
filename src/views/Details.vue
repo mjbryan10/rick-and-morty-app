@@ -2,7 +2,7 @@
   <div class="details">
     <h1>Rick and Morty Characterdex</h1>
     <h2>Your database of Rick and Morty characters</h2>
-    <CharacterProfile />
+    <CharacterProfile :id="id" />
   </div>
 </template>
 
@@ -13,6 +13,9 @@ export default {
   name: 'Details',
   components: {
     CharacterProfile,
+  },
+  props: {
+    id: Number,
   },
 };
 </script>

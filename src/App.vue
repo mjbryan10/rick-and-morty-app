@@ -1,12 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <Navigation />
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
+    </div> -->
     <router-view />
   </div>
 </template>
+<script>
+import Vue from 'vue';
+import Navigation from '@/components/Navigation.vue';
+
+const App = Vue.extend({
+  name: 'App',
+  components: {
+    Navigation,
+  },
+});
+export default App;
+</script>
 
 <style lang="scss">
 @font-face {
@@ -28,26 +41,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   background-color: #f5f5f5;
-;
-}
-
-h1 {
-  font-family: 'get_schwifty';
-  font-size: 4rem;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
