@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="loading-spinner">
     Loading ...
   </div>
 </template>
@@ -14,4 +14,18 @@ const Spinner = Vue.extend({
 export default Spinner;
 </script>
 
-<style></style>
+<style lang="scss">
+.loading-spinner {
+  position: absolute;
+
+  $size: 150px;
+  height: $size;
+  width: $size;
+  /* Sets it center of the area */
+  top:50%;
+  left:50%;
+  margin-top: $size / 2;
+  margin-left: $size / 2;
+
+}
+</style>

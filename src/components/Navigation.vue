@@ -1,7 +1,9 @@
 <template>
   <div id="nav">
     <router-link to="/" class="gb-btn">Home</router-link>
-    <router-link to="/random" class="randomizer-btn">Randomizer</router-link>
+    <router-link @click.native="incrementRandomizerKey" to="/random" class="randomizer-btn"
+      >Randomizer</router-link
+    >
     <router-link to="/about" class="gb-btn">Categories</router-link>
   </div>
 </template>
@@ -10,6 +12,11 @@ import Vue from 'vue';
 
 const Navigation = Vue.extend({
   name: 'Navigation',
+  methods: {
+    incrementRandomizerKey() {
+      this.$store.commit('incrementRandomizerKey');
+    },
+  },
 });
 export default Navigation;
 </script>
@@ -26,8 +33,6 @@ export default Navigation;
 }
 
 #nav {
-  /* padding: 30px; */
-  /* position: fixed; */
   display: flex;
   justify-content: space-between;
   align-items: center;
