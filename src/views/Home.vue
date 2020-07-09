@@ -16,7 +16,4 @@ export default {
 };
 </script>
 <style lang="scss">
-.home {
-  /* color: #2c3e50; */
-}
 </style>

@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <div class="app-shell">
-      <HeaderBar />
+      <HeaderBar :clickHandler="toggleInfoMode" />
       <div class="app-screen">
-        <router-view />
+        <Footer v-if="infoToggled" />
+        <router-view v-else />
       </div>
       <Navigation />
     </div>
@@ -17,12 +18,24 @@
 import Vue from 'vue';
 import Navigation from '@/components/Navigation.vue';
 import HeaderBar from '@/components/HeaderBar.vue';
+import Footer from '@/components/Footer.vue';
 
 const App = Vue.extend({
   name: 'App',
   components: {
     Navigation,
     HeaderBar,
+    Footer,
+  },
+  data() {
+    return {
+      infoToggled: false,
+    };
+  },
+  methods: {
+    toggleInfoMode() {
+      this.infoToggled = !this.infoToggled;
+    },
   },
 });
 export default App;
@@ -75,7 +88,7 @@ body {
   border-radius: 5px;
 }
 .app-screen {
-  background-color: rgba(#7d9f53, 0.8);
+  background-color: rgba(#7d9f53, 0.86);
   height: 85vh;
   max-width: 600px;
   overflow-y: scroll;

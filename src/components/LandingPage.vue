@@ -8,6 +8,7 @@
       </button>
     </div>
     <div v-else>
+      <RickAndMortyHeader />
       <CharacterDisplayCase />
     </div>
   </div>

@@ -11,12 +11,15 @@ import StatusIndicator from '@/components/StatusIndicator.vue';
 
 const HeaderBar = Vue.extend({
   name: 'HeaderBar',
+  props: {
+    clickHandler: Function,
+  },
   components: {
     StatusIndicator,
   },
   methods: {
     handleClick() {
-      console.log('test');
+      this.clickHandler();
     },
   },
 });
