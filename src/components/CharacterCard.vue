@@ -32,6 +32,8 @@ export default CharacterCard;
   cursor: pointer;
   img {
     transition: opacity 1s;
+    min-width: 300px;
+    min-height: 300px;
   }
   &:hover {
     img {

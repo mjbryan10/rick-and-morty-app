@@ -1,21 +1,17 @@
 <template>
   <div class="home">
-    <RickAndMortyHeader />
-    <h2>Your database of Rick and Morty characters</h2>
-    <CharacterDisplayCase />
+    <LandingPage/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import CharacterDisplayCase from '@/components/CharacterDisplayCase.vue';
-import RickAndMortyHeader from '@/components/RickAndMortyHeader.vue';
+import LandingPage from '@/components/LandingPage.vue';
 
 export default {
   name: 'Home',
   components: {
-    CharacterDisplayCase,
-    RickAndMortyHeader,
+    LandingPage,
   },
 };
 </script>

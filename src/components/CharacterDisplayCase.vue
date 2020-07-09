@@ -1,8 +1,6 @@
 <template>
   <div class="EntiresTopTen">
-    <h1>{{ msg }}</h1>
-    <Spinner v-if="loading" />
-    <div v-else>
+    <div v-if="isLoaded">
       <input type="text" v-model="searchVal" placeholder="Type to search" />
       <button @click="toggleAtoZ">Click me!</button>
       <ul>
@@ -10,15 +8,12 @@
           <CharacterCard :character="character" />
         </li>
       </ul>
-      <ul>
-        <li v-for="category in categories" :key="category">{{ category }}</li>
-      </ul>
     </div>
-    <button @click="toggleShowMore">
+    <!-- <button @click="toggleShowMore">
       Show
       <span v-if="showLess">more</span>
       <span v-else>less</span>
-    </button>
+    </button> -->
   </div>
 </template>
 
@@ -26,14 +21,13 @@
 import Vue from 'vue';
 import { CharactersAPI, Character } from '@/types/Interfaces';
 import CharacterCard from '@/components/CharacterCard.vue';
-import Spinner from '@/components/Spinner.vue';
 
 interface State {
   results: Character[];
   showLess: boolean;
   listAtoZ: boolean;
   searchVal: string;
-  loading: boolean;
+  isLoaded: boolean;
   error: string;
 }
 
@@ -41,7 +35,6 @@ const CharacterDisplayCase = Vue.extend({
   name: 'CharacterDisplayCase',
 
   components: {
-    Spinner,
     CharacterCard,
   },
   data(): State {
@@ -50,7 +43,7 @@ const CharacterDisplayCase = Vue.extend({
       showLess: true,
       listAtoZ: true,
       searchVal: '',
-      loading: true,
+      isLoaded: false,
       error: '',
     };
   },
@@ -58,15 +51,7 @@ const CharacterDisplayCase = Vue.extend({
    * On component created lifecycle, fetches the API data and populates data fields.
    */
   created() {
-    this.loading = true;
-    this.fetchCharacters()
-      .then((res) => {
-        this.results = res.results;
-        this.loading = false;
-      })
-      .catch((error) => {
-        this.error = error.toString();
-      });
+    this.loadCharacters();
   },
   computed: {
     /**
@@ -126,6 +111,20 @@ const CharacterDisplayCase = Vue.extend({
     toggleAtoZ(): void {
       this.listAtoZ = !this.listAtoZ;
     },
+    /**
+     * Loads the first 10 characters and updates the state
+     */
+    loadCharacters(): void {
+      this.isLoaded = false;
+      this.fetchCharacters()
+        .then((res) => {
+          this.results = res.results;
+          this.isLoaded = true;
+        })
+        .catch((error) => {
+          this.error = error.toString();
+        });
+    },
   },
 });
 export default CharacterDisplayCase;
@@ -144,7 +143,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
+.loader-btn {
+  border-radius: 10px;
 }
 </style>

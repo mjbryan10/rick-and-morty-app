@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="app-shell">
-      <button class="info-btn">info</button>
+      <HeaderBar />
       <div class="app-screen">
         <router-view />
       </div>
@@ -16,11 +16,13 @@
 <script>
 import Vue from 'vue';
 import Navigation from '@/components/Navigation.vue';
+import HeaderBar from '@/components/HeaderBar.vue';
 
 const App = Vue.extend({
   name: 'App',
   components: {
     Navigation,
+    HeaderBar,
   },
 });
 export default App;
@@ -34,7 +36,8 @@ export default App;
   font-weight: normal;
   font-style: normal;
 }
-html, body {
+html,
+body {
   box-sizing: border-box;
   margin: 0;
 }
@@ -76,13 +79,13 @@ html, body {
   height: 85vh;
   max-width: 600px;
   overflow-y: scroll;
-  overflow-x:hidden;
+  overflow-x: hidden;
   border-radius: 5px;
   border: solid black 2px;
   text-align: center;
 }
 @media screen and (max-height: 740px) {
-  .app-screen{
+  .app-screen {
     height: 80vh;
   }
 }

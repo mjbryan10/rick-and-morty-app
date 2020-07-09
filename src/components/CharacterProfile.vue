@@ -1,19 +1,25 @@
 <template>
-  <div v-if="!loading">
+  <div class="profile-container" v-if="!loading">
+    <CharacterCard class="profile-card" :character="character" />
+    <CharacterInfo class="profile-card" :character="character" />
     <h2>{{ character.name }}</h2>
-    <img :src="character.image" :alt="character.name" />
-    <h4>
-      {{ character.species }} <span v-if="character.type">({{ character.type }})</span>
-    </h4>
-    <h3>First Episode:</h3>
-    <EpisodeInfo v-if="character.episode.length" :url="character.episode[0]" />
+    <div class="profile-card">
+      <h3>First Episode:</h3>
+      <EpisodeInfo
+        v-if="character.episode.length"
+        :url="character.episode[0]"
+        :characterId="character.id"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { Character, Episode } from '@/types/Interfaces';
+import CharacterCard from './CharacterCard.vue';
 import EpisodeInfo from './EpisodeInfo.vue';
+import CharacterInfo from './CharacterInfo.vue';
 
 interface State {
   loading: boolean;
@@ -29,6 +35,8 @@ const CharacterProfile = Vue.extend({
   },
   components: {
     EpisodeInfo,
+    CharacterCard,
+    CharacterInfo,
   },
   data(): State {
     return {
@@ -77,4 +85,13 @@ const CharacterProfile = Vue.extend({
 export default CharacterProfile;
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .profile-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+  .profile-card {
+    width: 300px;
+  }
+</style>
