@@ -2,25 +2,25 @@
   <div class="home">
     <RickAndMortyHeader />
     <h2>Your database of Rick and Morty characters</h2>
-    <CharactersLandingList />
+    <CharacterDisplayCase />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import CharactersLandingList from '@/components/CharactersLandingList.vue';
+import CharacterDisplayCase from '@/components/CharacterDisplayCase.vue';
 import RickAndMortyHeader from '@/components/RickAndMortyHeader.vue';
 
 export default {
   name: 'Home',
   components: {
-    CharactersLandingList,
+    CharacterDisplayCase,
     RickAndMortyHeader,
   },
 };
 </script>
 <style lang="scss">
 .home {
-  color: #2c3e50;
+  /* color: #2c3e50; */
 }
 </style>

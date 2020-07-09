@@ -1,6 +1,6 @@
 <template>
   <div class="details">
-    <CharacterProfile :id="id" />
+    <CharacterProfile :id="parseInt(id, 10)" />
   </div>
 </template>
 

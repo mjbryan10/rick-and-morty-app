@@ -1,6 +1,6 @@
 <template>
   <router-link class="card-container" :to="`character/${character.id}`">
-    <span class="link-span">Find out more..</span>
+    <!-- <span class="link-span">Find out more..</span> -->
     <img :src="character.image" />
     <h4>{{ character.name }}</h4>
   </router-link>
@@ -22,14 +22,13 @@ export default CharacterCard;
 <style scoped lang="scss">
 .card-container {
   display: block;
-  position: relative;
-  /* background-color: #202329; */
-  background-color: #2c3e50;
-  color: #f5f5f5;
-  color: #f5f5f5;
-  border-radius: 0.5rem;
   overflow: hidden;
+  position: relative;
+  background-color: #f5f5f5;
+  color: inherit;
   text-decoration: none;
+  border-radius: 0.5rem;
+  border: 2px solid black;
   cursor: pointer;
   img {
     transition: opacity 1s;

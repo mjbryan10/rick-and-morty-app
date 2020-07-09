@@ -1,11 +1,16 @@
 <template>
   <div id="app">
-    <Navigation />
+    <div class="app-shell">
+      <button class="info-btn">info</button>
+      <div class="app-screen">
+        <router-view />
+      </div>
+      <Navigation />
+    </div>
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <router-view />
   </div>
 </template>
 <script>
@@ -29,6 +34,16 @@ export default App;
   font-weight: normal;
   font-style: normal;
 }
+html, body {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -40,7 +55,38 @@ export default App;
   font-family: 'letter-gothic-std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   background-color: #f5f5f5;
+  padding: 0;
+  margin: 0;
+}
+.app-shell {
+  background-color: #c3bdba;
+  width: 100vw;
+  min-height: 100vh;
+  max-width: 600px;
+  /* overflow-y: scroll;
+  overflow-x:hidden; */
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 5px;
+}
+.app-screen {
+  background-color: rgba(#7d9f53, 0.8);
+  height: 85vh;
+  max-width: 600px;
+  overflow-y: scroll;
+  overflow-x:hidden;
+  border-radius: 5px;
+  border: solid black 2px;
+  text-align: center;
+}
+@media screen and (max-height: 740px) {
+  .app-screen{
+    height: 80vh;
+  }
+}
+.info-btn {
+  font-family: inherit;
 }
 </style>

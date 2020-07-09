@@ -37,8 +37,8 @@ interface State {
   error: string;
 }
 
-const CharactersLandingList = Vue.extend({
-  name: 'CharactersLandingList',
+const CharacterDisplayCase = Vue.extend({
+  name: 'CharacterDisplayCase',
 
   components: {
     Spinner,
@@ -128,7 +128,7 @@ const CharactersLandingList = Vue.extend({
     },
   },
 });
-export default CharactersLandingList;
+export default CharacterDisplayCase;
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

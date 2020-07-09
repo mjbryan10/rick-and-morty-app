@@ -18,6 +18,8 @@ export default RickAndMortyHeader;
 h1 {
   font-family: 'get_schwifty';
   font-size: 4rem;
+  padding: 0;
+  margin: 0;
   span:nth-of-type(1) {
     &::first-letter {
       font-size: 5rem;
