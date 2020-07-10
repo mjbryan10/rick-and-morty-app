@@ -6,15 +6,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import CharacterProfile from '@/components/CharacterProfile.vue';
-import { CharactersAPI } from '@/types/Interfaces';
 
 interface State {
   randomId: number | null;
   totalCount: number;
 }
-const Randomizer = Vue.extend({
+const Randomizer = VueWithFetchHelpers.extend({
   name: 'Randomizer',
   components: {
     CharacterProfile,
@@ -35,23 +34,15 @@ const Randomizer = Vue.extend({
      * Ids are incrementally related to results count.
      */
     populateRandomId(): void {
-      this.fetchCharacters()
+      this.fetchCharactersByPage()
         .then((result) => {
           const numOfCharacters = result.info.count;
           const randomNum = Math.floor(Math.random() * numOfCharacters);
           this.randomId = randomNum;
         })
-        .catch((error) => console.error(error));
-    },
-    /**
-     * Async function that returns the API result as a promise.
-     * Returns an object containing result info and array of results (characters).
-     */
-    async fetchCharacters(pageNum?: number): Promise<CharactersAPI> {
-      let uri = 'https://rickandmortyapi.com/api/character/';
-      if (pageNum) uri += `?page=${pageNum}`;
-      const response = await fetch(uri);
-      return response.json();
+        .catch((error) => {
+          this.error = error.toString();
+        });
     },
   },
 });

@@ -21,7 +21,7 @@ import Navigation from '@/components/Navigation.vue';
 import HeaderBar from '@/components/HeaderBar.vue';
 import Footer from '@/components/Footer.vue';
 import Spinner from '@/components/Spinner.vue';
-import store from '@/store/index';
+import store from '@/store';
 
 const App = Vue.extend({
   name: 'App',

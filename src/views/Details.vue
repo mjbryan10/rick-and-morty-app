@@ -1,6 +1,6 @@
 <template>
   <div class="details">
-    <CharacterProfile :id="parseInt(id, 10)" />
+    <CharacterProfile :id="id" />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
     CharacterProfile,
   },
   props: {
-    id: Number,
+    id: String,
   },
 };
 </script>

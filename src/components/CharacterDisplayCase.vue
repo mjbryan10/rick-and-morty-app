@@ -1,8 +1,10 @@
 <template>
   <div class="EntiresTopTen">
-    <div v-if="isLoaded">
-      <input type="text" v-model="searchVal" placeholder="Type to search" />
-      <button @click="toggleAtoZ">Click me!</button>
+    <div v-if="fetchResult">
+      <!-- <input type="text" v-model="searchVal" placeholder="Type to search" /> -->
+      <button class="sort-btn" @click="toggleAtoZ">
+        Sort: <span :class="listingOrder">&darr;</span>
+      </button>
       <ul>
         <li v-for="character in filteredResults" :key="character.id">
           <CharacterCard :character="character" />
@@ -18,20 +20,18 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { CharactersAPI, Character } from '@/types/Interfaces';
+import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
+import { Character, CharactersAPIResponse } from '@/types/Interfaces';
 import CharacterCard from '@/components/CharacterCard.vue';
 
 interface State {
-  results: Character[];
+  fetchResult: CharactersAPIResponse | null;
   showLess: boolean;
-  listAtoZ: boolean;
+  listingOrder: string;
   searchVal: string;
-  isLoaded: boolean;
-  error: string;
 }
 
-const CharacterDisplayCase = Vue.extend({
+const CharacterDisplayCase = VueWithFetchHelpers.extend({
   name: 'CharacterDisplayCase',
 
   components: {
@@ -39,65 +39,75 @@ const CharacterDisplayCase = Vue.extend({
   },
   data(): State {
     return {
-      results: [],
+      fetchResult: null,
       showLess: true,
-      listAtoZ: true,
-      searchVal: '',
-      isLoaded: false,
-      error: '',
+      listingOrder: 'none',
+      searchVal: '', // TODO: decide if requried.
     };
   },
   /**
    * On component created lifecycle, fetches the API data and populates data fields.
    */
   created() {
-    this.loadCharacters();
+    this.loading = true;
+    this.fetchCharactersByPage()
+      .then((result) => {
+        this.fetchResult = result;
+        this.loading = false;
+      })
+      .catch((error) => {
+        this.error = error.toString();
+      });
   },
   computed: {
+    characters(): Character[] | null {
+      if (this.fetchResult) return this.fetchResult.results;
+      return null;
+    },
     /**
      * If the allEntries field has value,
      * it will use the searchVal to filter the results, then if showLess is true it will
      * limit the array to 10;
      */
     filteredResults(): Character[] | [] {
-      if (!this.results.length) return [];
+      // If there are no characters, return empty array
+      if (!this.characters) return [];
 
-      let entries = [...this.results];
+      // Creates a new array which can be mutated.
+      let charactersArray = [...this.characters];
 
-      if (this.listAtoZ) entries.sort((a, b) => a.name.localeCompare(b.name));
-      else entries.sort((a, b) => b.name.localeCompare(a.name));
+      // Sort the array alphabetically(or reverse) if option has been selected
+      if (this.listingOrder === 'AtoZ') {
+        charactersArray.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (this.listingOrder === 'ZtoA') {
+        charactersArray.sort((a, b) => b.name.localeCompare(a.name));
+      }
 
+      // TODO: Decide if this is still required.
       if (this.searchVal.length) {
-        entries = entries.filter((entry) => {
+        charactersArray = charactersArray.filter((entry) => {
           const title = entry.name.toLowerCase();
           return title.includes(this.searchVal.toLowerCase());
         });
       }
-      if (this.showLess) entries = entries.splice(0, 10);
-      return entries;
+      // Reduces array length to 10, unless show more has been clicked.
+      if (this.showLess) charactersArray = charactersArray.splice(0, 10);
+
+      return charactersArray;
     },
-    /**
-     * A unique list, with no duplicates, of all the species listed on each API entry.
-     * Arranged alphabetically AtoZ.
-     */
-    species(): string[] | [] {
-      if (!this.results.length) return [];
-      const species = [...new Set(this.results.map((entry) => entry.species))];
-      species.sort((a, b) => a.localeCompare(b));
-      return species;
-    },
+    // TODO: Decide if this is required here.
+    // /**
+    //  * A unique list, with no duplicates, of all the species listed on each API entry.
+    //  * Arranged alphabetically AtoZ.
+    //  */
+    // species(): string[] | [] {
+    //   if (!this.results.length) return [];
+    //   const species = [...new Set(this.results.map((entry) => entry.species))];
+    //   species.sort((a, b) => a.localeCompare(b));
+    //   return species;
+    // },
   },
   methods: {
-    /**
-     * Async function that returns the API result as a promise.
-     * Returns an object containing result info and array of results (characters).
-     */
-    async fetchCharacters(pageNum?: number): Promise<CharactersAPI> {
-      let uri = 'https://rickandmortyapi.com/api/character/';
-      if (pageNum) uri += `?page=${pageNum}`;
-      const response = await fetch(uri);
-      return response.json();
-    },
     /**
      * Toggles the showLess data field.
      * Subsequently results in filteredEntries to include either up to 10 or all entries.
@@ -109,21 +119,16 @@ const CharacterDisplayCase = Vue.extend({
      * Toggles the filteredEntries listing to be alphabetically listed AtoZ or ZtoA.
      */
     toggleAtoZ(): void {
-      this.listAtoZ = !this.listAtoZ;
-    },
-    /**
-     * Loads the first 10 characters and updates the state
-     */
-    loadCharacters(): void {
-      this.isLoaded = false;
-      this.fetchCharacters()
-        .then((res) => {
-          this.results = res.results;
-          this.isLoaded = true;
-        })
-        .catch((error) => {
-          this.error = error.toString();
-        });
+      switch (this.listingOrder) {
+        case 'AtoZ':
+          this.listingOrder = 'ZtoA';
+          return;
+        case 'ZtoA':
+          this.listingOrder = 'none';
+          return;
+        default:
+          this.listingOrder = 'AtoZ';
+      }
     },
   },
 });
@@ -142,6 +147,18 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+.sort-btn {
+  span {
+    display: block;
+    transition: 0.2s ease-out;
+    &.ZtoA {
+      transform: rotate(-180deg);
+    }
+    &.none {
+      opacity: 0;
+    }
+  }
 }
 .loader-btn {
   border-radius: 10px;

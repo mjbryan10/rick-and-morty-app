@@ -21,11 +21,11 @@ export default Spinner;
   $size: 150px;
   height: $size;
   width: $size;
-  /* Sets it center of the area */
+  /* Sets el to center of the containing area */
   top:50%;
   left:50%;
-  margin-top: $size / 2;
-  margin-left: $size / 2;
+  margin-top: ($size / 2px);
+  margin-left: ($size / 2px);
 
 }
 </style>
