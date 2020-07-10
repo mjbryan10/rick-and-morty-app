@@ -1,7 +1,10 @@
 <template>
-  <router-link class="card-container" :to="`character/${character.id}`">
+  <router-link class="card-container" :to="`/character/${character.id}`" exact>
     <!-- <span class="link-span">Find out more..</span> -->
-    <img :src="character.image" />
+    <img
+      :style="imgStyles"
+      :src="character.image"
+    />
     <h4>{{ character.name }}</h4>
   </router-link>
 </template>
@@ -14,6 +17,21 @@ const CharacterCard = Vue.extend({
   name: 'CharacterCard',
   props: {
     character: Object as PropType<Character>,
+    imgSize: {
+      type: Number,
+      default: () => 300,
+    },
+  },
+  computed: {
+    imgStyles() {
+      const pxString = `${this.imgSize}px`;
+      return {
+        minWidth: pxString,
+        maxWidth: pxString,
+        minHeight: pxString,
+        maxHeight: pxString,
+      };
+    },
   },
 });
 export default CharacterCard;
@@ -37,8 +55,8 @@ export default CharacterCard;
   cursor: pointer;
   img {
     transition: opacity 1s;
-    min-width: 300px;
-    min-height: 300px;
+    /* min-width: 300px;
+    min-height: 300px; */
   }
   &:hover {
     img {
