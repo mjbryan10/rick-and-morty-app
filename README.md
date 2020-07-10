@@ -1,4 +1,4 @@
-# dtt-app
+# Rick-and-Morty-App
 
 ## Project setup
 ```
