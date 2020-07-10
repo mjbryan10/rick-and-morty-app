@@ -3,8 +3,9 @@
     <div class="app-shell">
       <HeaderBar :clickHandler="toggleInfoMode" />
       <div class="app-screen">
+        <Spinner v-if="this.$store.state.isLoading" />
         <Footer v-if="infoToggled" />
-        <router-view v-else />
+        <router-view v-bind:class="{hidden: infoToggled}" />
       </div>
       <Navigation />
     </div>
@@ -19,13 +20,17 @@ import Vue from 'vue';
 import Navigation from '@/components/Navigation.vue';
 import HeaderBar from '@/components/HeaderBar.vue';
 import Footer from '@/components/Footer.vue';
+import Spinner from '@/components/Spinner.vue';
+import store from '@/store';
 
 const App = Vue.extend({
   name: 'App',
+  store,
   components: {
     Navigation,
     HeaderBar,
     Footer,
+    Spinner,
   },
   data() {
     return {
@@ -67,6 +72,9 @@ body {
   text-align: center;
   color: #2c3e50;
 } */
+.hidden {
+  display: none;
+}
 #app {
   font-family: 'letter-gothic-std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -88,6 +96,7 @@ body {
   border-radius: 5px;
 }
 .app-screen {
+  position: relative;
   background-color: rgba(#7d9f53, 0.86);
   height: 85vh;
   max-width: 600px;
@@ -96,6 +105,7 @@ body {
   border-radius: 5px;
   border: solid black 2px;
   text-align: center;
+  padding-bottom: 50px;
 }
 @media screen and (max-height: 740px) {
   .app-screen {

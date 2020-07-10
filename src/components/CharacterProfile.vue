@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-container" v-if="!loading">
+  <div class="profile-container" v-if="!loading && character">
     <CharacterCard class="profile-card" :character="character" />
     <CharacterInfo class="profile-card" :character="character" />
     <h2>{{ character.name }}</h2>
@@ -15,83 +15,60 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { Character, Episode } from '@/types/Interfaces';
+import { Character, Episode, RnmApiResponse } from '@/types/Interfaces';
+import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import CharacterCard from './CharacterCard.vue';
 import EpisodeInfo from './EpisodeInfo.vue';
 import CharacterInfo from './CharacterInfo.vue';
 
-interface State {
-  loading: boolean;
-  error: string;
-  character: ApiResponse | null;
-  firstEpisode: ApiResponse | null;
-}
 type ApiResponse = Character | Episode;
-const CharacterProfile = Vue.extend({
+const CharacterProfile = VueWithFetchHelpers.extend({
   name: 'CharacterProfile',
   props: {
-    id: Number,
+    id: [String, Number],
   },
   components: {
     EpisodeInfo,
     CharacterCard,
     CharacterInfo,
   },
-  data(): State {
-    return {
-      loading: true,
-      error: '',
-      character: null,
-      firstEpisode: null,
-    };
+  computed: {
+    /**
+     * Returns the properties and values of a character or null if there is none;
+     */
+    character(): RnmApiResponse | null {
+      if (this.fetchResult) {
+        return this.fetchResult;
+      }
+      return null;
+    },
   },
+  /**
+   * Function triggers on created lifecycle.
+   * Fetches a character by Id and populates the fetchResult data field.
+   */
   created() {
     this.loading = true;
-    const charUrl = `https://rickandmortyapi.com/api/character/${this.id}`;
-    this.fetchDataByUrl(charUrl)
-      .then((res) => {
-        this.character = res;
-        const firstEpisodeUrl = res.episode[0];
-        this.fetchDataByUrl(firstEpisodeUrl).then((result) => {
-          this.firstEpisode = result;
-        });
+    this.fetchCharacterById(this.id)
+      .then((result) => {
+        this.fetchResult = result;
         this.loading = false;
       })
       .catch((error) => {
         this.error = error.toString();
       });
   },
-  methods: {
-    /**
-     * Async function that returns the API result as a promise.
-     * Returns an object containing Character properties.
-     */
-    async fetchCharacterById(id: number): Promise<ApiResponse> {
-      const uri = `https://rickandmortyapi.com/api/character/${id}`;
-      const response = await fetch(uri);
-      return response.json();
-    },
-    /**
-     * Async function that returns the API result as a promise.
-     * Returns an object containing Character properties.
-     */
-    async fetchDataByUrl(url: string): Promise<ApiResponse> {
-      const response = await fetch(url);
-      return response.json();
-    },
-  },
 });
 export default CharacterProfile;
 </script>
 
 <style scoped lang="scss">
-  .profile-container {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-  }
-  .profile-card {
-    width: 300px;
-  }
+.profile-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.profile-card {
+  width: 300px;
+}
 </style>

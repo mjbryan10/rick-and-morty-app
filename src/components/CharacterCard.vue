@@ -21,12 +21,17 @@ export default CharacterCard;
 
 <style scoped lang="scss">
 .card-container {
+  /* Layout */
   display: block;
   overflow: hidden;
   position: relative;
+  /* Color */
   background-color: #f5f5f5;
+  /* Text */
   color: inherit;
   text-decoration: none;
+  font-weight: bold; // TODO: check bold styles.
+  /*Border styles */
   border-radius: 0.5rem;
   border: 2px solid black;
   cursor: pointer;
