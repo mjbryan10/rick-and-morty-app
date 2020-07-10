@@ -1,6 +1,6 @@
 <template>
   <div class="EntiresTopTen">
-    <div v-if="fetchResult">
+    <div v-if="fetchResult && !this.$store.state.isLoading" class="fade-in">
       <!-- <input type="text" v-model="searchVal" placeholder="Type to search" /> -->
       <button class="sort-btn" @click="toggleAtoZ">
         Sort: <span :class="listingOrder">&darr;</span>
@@ -50,6 +50,7 @@ const CharacterDisplayCase = VueWithFetchHelpers.extend({
    */
   created() {
     this.loading = true;
+    this.$store.commit('toggleIsLoading');
     this.fetchCharactersByPage()
       .then((result) => {
         this.fetchResult = result;
@@ -57,6 +58,11 @@ const CharacterDisplayCase = VueWithFetchHelpers.extend({
       })
       .catch((error) => {
         this.error = error.toString();
+      })
+      .finally(() => {
+        setTimeout(() => {
+          this.$store.commit('toggleIsLoading');
+        }, 1000);
       });
   },
   computed: {

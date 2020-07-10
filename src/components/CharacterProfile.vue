@@ -1,5 +1,6 @@
 <template>
-  <div class="profile-container" v-if="!loading && character">
+  <div class="profile-container fade-in" v-if="!this.$store.state.isLoading && character">
+    <h2>Characterdex entry: {{character.id}} </h2>
     <CharacterCard class="profile-card" :character="character" />
     <CharacterInfo class="profile-card" :character="character" />
     <h2>{{ character.name }}</h2>
@@ -48,14 +49,18 @@ const CharacterProfile = VueWithFetchHelpers.extend({
    * Fetches a character by Id and populates the fetchResult data field.
    */
   created() {
-    this.loading = true;
+    this.$store.commit('toggleIsLoading');
     this.fetchCharacterById(this.id)
       .then((result) => {
         this.fetchResult = result;
-        this.loading = false;
       })
       .catch((error) => {
         this.error = error.toString();
+      })
+      .finally(() => {
+        setTimeout(() => {
+          this.$store.commit('toggleIsLoading');
+        }, 1000);
       });
   },
 });

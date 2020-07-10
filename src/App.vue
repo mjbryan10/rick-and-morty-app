@@ -4,8 +4,8 @@
       <HeaderBar :clickHandler="toggleInfoMode" />
       <div class="app-screen">
         <Spinner v-if="this.$store.state.isLoading" />
+        <router-view v-bind:class="{ hidden: infoToggled }" />
         <Footer v-if="infoToggled" />
-        <router-view v-bind:class="{hidden: infoToggled}" />
       </div>
       <Navigation />
     </div>
@@ -114,5 +114,18 @@ body {
 }
 .info-btn {
   font-family: inherit;
+}
+
+/*Animated global styles */
+.fade-in {
+  animation: fade-in 1s ease-out;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
