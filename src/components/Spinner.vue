@@ -23,6 +23,7 @@ export default Spinner;
 
 <style lang="scss">
 .loading-spinner {
+  z-index: 999;
   position: absolute;
   display: flex;
   justify-content: center;

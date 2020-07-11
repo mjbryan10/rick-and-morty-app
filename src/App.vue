@@ -123,12 +123,16 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
-.zoom-enter-active,
+.zoom-enter-active {
+  /* Easing calculations @See https://easings.net/#easeOutBack */
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 .zoom-leave-active {
-  transition: transform 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 .zoom-enter,
 .zoom-leave-to {
   transform: scale(0.5);
+  opacity: 0;
 }
 </style>

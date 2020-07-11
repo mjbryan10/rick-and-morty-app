@@ -1,7 +1,7 @@
 <template>
   <div class="card-container">
 
-    <h3>Information</h3>
+    <h3>Details</h3>
     <p>Species: {{character.species}} </p>
     <p v-if="character.type">Type: {{character.type}} </p>
     <p>Gender: {{character.gender}} </p>
