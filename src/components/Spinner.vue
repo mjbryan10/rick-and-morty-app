@@ -1,14 +1,14 @@
 <template>
   <div v-if="this.$store.state.isLoading" class="loading-spinner">
-    <div
-      class="portal"
-      :style="{ backgroundImage: 'url(' + require('@/assets/images/portal.png') + ')' }"
-    >
       <div
-        class="portal-inner"
-        :style="{ backgroundImage: 'url(' + require('@/assets/images/portal-inner.png') + ')' }"
-      ></div>
-    </div>
+        class="portal"
+        :style="{ backgroundImage: 'url(' + require('@/assets/images/portal.png') + ')' }"
+      >
+        <div
+          class="portal-inner"
+          :style="{ backgroundImage: 'url(' + require('@/assets/images/portal-inner.png') + ')' }"
+        ></div>
+      </div>
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default Spinner;
   margin-left: -($size/2);
   .portal,
   .portal-inner {
-    animation: portal-enter 0.2s;
+    /* animation: portal-enter 0.2s; */
     width: 100%;
     height: 100%;
     background-size: cover;

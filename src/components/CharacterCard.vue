@@ -1,9 +1,10 @@
 <template>
   <router-link class="card-container" :to="`/character/${character.id}`" exact>
     <!-- <span class="link-span">Find out more..</span> -->
-    <img
+    <ImageWithFadeIn
       :style="imgStyles"
-      :src="character.image"
+      :imgSrc="character.image"
+      :imgAlt="character.name"
     />
     <h4>{{ character.name }}</h4>
   </router-link>
@@ -12,6 +13,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import { Character } from '@/types/Interfaces';
+import ImageWithFadeIn from './ImageWithFadeIn.vue';
 
 const CharacterCard = Vue.extend({
   name: 'CharacterCard',
@@ -21,6 +23,9 @@ const CharacterCard = Vue.extend({
       type: Number,
       default: () => 300,
     },
+  },
+  components: {
+    ImageWithFadeIn,
   },
   computed: {
     imgStyles() {
