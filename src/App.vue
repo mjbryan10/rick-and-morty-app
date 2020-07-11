@@ -3,16 +3,14 @@
     <div class="app-shell">
       <HeaderBar :clickHandler="toggleInfoMode" />
       <div class="app-screen">
-        <Spinner v-if="this.$store.state.isLoading" />
+        <transition name="zoom">
+          <Spinner v-if="this.$store.state.isLoading" />
+        </transition>
         <router-view v-bind:class="{ hidden: infoToggled }" />
         <Footer v-if="infoToggled" />
       </div>
       <Navigation />
     </div>
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
   </div>
 </template>
 <script>
@@ -79,7 +77,6 @@ body {
   font-family: 'letter-gothic-std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   background-color: #f5f5f5;
   padding: 0;
   margin: 0;
@@ -89,8 +86,6 @@ body {
   width: 100vw;
   min-height: 100vh;
   max-width: 600px;
-  /* overflow-y: scroll;
-  overflow-x:hidden; */
   margin: 0 auto;
   padding: 1rem;
   border-radius: 5px;
@@ -116,16 +111,28 @@ body {
   font-family: inherit;
 }
 
-/*Animated global styles */
-.fade-in {
-  animation: fade-in 1s ease-out;
+/*
+* Transitions
+*@See https://vuejs.org/v2/guide/transitions.html
+*/
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
 }
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.zoom-enter-active {
+  /* Easing calculations @See https://easings.net/#easeOutBack */
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.zoom-leave-active {
+  transition: all 0.3s ease-out;
+}
+.zoom-enter,
+.zoom-leave-to {
+  transform: scale(0.5);
+  opacity: 0;
 }
 </style>

@@ -1,18 +1,20 @@
 <template>
-  <div class="profile-container fade-in" v-if="!this.$store.state.isLoading && character">
-    <h2>Characterdex entry: {{character.id}} </h2>
-    <CharacterCard class="profile-card" :character="character" />
-    <CharacterInfo class="profile-card" :character="character" />
-    <h2>{{ character.name }}</h2>
-    <div class="profile-card">
-      <h3>First Episode:</h3>
-      <EpisodeInfo
-        v-if="character.episode.length"
-        :url="character.episode[0]"
-        :characterId="character.id"
-      />
+  <transition name="fade">
+    <div class="profile-container" v-if="!this.$store.state.isLoading && character">
+      <h2>Characterdex entry: {{ character.id }}</h2>
+      <CharacterCard class="profile-card" :character="character" />
+      <CharacterInfo class="profile-card" :character="character" />
+      <h2>{{ character.name }}</h2>
+      <div class="profile-card">
+        <h3>First Episode:</h3>
+        <EpisodeInfo
+          v-if="character.episode.length"
+          :url="character.episode[0]"
+          :characterId="character.id"
+        />
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts">
