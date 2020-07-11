@@ -1,11 +1,12 @@
 <template>
-  <div v-bind:class="{intro: appIntro}" ref="landing-container">
+  <div v-bind:class="{ intro: appIntro }" ref="landing-container">
     <div v-if="appIntro">
       <RickAndMortyHeader />
       <h2>Your database of Rick and Morty characters</h2>
-      <button @click="initiateApp" class="start-btn">
+      <button v-if="!isInitialising" @click="initiateApp" class="start-btn">
         Click here to start!
       </button>
+      <span v-else>Initialising . . .</span>
     </div>
     <div v-else>
       <RickAndMortyHeader />
@@ -21,6 +22,7 @@ import CharacterDisplayCase from './CharacterDisplayCase.vue';
 
 interface State {
   appIntro: boolean;
+  isInitialising: boolean;
 }
 
 const LandingPage = Vue.extend({
@@ -33,14 +35,32 @@ const LandingPage = Vue.extend({
   data(): State {
     return {
       appIntro: true,
+      isInitialising: false,
     };
   },
   methods: {
     /**
-     * Iniates the app, removing the titling and loads characters component
+     * Iniates the app, removing the titling and loads characters component.
+     * Also ensures the spinner images are downloaded for smoother UX.
      */
     initiateApp(): void {
-      this.appIntro = false;
+      this.isInitialising = true;
+      const preLoader = this.preLoadImages(
+        '@/assets/images/portal.png',
+        '@/assets/images/portal-inner.png',
+      );
+      preLoader.then(() => {
+        this.appIntro = false;
+        this.isInitialising = false;
+      });
+    },
+    preLoadImg(url: string): void {
+      const img = new Image();
+      img.src = url;
+    },
+    async preLoadImages(...args: string[]): Promise<void> {
+      if (!args.length) return;
+      args.forEach((url) => this.preLoadImg(url));
     },
   },
 });
