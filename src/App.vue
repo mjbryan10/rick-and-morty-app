@@ -47,8 +47,9 @@ export default App;
 <style lang="scss">
 @font-face {
   font-family: 'get_schwifty';
-  src: url('./assets/fonts/get_schwifty-webfont.woff2') format('woff2'),
-    url('./assets/fonts/get_schwifty-webfont.woff') format('woff');
+  /* Fonts moved to public folder to allow preload */
+  src: url('/assets/fonts/get_schwifty-webfont.woff2') format('woff2'),
+    url('/assets/fonts/get_schwifty-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
