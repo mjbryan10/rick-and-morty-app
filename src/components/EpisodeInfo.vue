@@ -1,18 +1,25 @@
 <template>
-  <div v-if="episode">
-    <h3>{{ episode.episode }}: {{ episode.name }}</h3>
+  <div class="card-container" v-if="episode">
+    <h3>First Appearance</h3>
+    <h4>{{ episode.episode }}: {{ episode.name }}</h4>
     <p>Aired: {{ episode.air_date }}</p>
+    <SimilarCharacters :episodeCharactersUrls="episode.characters"  />
   </div>
 </template>
 
 <script lang="ts">
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import { RnmApiResponse } from '@/types/Interfaces';
+import SimilarCharacters from './SimilarCharacters.vue';
 
-const CharacterProfile = VueWithFetchHelpers.extend({
-  name: 'CharacterProfile',
+const EpisodeInfo = VueWithFetchHelpers.extend({
+  name: 'EpisodeInfo',
   props: {
     url: String,
+    characterId: Number,
+  },
+  components: {
+    SimilarCharacters,
   },
   computed: {
     /**
@@ -21,6 +28,10 @@ const CharacterProfile = VueWithFetchHelpers.extend({
      */
     episode(): RnmApiResponse | null {
       return this.fetchResult;
+    },
+    charactersInEpisode(): string[] | null {
+      if (!this.fetchResult) return null;
+      return this.fetchResult.characters;
     },
   },
   created() {
@@ -35,7 +46,21 @@ const CharacterProfile = VueWithFetchHelpers.extend({
       });
   },
 });
-export default CharacterProfile;
+export default EpisodeInfo;
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.card-container {
+  display: block;
+  background-color: #f5f5f5;
+  color: inherit;
+  border-radius: 5px;
+  border: 2px solid black;
+  text-align: left;
+  margin: 1rem;
+  padding: 0.5rem;
+  h3 {
+    text-align: center;
+  }
+}
+</style>

@@ -1,11 +1,6 @@
 <template>
   <router-link class="card-container" :to="`/character/${character.id}`" exact>
-    <!-- <span class="link-span">Find out more..</span> -->
-    <ImageWithFadeIn
-      :style="imgStyles"
-      :imgSrc="character.image"
-      :imgAlt="character.name"
-    />
+    <ImageWithFadeIn :style="imgStyles" :imgSrc="character.image" :imgAlt="character.name" />
     <h4>{{ character.name }}</h4>
   </router-link>
 </template>
@@ -18,7 +13,7 @@ import ImageWithFadeIn from './ImageWithFadeIn.vue';
 const CharacterCard = Vue.extend({
   name: 'CharacterCard',
   props: {
-    character: Object as PropType<Character>,
+    character: { type: Object as PropType<Character>, required: true },
     imgSize: {
       type: Number,
       default: () => 300,
@@ -60,8 +55,7 @@ export default CharacterCard;
   cursor: pointer;
   img {
     transition: opacity 1s;
-    /* min-width: 300px;
-    min-height: 300px; */
+    object-fit: contain;
   }
   &:hover {
     img {
