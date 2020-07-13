@@ -56,7 +56,7 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
       return characterIds;
     },
     /**
-     * Returns the filtered list of character Ids, containing 3 Ids.
+     * Returns the filtered Array of character Ids, containing 3 Ids.
      * If ID passed as prop then it will filter it out of the list of IDs.
      * Then it will shuffle the array of IDs and then return 3 remaining.
      */

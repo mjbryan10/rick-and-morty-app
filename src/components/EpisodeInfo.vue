@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
-import { RnmApiResponse } from '@/types/Interfaces';
+import { RnmApiResponse, Episode } from '@/types/Interfaces';
 import SimilarCharacters from './SimilarCharacters.vue';
 
 const EpisodeInfo = VueWithFetchHelpers.extend({
@@ -31,12 +31,12 @@ const EpisodeInfo = VueWithFetchHelpers.extend({
     },
     charactersInEpisode(): string[] | null {
       if (!this.fetchResult) return null;
-      return this.fetchResult.characters;
+      return this.fetchResult.characters; // TODO
     },
   },
   created() {
     this.loading = true;
-    this.fetchDataByUrl(this.url)
+    this.fetchDataByUrl<Episode>(this.url)
       .then((result) => {
         this.fetchResult = result;
         this.loading = false;

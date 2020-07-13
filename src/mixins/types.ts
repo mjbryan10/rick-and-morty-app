@@ -6,5 +6,5 @@ import { RnmApiResponse } from '@/types/Interfaces';
 export interface apiFetchData {
   loading: boolean;
   error: string;
-  fetchResult: RnmApiResponse | null;
+  fetchResult: any | null; // TODO : Review this.
 }
