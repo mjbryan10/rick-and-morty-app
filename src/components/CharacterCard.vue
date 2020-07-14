@@ -1,5 +1,5 @@
 <template>
-  <router-link class="card-container" :to="`/character/${character.id}`" exact>
+  <router-link :style="linkStyles" class="card-container" :to="`/character/${character.id}`" exact>
     <ImageWithFadeIn :style="imgStyles" :imgSrc="character.image" :imgAlt="character.name" />
     <h4>{{ character.name }}</h4>
   </router-link>
@@ -26,10 +26,14 @@ const CharacterCard = Vue.extend({
     imgStyles() {
       const pxString = `${this.imgSize}px`;
       return {
-        minWidth: pxString,
+        width: pxString,
+        height: pxString,
+      };
+    },
+    linkStyles() {
+      const pxString = `${this.imgSize}px`;
+      return {
         maxWidth: pxString,
-        minHeight: pxString,
-        maxHeight: pxString,
       };
     },
   },
@@ -40,14 +44,19 @@ export default CharacterCard;
 <style scoped lang="scss">
 .card-container {
   /* Layout */
-  display: block;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   position: relative;
+  margin: 0 auto;
   /* Color */
   background-color: #f5f5f5;
   /* Text */
   color: inherit;
   text-decoration: none;
+  text-align: center;
   font-weight: bold; // TODO: check bold styles.
   /*Border styles */
   border-radius: 0.5rem;

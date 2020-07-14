@@ -6,7 +6,10 @@
         <transition name="zoom">
           <Spinner v-if="this.$store.state.isLoading" />
         </transition>
-        <router-view v-bind:class="{ hidden: infoToggled }" />
+        <router-view
+          :key="$route.name + ($route.params.id || '')"
+          v-bind:class="{ hidden: infoToggled }"
+        />
         <Footer v-if="infoToggled" />
       </div>
       <Navigation />

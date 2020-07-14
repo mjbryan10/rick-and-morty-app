@@ -1,16 +1,21 @@
 <template>
   <div v-if="fetchResult">
-    <h3>Characters also from this episode</h3>
-    <ul>
-      <li v-for="character in fetchResult" :key="character.id">
-        <CharacterCard :character="character" :imgSize="150" />
-      </li>
-    </ul>
+    <h4>Characters also from this episode:</h4>
+    <Carousel
+      :perPage="1"
+      :paginationActiveColor="'#827b7f'"
+      :paginationColor="'#c3bdba'"
+    >
+      <Slide v-for="character in fetchResult" :key="character.id">
+        <CharacterCard :character="character" :imgSize="200" />
+      </Slide>
+    </Carousel>
   </div>
 </template>
 
 <script lang="ts">
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
+import { Slide, Carousel } from 'vue-carousel'; // @see https://ssense.github.io/vue-carousel
 import { RnmApiResponse } from '@/types/Interfaces';
 import { PropType } from 'vue';
 import CharacterCard from './CharacterCard.vue';
@@ -23,6 +28,8 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
   },
   components: {
     CharacterCard,
+    Carousel,
+    Slide,
   },
   created() {
     const ids = this.filteredIds.toString();

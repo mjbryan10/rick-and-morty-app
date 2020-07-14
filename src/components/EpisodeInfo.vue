@@ -1,7 +1,7 @@
 <template>
   <div class="card-container" v-if="episode">
     <h3>First Appearance</h3>
-    <h4>{{ episode.episode }}: {{ episode.name }}</h4>
+    <p>{{ episode.episode }}: {{ episode.name }}</p>
     <p>Aired: {{ episode.air_date }}</p>
     <SimilarCharacters :episodeCharactersUrls="episode.characters"  />
   </div>
@@ -57,8 +57,9 @@ export default EpisodeInfo;
   border-radius: 5px;
   border: 2px solid black;
   text-align: left;
-  margin: 1rem;
+  /* margin: 1rem; */
   padding: 0.5rem;
+  width: 300px;
   h3 {
     text-align: center;
   }
