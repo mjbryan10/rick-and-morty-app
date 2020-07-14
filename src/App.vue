@@ -140,9 +140,21 @@ body {
   background-color: rgba(#c3bdba, 0.1);
   transition: 0.2s ease-out;
   cursor: pointer;
-  &:hover, &:active {
+  &:hover,
+  &:active {
     background-color: rgba(#242222, 0.7);
     color: white;
+  }
+  &:disabled {
+    // TODO
+    cursor: auto;
+    /* background-color: grey; */
+    color: rgba(#c3bdba, 0.7);
+    border: rgba(#c3bdba, 0.7) 2px solid;
+    &:hover {
+      color: rgba(#c3bdba, 1);
+      background-color: rgba(#c3bdba, 0.1);
+    }
   }
 }
 /*
