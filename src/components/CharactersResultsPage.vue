@@ -1,9 +1,10 @@
 <template>
   <transition name="fade">
     <div>
-      <button class="sort-btn" @click="toggleAtoZ">
-        Sort: <span :class="listingOrder">&darr;</span>
-      </button>
+      <label class="app-btn">
+        Sorted <span v-if="isAtoZ">A to Z</span><span v-else>Z to A</span>
+        <input v-model="isAtoZ" type="checkbox" name="AtoZ-checkbox" class="hidden" />
+      </label>
       <ul>
         <li v-for="character in sortedCharacters" :key="character.id">
           <CharacterCard :character="character" />
@@ -20,6 +21,7 @@ import CharacterCard from '@/components/CharacterCard.vue';
 
 interface State {
   listingOrder: string;
+  isAtoZ: boolean;
 }
 
 const CharactersResultsPage = Vue.extend({
@@ -30,7 +32,8 @@ const CharactersResultsPage = Vue.extend({
   },
   data(): State {
     return {
-      listingOrder: 'none',
+      listingOrder: 'AtoZ',
+      isAtoZ: true,
     };
   },
   props: {
@@ -38,35 +41,19 @@ const CharactersResultsPage = Vue.extend({
   },
   computed: {
     /**
-     * Returns a sorted array of Characters depending on the selected options.
+     * Returns a sorted array of Characters.
+     *
+     * Sorts alphabetically or reverse depending on isAtoZ property.
      */
     sortedCharacters(): Character[] | [] {
       const charactersArray = [...this.characters];
-      // Sort the array alphabetically/reverse alphabetically or not at all.
-      if (this.listingOrder === 'AtoZ') {
+      if (this.isAtoZ) {
         charactersArray.sort((a, b) => a.name.localeCompare(b.name));
-      } else if (this.listingOrder === 'ZtoA') {
+      } else {
         charactersArray.sort((a, b) => b.name.localeCompare(a.name));
-      } else return this.characters;
+      }
 
       return charactersArray;
-    },
-  },
-  methods: {
-    /**
-     * Toggles the filteredEntries listing to be alphabetically listed AtoZ or ZtoA.
-     */
-    toggleAtoZ(): void {
-      switch (this.listingOrder) {
-        case 'AtoZ':
-          this.listingOrder = 'ZtoA';
-          return;
-        case 'ZtoA':
-          this.listingOrder = 'none';
-          return;
-        default:
-          this.listingOrder = 'AtoZ';
-      }
     },
   },
 });
@@ -83,7 +70,12 @@ ul {
 }
 li {
   display: inline-block;
-  margin: 0 10px;
+  margin: 8px 10px;
+}
+div,
+ul {
+  display: flex;
+  flex-flow: column nowrap;
 }
 .sort-btn {
   span {

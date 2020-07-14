@@ -1,5 +1,11 @@
 <template>
-  <router-link :style="linkStyles" class="card-container" :to="`/character/${character.id}`" exact>
+  <router-link
+    :style="linkStyles"
+    class="card-container"
+    :class="{ activeLink: disabled }"
+    :to="`/character/${character.id}`"
+    exact
+  >
     <ImageWithFadeIn :style="imgStyles" :imgSrc="character.image" :imgAlt="character.name" />
     <h4>{{ character.name }}</h4>
   </router-link>
@@ -66,26 +72,27 @@ export default CharacterCard;
     transition: opacity 1s;
     object-fit: contain;
   }
+  /* Interaction*/
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
   &:hover {
     img {
       opacity: 0.7;
     }
-    .link-span {
-      top: 50%;
-      margin-top: -12.5px;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+/* Remove link styles if route matches link ref. */
+.router-link-active {
+  cursor: auto;
+  &:hover {
+    img {
+      opacity: 1;
     }
   }
-  .link-span {
-    display: block;
-    position: absolute;
-    height: 25px;
-    top: -25px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #000;
-    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
-    z-index: 10;
+  &:active {
+    transform: scale(1);
   }
 }
 </style>

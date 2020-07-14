@@ -1,14 +1,16 @@
 <template>
-  <div>
-    <CharactersResultPage
-      v-if="characters && !this.$store.state.isLoading"
-      :characters="characters"
-    />
-    <div class="pagination-controls">
-      <button :disabled="!prevUrl" class="app-btn" @click="loadData(prevUrl)">Prev Page</button>
-      <button v-if="nextUrl" class="app-btn" @click="loadData(nextUrl)">Next Page</button>
+  <transition name="fade">
+    <div v-if="!this.$store.state.isLoading">
+      <CharactersResultPage
+        v-if="characters && !this.$store.state.isLoading"
+        :characters="characters"
+      />
+      <div v-if="nextUrl || prevUrl" class="pagination-controls">
+        <button :disabled="!prevUrl" class="app-btn" @click="loadData(prevUrl)">Prev Page</button>
+        <button :disabled="!nextUrl" class="app-btn" @click="loadData(nextUrl)">Next Page</button>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -56,6 +58,14 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
     },
   },
   methods: {
+    /**
+     * Attempts to fetch Data using the given url and then populates the fetchRsult
+     * field with the result.
+     *
+     * Otherwise populates the error field with the error result stringified.
+     *
+     * @param url String value, should be the url of which to retrieve data from API
+     */
     loadData(url: string) {
       this.loading = true;
       this.$store.commit('toggleIsLoading');
@@ -73,6 +83,11 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
           }, 1000);
         });
     },
+    /**
+     * Iterates through each query in the page route and generates the url to be used by loadData.
+     *
+     * If there are no queries, uses the default url for all characters.
+     */
     generateUrlByParam(): string {
       let result = 'https://rickandmortyapi.com/api/character';
       const { query } = this.$route;
@@ -80,7 +95,6 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
       Object.keys(query).forEach((key) => {
         result += `${key}=${query[key]}`;
       });
-      console.log('generateUrlByParam -> result', result);
       return result;
     },
   },
@@ -88,17 +102,15 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
 export default CharactersByQueryParam;
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 div {
   position: relative;
 }
-.pagination-controls{
-  /* position: absolute; */
-  top: 150px;
+.pagination-controls {
   display: flex;
   margin: 0 10%;
   width: 80%;
+  max-width: 600px;
   justify-content: space-between;
 }
 </style>
