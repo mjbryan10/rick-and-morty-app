@@ -4,9 +4,7 @@
       <h2>Characterdex entry: {{ character.id }}</h2>
       <CharacterCard class="profile-card" :character="character" />
       <CharacterInfo class="profile-card" :character="character" />
-      <h2>{{ character.name }}</h2>
       <div class="profile-card">
-        <h3>First Episode:</h3>
         <EpisodeInfo
           v-if="character.episode.length"
           :url="character.episode[0]"

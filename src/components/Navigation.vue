@@ -1,11 +1,11 @@
 <template>
-  <div id="nav">
+  <nav id="nav">
     <router-link to="/" class="gb-btn">Home</router-link>
     <router-link @click.native="incrementRandomizerKey" to="/random" class="randomizer-btn"
       >Randomizer</router-link
     >
-    <router-link to="/about" class="gb-btn">Categories</router-link>
-  </div>
+    <router-link to="/categories" class="gb-btn">Categories</router-link>
+  </nav>
 </template>
 <script>
 import Vue from 'vue';

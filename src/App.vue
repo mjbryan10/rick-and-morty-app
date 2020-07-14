@@ -3,10 +3,16 @@
     <div class="app-shell">
       <HeaderBar :clickHandler="toggleInfoMode" />
       <div class="app-screen">
-        <transition name="zoom">
-          <Spinner v-if="this.$store.state.isLoading" />
-        </transition>
-        <router-view v-bind:class="{ hidden: infoToggled }" />
+        <main>
+          <transition name="zoom">
+            <Spinner v-if="this.$store.state.isLoading" />
+          </transition>
+          <router-view
+            :key="$route.name + ($route.params.id || '')"
+            v-bind:class="{ hidden: infoToggled }"
+            style="{minHeight: 80vh}"
+          />
+        </main>
         <Footer v-if="infoToggled" />
       </div>
       <Navigation />
@@ -102,16 +108,55 @@ body {
   border: solid black 2px;
   text-align: center;
   padding-bottom: 50px;
+
+  // TODO
+  /* main {
+    min-height: 85vh;
+  } */
 }
 @media screen and (max-height: 740px) {
   .app-screen {
     height: 80vh;
+
+    // TODO
+    /* main {
+      min-height: 80vh;
+    } */
   }
 }
 .info-btn {
   font-family: inherit;
 }
-
+/*
+* Generic button style for global use
+ */
+.app-btn {
+  display: block;
+  padding: 1em;
+  border-radius: 5rem;
+  border: 2px black solid;
+  text-decoration: none;
+  color: inherit;
+  background-color: rgba(#c3bdba, 0.1);
+  transition: 0.2s ease-out;
+  cursor: pointer;
+  &:hover,
+  &:active {
+    background-color: rgba(#242222, 0.7);
+    color: white;
+  }
+  &:disabled {
+    // TODO
+    cursor: auto;
+    /* background-color: grey; */
+    color: rgba(#c3bdba, 0.7);
+    border: rgba(#c3bdba, 0.7) 2px solid;
+    &:hover {
+      color: rgba(#c3bdba, 1);
+      background-color: rgba(#c3bdba, 0.1);
+    }
+  }
+}
 /*
 * Transitions
 *@See https://vuejs.org/v2/guide/transitions.html

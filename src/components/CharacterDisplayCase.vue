@@ -1,7 +1,6 @@
 <template>
   <div class="EntiresTopTen">
     <div v-if="fetchResult && !this.$store.state.isLoading" class="fade-in">
-      <!-- <input type="text" v-model="searchVal" placeholder="Type to search" /> -->
       <button class="sort-btn" @click="toggleAtoZ">
         Sort: <span :class="listingOrder">&darr;</span>
       </button>
@@ -11,11 +10,6 @@
         </li>
       </ul>
     </div>
-    <!-- <button @click="toggleShowMore">
-      Show
-      <span v-if="showLess">more</span>
-      <span v-else>less</span>
-    </button> -->
   </div>
 </template>
 
@@ -28,7 +22,6 @@ interface State {
   fetchResult: CharactersAPIResponse | null;
   showLess: boolean;
   listingOrder: string;
-  searchVal: string;
 }
 
 const CharacterDisplayCase = VueWithFetchHelpers.extend({
@@ -42,7 +35,6 @@ const CharacterDisplayCase = VueWithFetchHelpers.extend({
       fetchResult: null,
       showLess: true,
       listingOrder: 'none',
-      searchVal: '', // TODO: decide if requried.
     };
   },
   /**
@@ -88,30 +80,11 @@ const CharacterDisplayCase = VueWithFetchHelpers.extend({
       } else if (this.listingOrder === 'ZtoA') {
         charactersArray.sort((a, b) => b.name.localeCompare(a.name));
       }
-
-      // TODO: Decide if this is still required.
-      if (this.searchVal.length) {
-        charactersArray = charactersArray.filter((entry) => {
-          const title = entry.name.toLowerCase();
-          return title.includes(this.searchVal.toLowerCase());
-        });
-      }
       // Reduces array length to 10, unless show more has been clicked.
       if (this.showLess) charactersArray = charactersArray.splice(0, 10);
 
       return charactersArray;
     },
-    // TODO: Decide if this is required here.
-    // /**
-    //  * A unique list, with no duplicates, of all the species listed on each API entry.
-    //  * Arranged alphabetically AtoZ.
-    //  */
-    // species(): string[] | [] {
-    //   if (!this.results.length) return [];
-    //   const species = [...new Set(this.results.map((entry) => entry.species))];
-    //   species.sort((a, b) => a.localeCompare(b));
-    //   return species;
-    // },
   },
   methods: {
     /**

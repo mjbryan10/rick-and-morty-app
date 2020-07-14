@@ -1,9 +1,7 @@
 <template>
-  <div>
   <transition name="fade">
     <img :src="imgSrc" :alt="imgAlt" @load="onLoaded" v-show="imgLoaded" />
   </transition>
-  </div>
 </template>
 <script>
 import Vue from 'vue';

@@ -3,14 +3,14 @@
     <div v-if="appIntro">
       <RickAndMortyHeader />
       <h2>Your database of Rick and Morty characters</h2>
-      <button v-if="!isInitialising" @click="initiateApp" class="start-btn">
+      <button v-if="!isInitialising" @click="initiateApp" class="app-btn">
         Click here to start!
       </button>
       <span v-else>Initialising . . .</span>
     </div>
     <div v-else>
-      <RickAndMortyHeader />
-      <CharacterDisplayCase />
+        <RickAndMortyHeader />
+        <HomePageCharacters />
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import RickAndMortyHeader from './RickAndMortyHeader.vue';
-import CharacterDisplayCase from './CharacterDisplayCase.vue';
+import HomePageCharacters from './HomePageCharacters.vue';
 
 interface State {
   appIntro: boolean;
@@ -30,7 +30,7 @@ const LandingPage = Vue.extend({
 
   components: {
     RickAndMortyHeader,
-    CharacterDisplayCase,
+    HomePageCharacters,
   },
   data(): State {
     return {
@@ -74,7 +74,7 @@ export default LandingPage;
   align-items: center;
   min-height: 80vh;
 }
-.start-btn {
-  border-radius: 10px;
+.app-btn {
+  margin: 0 auto;
 }
 </style>

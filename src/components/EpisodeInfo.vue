@@ -1,18 +1,25 @@
 <template>
-  <div v-if="episode">
-    <h3>{{ episode.episode }}: {{ episode.name }}</h3>
+  <div class="card-container" v-if="episode">
+    <h3>First Appearance</h3>
+    <p>{{ episode.episode }}: {{ episode.name }}</p>
     <p>Aired: {{ episode.air_date }}</p>
+    <SimilarCharacters :episodeCharactersUrls="episode.characters"  />
   </div>
 </template>
 
 <script lang="ts">
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
-import { RnmApiResponse } from '@/types/Interfaces';
+import { RnmApiResponse, Episode } from '@/types/Interfaces';
+import SimilarCharacters from './SimilarCharacters.vue';
 
-const CharacterProfile = VueWithFetchHelpers.extend({
-  name: 'CharacterProfile',
+const EpisodeInfo = VueWithFetchHelpers.extend({
+  name: 'EpisodeInfo',
   props: {
     url: String,
+    characterId: Number,
+  },
+  components: {
+    SimilarCharacters,
   },
   computed: {
     /**
@@ -22,10 +29,14 @@ const CharacterProfile = VueWithFetchHelpers.extend({
     episode(): RnmApiResponse | null {
       return this.fetchResult;
     },
+    charactersInEpisode(): string[] | null {
+      if (!this.fetchResult) return null;
+      return this.fetchResult.characters; // TODO
+    },
   },
   created() {
     this.loading = true;
-    this.fetchDataByUrl(this.url)
+    this.fetchDataByUrl<Episode>(this.url)
       .then((result) => {
         this.fetchResult = result;
         this.loading = false;
@@ -35,7 +46,22 @@ const CharacterProfile = VueWithFetchHelpers.extend({
       });
   },
 });
-export default CharacterProfile;
+export default EpisodeInfo;
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.card-container {
+  display: block;
+  background-color: #f5f5f5;
+  color: inherit;
+  border-radius: 5px;
+  border: 2px solid black;
+  text-align: left;
+  /* margin: 1rem; */
+  padding: 0.5rem;
+  width: 300px;
+  h3 {
+    text-align: center;
+  }
+}
+</style>

@@ -1,6 +1,6 @@
 <script lang="ts">
 import Vue from 'vue';
-import { RnmApiResponse, Character, CharactersAPIResponse } from '@/types/Interfaces';
+import { Character, CharactersAPIResponse } from '@/types/Interfaces';
 import { apiFetchData } from './types';
 
 const VueWithFetchHelpers = Vue.extend({
@@ -17,7 +17,7 @@ const VueWithFetchHelpers = Vue.extend({
      * Returns type RnmApiResponse = CharactersAPIResponse | Episode | Location | Character;
      * @param url string value of the url from which you wish to fetch API data from.
      */
-    async fetchDataByUrl(url: string): Promise<RnmApiResponse> {
+    async fetchDataByUrl<T>(url: string): Promise<T> {
       const response = await fetch(url);
       return response.json();
     },
