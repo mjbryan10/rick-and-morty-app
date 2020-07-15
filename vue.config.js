@@ -5,9 +5,9 @@ const SitemapPlugin = require('sitemap-webpack-plugin').default;
 
 // const routerPaths = require('./src/router/routes.js').default
 //   .map((r) => r.path)
-//   .filter((p) => !p.match(/\*/));
+//    .filter((p) => !p.match(/\*/))
 
-const routerPaths = ['/', '/random', '/character', '/categories'];
+const routerPaths = ['/', '/random', '/characters', '/categories'];
 
 module.exports = {
   configureWebpack: {
