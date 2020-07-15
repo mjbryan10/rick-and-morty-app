@@ -1,9 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
-import Details from '../views/Details.vue';
-import Characters from '../views/Characters.vue';
-import Random from '../views/Random.vue';
 
 Vue.use(VueRouter);
 
@@ -40,6 +37,7 @@ const routes: Array<RouteConfig> = [
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes,
 });
 

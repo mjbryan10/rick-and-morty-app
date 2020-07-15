@@ -3,7 +3,7 @@
     <h3>First Appearance</h3>
     <p>{{ episode.episode }}: {{ episode.name }}</p>
     <p>Aired: {{ episode.air_date }}</p>
-    <SimilarCharacters :episodeCharactersUrls="episode.characters"  />
+    <SimilarCharacters :episodeCharactersUrls="episode.characters" :characterId="characterId" />
   </div>
 </template>
 

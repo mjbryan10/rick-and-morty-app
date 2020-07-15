@@ -95,13 +95,11 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
       const { query } = this.$route;
       if (Object.keys(query).length) result += '/?';
       Object.keys(query).forEach((key, index) => {
-        console.log('generateUrlByParam -> index', index);
         if (index > 0) {
           result += '&';
         }
         result += `${key}=${query[key]}`;
       });
-      console.log('generateUrlByParam -> result', result);
       return result;
     },
   },
