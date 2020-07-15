@@ -2,7 +2,6 @@
   <router-link
     :style="linkStyles"
     class="card-container"
-    :class="{ activeLink: disabled }"
     :to="`/character/${character.id}`"
     exact
   >
