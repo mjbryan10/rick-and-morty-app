@@ -13,7 +13,6 @@
             style="{minHeight: 80vh}"
           />
         </main>
-        <!-- <Footer v-if="infoToggled" /> -->
         <div>-------------------</div>
         <Footer v-if="!this.$store.state.isLoading" />
       </div>
