@@ -1,13 +1,18 @@
 <template>
   <transition name="fade">
-    <div v-if="sitemapEntries.length" class="sitemap-container">
+    <nav
+      v-if="sitemapEntries.length"
+      class="sitemap-container"
+      aria-label="Characterdex sitemap"
+      role="navigation"
+    >
       <h3>Sitemap</h3>
       <ul>
         <li v-for="(entry, index) in sitemapEntries" :key="entry.title + index">
           <a class="app-btn" :href="entry.url">{{ capatalize(entry.title) }}</a>
         </li>
       </ul>
-    </div>
+    </nav>
   </transition>
 </template>
 

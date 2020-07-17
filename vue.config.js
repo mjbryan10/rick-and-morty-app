@@ -6,15 +6,20 @@ const SitemapPlugin = require('sitemap-webpack-plugin').default;
 // const routerPaths = require('./src/router/routes.js').default
 //   .map((r) => r.path)
 //    .filter((p) => !p.match(/\*/))
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const routes = require('./src/router/routes.json');
 
-const routerPaths = ['/', '/random', '/characters', '/categories'];
+const routerPaths = routes.map((route) => route.path);
+
+const filteredPaths = routerPaths.filter((path) => !path.includes(':'));
+// const routerPaths = ['/', '/random', '/characters', '/categories'];
 
 module.exports = {
   configureWebpack: {
     plugins: [
       new SitemapPlugin(
         'https://rickandmorty-characterdex.netlify.app/',
-        routerPaths,
+        filteredPaths,
         {
           fileName: 'sitemap.xml',
           lastMod: true,
