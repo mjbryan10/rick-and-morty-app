@@ -70,20 +70,18 @@ body {
 *:after {
   box-sizing: inherit;
 }
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-} */
 .hidden {
   display: none;
 }
 #app {
-  font-family: 'letter-gothic-std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'letter-gothic-std', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  h1 {
+    font-family: 'get_schwifty', 'letter-gothic-std', 'Helvetica Neue',
+      Helvetica, Arial, sans-serif;
+  }
   background-color: #f5f5f5;
   padding: 0;
   margin: 0;

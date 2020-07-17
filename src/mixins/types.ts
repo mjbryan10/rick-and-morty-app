@@ -1,9 +1,7 @@
-import { RnmApiResponse } from '@/types/Interfaces';
-
 /**
  * Data properties for the Mixin VueWithFetchHelpers
  */
-export interface apiFetchData {
+export interface ApiFetchData {
   loading: boolean;
   error: string;
   fetchResult: any | null; // TODO : Review this.

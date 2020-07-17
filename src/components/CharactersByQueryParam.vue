@@ -4,6 +4,7 @@
       <CharactersResultPage
         v-if="characters && !this.$store.state.isLoading"
         :characters="characters"
+        ref="characterResults"
       />
       <div v-if="nextUrl || prevUrl" class="pagination-controls">
         <button :disabled="!prevUrl" class="app-btn" @click="loadData(prevUrl)">Prev Page</button>
@@ -78,6 +79,7 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
           this.error = error.toString();
         })
         .finally(() => {
+          // this.$refs.characterResults.scrollTop = 0; // TODO
           setTimeout(() => {
             this.$store.commit('toggleIsLoading');
           }, 1000);
@@ -92,7 +94,10 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
       let result = 'https://rickandmortyapi.com/api/character';
       const { query } = this.$route;
       if (Object.keys(query).length) result += '/?';
-      Object.keys(query).forEach((key) => {
+      Object.keys(query).forEach((key, index) => {
+        if (index > 0) {
+          result += '&';
+        }
         result += `${key}=${query[key]}`;
       });
       return result;

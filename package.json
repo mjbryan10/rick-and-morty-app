@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "sitemap": "vue-cli-service sitemap"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -32,6 +33,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
+    "sitemap-webpack-plugin": "^0.8.1",
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
   },
@@ -52,14 +54,15 @@
       "linebreak-style": 0
     }
   },
+  "prettier": {
+    "arrowParens": "always",
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 80
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
-  ],
-  "prettier": {
-    "arrowParens": "always",
-    "singleQuote": true,
-    "trailingComma": "es5"
-  }
+  ]
 }

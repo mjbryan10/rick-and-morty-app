@@ -1,14 +1,9 @@
-import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
-
-Vue.use(VueRouter);
-
-export const routes: Array<RouteConfig> = [
+// TODO : See if this is appropiate import for Index.ts
+const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import(/* webpackChunkName: "categories" */ '../views/Home.vue'),
   },
   {
     path: '/categories',
@@ -36,9 +31,4 @@ export const routes: Array<RouteConfig> = [
   },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
-  routes,
-});
-
-export default router;
+module.exports = { default: routes };

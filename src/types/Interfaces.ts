@@ -12,7 +12,8 @@ export interface Episode {
 }
 /**
  * The response from the Rick and Morty characters API.
- * 'info' property properties related to Characters database (count, pages, the next and prev page urls).
+ * 'info' property properties related to Characters database
+ * (count, pages, the next and prev page urls).
  * 'results' property with an array of Characters.
  */
 export interface CharactersAPIResponse {
