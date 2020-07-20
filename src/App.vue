@@ -13,7 +13,8 @@
             style="{minHeight: 80vh}"
           />
         </main>
-        <Footer v-if="infoToggled" />
+        <div>-------------------</div>
+        <Footer v-if="!this.$store.state.isLoading" />
       </div>
       <Navigation />
     </div>
@@ -108,9 +109,10 @@ body {
   padding-bottom: 50px;
 
   // TODO
-  /* main {
+  main {
     min-height: 85vh;
-  } */
+    margin-bottom: 25vh;
+  }
 }
 @media screen and (max-height: 740px) {
   .app-screen {

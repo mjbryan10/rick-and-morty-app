@@ -23,7 +23,10 @@ import CharacterCard from './CharacterCard.vue';
 const SimilarCharacters = VueWithFetchHelpers.extend({
   name: 'SimilarCharacters',
   props: {
-    episodeCharactersUrls: { type: Array as PropType<string[]>, required: true },
+    episodeCharactersUrls: {
+      type: Array as PropType<string[]>,
+      required: true,
+    },
     characterId: Number,
   },
   components: {
@@ -69,8 +72,8 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
      */
     filteredIds(): number[] {
       let filteredIds: number[] = this.characterId
-        ? this.characterIds
-        : this.characterIds.filter((id) => id !== this.characterId);
+        ? this.characterIds.filter((id) => id !== this.characterId)
+        : this.characterIds;
       if (this.characterIds.length <= 3) return this.characterIds;
       this.shuffleArray(filteredIds);
       filteredIds = filteredIds.splice(0, 3);

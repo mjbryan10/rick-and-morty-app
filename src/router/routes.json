@@ -1,0 +1,29 @@
+[
+  {
+    "path": "/",
+    "name": "Home",
+    "location": "../views/Home.vue"
+  },
+  {
+    "path": "/categories",
+    "name": "Categories",
+    "location": "../views/Categories.vue"
+  },
+  {
+    "path": "/character/:id",
+    "name": "Details",
+    "location": "../views/Details.vue",
+    "props": true
+  },
+  {
+    "path": "/Characters/",
+    "name": "Characters",
+    "location": "../views/Characters.vue"
+  },
+  {
+    "path": "/random",
+    "name": "Random",
+    "location": "../views/Random.vue"
+  }
+]
+
