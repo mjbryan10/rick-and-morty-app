@@ -68,7 +68,8 @@ export default Sitemap;
     justify-content: center;
     padding: 0;
     li {
-      min-width: 45%;
+      min-width: 140px;
+      width: 45%;
       max-width: 45%;
       margin: 2px;
       list-style-type: none;

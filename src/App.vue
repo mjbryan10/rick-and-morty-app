@@ -67,6 +67,7 @@ body {
   width: 100vw;
   min-height: 100vh;
   max-width: 600px;
+  min-width: 250px;
   margin: 0 auto;
   padding: 1rem;
   border-radius: 5px;

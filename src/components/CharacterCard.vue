@@ -31,8 +31,8 @@ const CharacterCard = Vue.extend({
     imgStyles() {
       const pxString = `${this.imgSize}px`;
       return {
-        width: pxString,
-        height: pxString,
+        maxWidth: pxString,
+        maxHeight: pxString,
       };
     },
     linkStyles() {
@@ -56,6 +56,7 @@ export default CharacterCard;
   overflow: hidden;
   position: relative;
   margin: 0 auto;
+  width: 100%; //Responsive test.
   /* Color */
   background-color: #f5f5f5;
   /* Text */

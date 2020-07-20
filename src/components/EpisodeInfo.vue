@@ -59,7 +59,8 @@ export default EpisodeInfo;
   text-align: left;
   /* margin: 1rem; */
   padding: 0.5rem;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   h3 {
     text-align: center;
   }

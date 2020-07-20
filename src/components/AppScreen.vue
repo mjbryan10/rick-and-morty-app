@@ -33,10 +33,10 @@ const AppScreen = Vue.extend({
   },
   watch: {
     /**
-     * Consumes storeIsLoading computed property to watch for
+     * Uses storeIsLoading computed property to watch for
      * changes on the global isLoading property.
      *
-     * If global stat isLoading, then it resets the scrollTop of 
+     * If global stat isLoading, then it resets the scrollTop of
      * the app-screen.
      */
     storeIsLoading() {
@@ -63,7 +63,6 @@ export default AppScreen;
   text-align: center;
   padding-bottom: 50px;
 
-  // TODO
   main {
     min-height: 85vh;
     margin-bottom: 25vh;
@@ -71,12 +70,10 @@ export default AppScreen;
 }
 @media screen and (max-height: 740px) {
   .app-screen {
-    height: 80vh;
-
-    // TODO
-    /* main {
+    max-height: 80vh;
+    main {
       min-height: 80vh;
-    } */
+    }
   }
 }
 </style>

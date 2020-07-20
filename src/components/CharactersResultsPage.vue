@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div>
-      <label class="app-btn">
+      <label class="app-btn sort-btn">
         Sorted <span v-if="isAtoZ">A to Z</span><span v-else>Z to A</span>
         <input v-model="isAtoZ" type="checkbox" name="AtoZ-checkbox" class="hidden" />
       </label>
@@ -78,18 +78,8 @@ ul {
   flex-flow: column nowrap;
 }
 .sort-btn {
-  span {
-    display: block;
-    transition: 0.2s ease-out;
-    &.ZtoA {
-      transform: rotate(-180deg);
-    }
-    &.none {
-      opacity: 0;
-    }
-  }
-}
-.loader-btn {
-  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 </style>

@@ -74,6 +74,7 @@ export default CharacterProfile;
   align-items: center;
 }
 .profile-card {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
 }
 </style>
