@@ -2,19 +2,7 @@
   <div id="app">
     <div class="app-shell">
       <HeaderBar />
-      <div class="app-screen" ref="appScreen">
-        <main>
-          <transition name="zoom">
-            <Spinner v-if="this.$store.state.isLoading" />
-          </transition>
-          <router-view
-            :key="$route.name + ($route.params.id || '')"
-            v-bind:class="{ hidden: infoToggled }"
-            style="{minHeight: 80vh}"
-          />
-        </main>
-        <Footer v-if="!this.$store.state.isLoading" />
-      </div>
+      <AppScreen />
       <Navigation />
     </div>
   </div>
@@ -23,8 +11,7 @@
 import Vue from 'vue';
 import Navigation from '@/components/Navigation.vue';
 import HeaderBar from '@/components/HeaderBar.vue';
-import Footer from '@/components/Footer.vue';
-import Spinner from '@/components/Spinner.vue';
+import AppScreen from '@/components/AppScreen.vue';
 import store from '@/store';
 
 const App = Vue.extend({
@@ -33,26 +20,7 @@ const App = Vue.extend({
   components: {
     Navigation,
     HeaderBar,
-    Footer,
-    Spinner,
-  },
-  computed: {
-    storeIsLoading() {
-      return this.$store.state.isLoading;
-    },
-  },
-  watch: {
-    storeIsLoading() {
-      if (this.$store.state.isLoading) {
-        const appScreen = this.$refs.appScreen as HTMLDivElement;
-        appScreen.scrollTop = 0;
-      }
-    },
-  },
-  data() {
-    return {
-      infoToggled: false,
-    };
+    AppScreen,
   },
 });
 export default App;
@@ -102,34 +70,6 @@ body {
   margin: 0 auto;
   padding: 1rem;
   border-radius: 5px;
-}
-.app-screen {
-  position: relative;
-  background-color: rgba(#7d9f53, 0.86);
-  height: 85vh;
-  max-width: 600px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  border-radius: 5px;
-  border: solid black 2px;
-  text-align: center;
-  padding-bottom: 50px;
-
-  // TODO
-  main {
-    min-height: 85vh;
-    margin-bottom: 25vh;
-  }
-}
-@media screen and (max-height: 740px) {
-  .app-screen {
-    height: 80vh;
-
-    // TODO
-    /* main {
-      min-height: 80vh;
-    } */
-  }
 }
 /*
 * Generic button style for global use
