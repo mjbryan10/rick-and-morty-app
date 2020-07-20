@@ -3,7 +3,12 @@
     <div>
       <label class="app-btn sort-btn">
         Sorted <span v-if="isAtoZ">A to Z</span><span v-else>Z to A</span>
-        <input v-model="isAtoZ" type="checkbox" name="AtoZ-checkbox" class="hidden" />
+        <input
+          v-model="isAtoZ"
+          type="checkbox"
+          name="AtoZ-checkbox"
+          class="hidden"
+        />
       </label>
       <ul>
         <li v-for="character in sortedCharacters" :key="character.id">
@@ -81,5 +86,12 @@ ul {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+}
+@media screen and (min-width: 800px) {
+  ul {
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>

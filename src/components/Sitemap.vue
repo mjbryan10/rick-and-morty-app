@@ -70,7 +70,8 @@ export default Sitemap;
     li {
       min-width: 140px;
       width: 45%;
-      max-width: 45%;
+      /* max-width: 45%; */
+      max-width: 400px;
       margin: 2px;
       list-style-type: none;
     }

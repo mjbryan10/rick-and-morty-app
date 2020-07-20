@@ -55,7 +55,7 @@ export default AppScreen;
   position: relative;
   background-color: rgba(#7d9f53, 0.86);
   height: 85vh;
-  max-width: 600px;
+  /* max-width: 600px; */
   overflow-y: scroll;
   overflow-x: hidden;
   border-radius: 5px;
