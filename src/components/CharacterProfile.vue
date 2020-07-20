@@ -89,15 +89,18 @@ export default CharacterProfile;
   width: 100%;
   max-width: 300px;
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 805px) {
   .profile-container {
     margin: 0 auto;
     flex-flow: row wrap;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     h2 {
       display: block;
       width: 100%;
+    }
+    .character-card {
+      margin-bottom:8px;
     }
     .character-info {
       margin: 0;
@@ -105,21 +108,7 @@ export default CharacterProfile;
       flex-grow: 1;
       position: relative;
       margin-left: 50px;
-      /* &::after {
-        content: ' ';
-        $size: 150px;
-        display:block;
-        position: absolute;
-        margin-top:-200px;
-        margin-left:-100px;
-        height: $size;
-        width: $size;
-        z-index: -1;
-        border: 5px dashed rgba(0, 0, 0, 0.267);
-        border-radius: 100px;
-        animation: spin infinite 20s;
-      }
-      */
+      max-width: 400px;
       &::before {
         content: '';
         display: block;
@@ -129,7 +118,7 @@ export default CharacterProfile;
         z-index: -1;
         background-color: rgba(0,0,0,0.5);
         margin-left: -100px;
-        margin-top: 100px;
+        margin-top: 125px;
         animation: swell 5s ease 1s infinite;
       }
       &::after {
@@ -140,8 +129,7 @@ export default CharacterProfile;
         position: absolute;
         z-index: -1;
         background-color: rgba(0,0,0,0.5);
-        margin-left: 100px;
-        margin-top: 100px;
+        margin-left: 125px;
         animation: swell 5s ease 1s infinite;
       }
     }
@@ -150,14 +138,6 @@ export default CharacterProfile;
       width: 80%;
       max-width: 1200px;
     }
-  }
-}
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
 @keyframes swell {

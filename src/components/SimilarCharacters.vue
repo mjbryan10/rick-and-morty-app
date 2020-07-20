@@ -1,11 +1,11 @@
 <template>
-  <div v-if="fetchResult">
+  <div v-if="fetchResult" class="similar-characters-container">
     <h4>Characters also from this episode:</h4>
     <Carousel
       :perPage="1"
       :paginationActiveColor="'#827b7f'"
       :paginationColor="'#c3bdba'"
-      :perPageCustom="[[768, 3]]"
+      :perPageCustom="[[805, 3]]"
     >
       <Slide v-for="character in fetchResult" :key="character.id">
         <CharacterCard :style="{margin: '0 auto'}" :character="character" :imgSize="200" />
@@ -83,7 +83,8 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
   },
   methods: {
     /**
-     * Takes an array of any kind and reorders it using sort and Math.random.
+     * Takes an array of any kind and reorders it using Array.sort and Math.random.
+     * Note: Mutates original array.
      * @param arr An array of any kind.
      */
     shuffleArray(arr: unknown[]) {
@@ -95,12 +96,16 @@ export default SimilarCharacters;
 </script>
 
 <style scoped lang="scss">
-ul {
-  display: flex;
-  overflow: scroll;
-  //TODO
+.similar-characters-container {
+  &::before {
+    content:"";
+    display:block;
+    width: 60%;
+    margin: 0 auto;
+    border-top: 2px dashed rgba(0,0,0,0.3);
+  }
 }
-ul li {
-  list-style: none;
+h4 {
+  padding-left: 1em;
 }
 </style>

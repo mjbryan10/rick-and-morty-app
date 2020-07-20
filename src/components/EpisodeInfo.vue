@@ -29,13 +29,24 @@ const EpisodeInfo = VueWithFetchHelpers.extend({
     episode(): RnmApiResponse | null {
       return this.fetchResult;
     },
+    /**
+     * Returns an array of string URLs for the Rick and Morty API,
+     * for each character that is also in this episode.
+     */
     charactersInEpisode(): string[] | null {
       if (!this.fetchResult) return null;
-      return this.fetchResult.characters; // TODO
+      return this.fetchResult.characters;
     },
   },
+  /**
+   * Upon component creation, it will fetch an Episode from the API using
+   * the url provided in the component props.
+   *
+   * If there is an error populates the error property appropiately.
+   */
   created() {
     this.loading = true;
+    this.error = '';
     this.fetchDataByUrl<Episode>(this.url)
       .then((result) => {
         this.fetchResult = result;
@@ -61,11 +72,20 @@ export default EpisodeInfo;
   padding: 0.5rem;
   width: 100%;
   max-width: 300px;
+  padding-bottom: 1em;
   h3 {
     text-align: center;
   }
   p span {
     font-weight: bold;
+  }
+  h3, p {
+    padding-left: 1em;
+  }
+  @media screen and (min-width: 805px) {
+    h3, p {
+      font-size: 130%;
+    }
   }
 }
 </style>

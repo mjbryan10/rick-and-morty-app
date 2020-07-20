@@ -2,7 +2,7 @@
   <transition name="fade">
     <div>
       <label class="app-btn sort-btn">
-        Sorted <span v-if="isAtoZ">A to Z</span><span v-else>Z to A</span>
+        Page sorted <span v-if="isAtoZ">A to Z</span><span v-else>Z to A</span>
         <input
           v-model="isAtoZ"
           type="checkbox"
@@ -81,6 +81,7 @@ div,
 ul {
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
 }
 .sort-btn {
   width: 100%;
@@ -91,7 +92,6 @@ ul {
   ul {
     flex-flow: row wrap;
     justify-content: center;
-    align-items: center;
   }
 }
 </style>
