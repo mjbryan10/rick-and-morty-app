@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div class="app-shell">
-      <HeaderBar :clickHandler="toggleInfoMode" />
-      <div class="app-screen">
+      <HeaderBar />
+      <div class="app-screen" ref="appScreen">
         <main>
           <transition name="zoom">
             <Spinner v-if="this.$store.state.isLoading" />
@@ -13,14 +13,13 @@
             style="{minHeight: 80vh}"
           />
         </main>
-        <div>-------------------</div>
         <Footer v-if="!this.$store.state.isLoading" />
       </div>
       <Navigation />
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import Vue from 'vue';
 import Navigation from '@/components/Navigation.vue';
 import HeaderBar from '@/components/HeaderBar.vue';
@@ -37,15 +36,23 @@ const App = Vue.extend({
     Footer,
     Spinner,
   },
+  computed: {
+    storeIsLoading() {
+      return this.$store.state.isLoading;
+    },
+  },
+  watch: {
+    storeIsLoading() {
+      if (this.$store.state.isLoading) {
+        const appScreen = this.$refs.appScreen as HTMLDivElement;
+        appScreen.scrollTop = 0;
+      }
+    },
+  },
   data() {
     return {
       infoToggled: false,
     };
-  },
-  methods: {
-    toggleInfoMode() {
-      this.infoToggled = !this.infoToggled;
-    },
   },
 });
 export default App;
@@ -123,9 +130,6 @@ body {
       min-height: 80vh;
     } */
   }
-}
-.info-btn {
-  font-family: inherit;
 }
 /*
 * Generic button style for global use

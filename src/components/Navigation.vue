@@ -1,19 +1,22 @@
 <template>
   <nav id="nav">
     <router-link to="/" class="gb-btn">Home</router-link>
-    <router-link @click.native="incrementRandomizerKey" to="/random" class="randomizer-btn"
+    <router-link
+      @click.native="incrementRandomizerKey"
+      to="/random"
+      class="randomizer-btn"
       >Randomizer</router-link
     >
     <router-link to="/categories" class="gb-btn">Categories</router-link>
   </nav>
 </template>
-<script>
+<script lang="ts">
 import Vue from 'vue';
 
 const Navigation = Vue.extend({
   name: 'Navigation',
   methods: {
-    incrementRandomizerKey() {
+    incrementRandomizerKey(): void {
       this.$store.commit('incrementRandomizerKey');
     },
   },
