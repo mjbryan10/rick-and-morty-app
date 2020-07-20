@@ -24,11 +24,21 @@ const AppScreen = Vue.extend({
     Spinner,
   },
   computed: {
+    /**
+     * Returns the Vuex store isLoading property.
+     */
     storeIsLoading() {
       return this.$store.state.isLoading;
     },
   },
   watch: {
+    /**
+     * Consumes storeIsLoading computed property to watch for
+     * changes on the global isLoading property.
+     *
+     * If global stat isLoading, then it resets the scrollTop of 
+     * the app-screen.
+     */
     storeIsLoading() {
       if (this.$store.state.isLoading) {
         const appScreen = this.$refs.appScreen as HTMLDivElement;
