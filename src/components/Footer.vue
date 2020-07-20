@@ -1,6 +1,5 @@
 <template>
   <footer>
-    <!-- Insert generated sitemap here -->
     <Sitemap />
     <h3>Website</h3>
     <p>Created by Matthew Bryan</p>
@@ -29,5 +28,6 @@ export default {
 <style scoped lang="scss">
 footer {
   padding: 1rem;
+  border-top: dashed rgba(0,0,0, 0.5) 2px;
 }
 </style>

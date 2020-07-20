@@ -32,4 +32,15 @@ h1 {
 span.smaller-rnm {
   font-size: 2rem;
 }
+
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
 </style>

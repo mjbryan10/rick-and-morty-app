@@ -35,8 +35,23 @@ export default CategorySelector;
 
 <style scoped lang="scss">
 .options-container {
+  display: flex;
+  flex-flow: column nowrap;
   a {
     margin: 0.5rem 1rem;
+  }
+}
+@media screen and (min-width: 800px){
+  .options-container {
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+    a {
+      min-width: 300px;
+      max-width: 400px;
+    }
   }
 }
 </style>

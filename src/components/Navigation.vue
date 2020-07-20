@@ -1,19 +1,24 @@
 <template>
   <nav id="nav">
-    <router-link to="/" class="gb-btn">Home</router-link>
-    <router-link @click.native="incrementRandomizerKey" to="/random" class="randomizer-btn"
+    <router-link to="/" class="gb-btn home-btn">Home</router-link>
+    <router-link
+      @click.native="incrementRandomizerKey"
+      to="/random"
+      class="randomizer-btn"
       >Randomizer</router-link
     >
-    <router-link to="/categories" class="gb-btn">Categories</router-link>
+    <router-link to="/categories" class="gb-btn categories-btn"
+      >Categories</router-link
+    >
   </nav>
 </template>
-<script>
+<script lang="ts">
 import Vue from 'vue';
 
 const Navigation = Vue.extend({
   name: 'Navigation',
   methods: {
-    incrementRandomizerKey() {
+    incrementRandomizerKey(): void {
       this.$store.commit('incrementRandomizerKey');
     },
   },
@@ -39,10 +44,13 @@ export default Navigation;
   width: 80%;
   margin: 0 auto;
   text-align: center;
+  min-width: 300px;
+  max-width: 500px;
   a {
     font-weight: bold;
     color: #827b7f;
     text-decoration: none;
+    width: 100px;
     &.gb-btn {
       &::before {
         content: '';
@@ -85,6 +93,29 @@ export default Navigation;
 
       &:hover {
         @include inset-shadow();
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  #nav {
+    display: grid;
+    grid-template-columns: 100px 100px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      'home random'
+      'categories random';
+    min-width: 200px;
+    margin-top: 8px;
+    a {
+      &.home-btn {
+        grid-area: home;
+      }
+      &.randomizer-btn {
+        grid-area: random;
+      }
+      &.categories-btn {
+        grid-area: categories;
       }
     }
   }

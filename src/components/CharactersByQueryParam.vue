@@ -113,7 +113,7 @@ div {
 }
 .pagination-controls {
   display: flex;
-  margin: 0 10%;
+  margin: 0 auto;
   width: 80%;
   max-width: 600px;
   justify-content: space-between;

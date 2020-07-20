@@ -1,9 +1,14 @@
 <template>
   <transition name="fade">
     <div>
-      <label class="app-btn">
-        Sorted <span v-if="isAtoZ">A to Z</span><span v-else>Z to A</span>
-        <input v-model="isAtoZ" type="checkbox" name="AtoZ-checkbox" class="hidden" />
+      <label class="app-btn sort-btn">
+        Page sorted <span v-if="isAtoZ">A to Z</span><span v-else>Z to A</span>
+        <input
+          v-model="isAtoZ"
+          type="checkbox"
+          name="AtoZ-checkbox"
+          class="hidden"
+        />
       </label>
       <ul>
         <li v-for="character in sortedCharacters" :key="character.id">
@@ -76,20 +81,17 @@ div,
 ul {
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
 }
 .sort-btn {
-  span {
-    display: block;
-    transition: 0.2s ease-out;
-    &.ZtoA {
-      transform: rotate(-180deg);
-    }
-    &.none {
-      opacity: 0;
-    }
-  }
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
-.loader-btn {
-  border-radius: 10px;
+@media screen and (min-width: 800px) {
+  ul {
+    flex-flow: row wrap;
+    justify-content: center;
+  }
 }
 </style>

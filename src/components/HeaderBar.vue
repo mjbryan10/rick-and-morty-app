@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <StatusIndicator />
-    <button @click="handleClick" class="info-btn">info</button>
   </div>
 </template>
 <script>
@@ -11,16 +10,8 @@ import StatusIndicator from '@/components/StatusIndicator.vue';
 
 const HeaderBar = Vue.extend({
   name: 'HeaderBar',
-  props: {
-    clickHandler: Function,
-  },
   components: {
     StatusIndicator,
-  },
-  methods: {
-    handleClick() {
-      this.clickHandler();
-    },
   },
 });
 export default HeaderBar;
@@ -30,6 +21,8 @@ export default HeaderBar;
 .container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-bottom: 3px;
 }
 .info-btn {
   font-family: inherit;

@@ -1,16 +1,24 @@
 <template>
   <transition name="fade">
-    <div class="profile-container" v-if="!this.$store.state.isLoading && character">
+    <div
+      class="profile-container"
+      v-if="!this.$store.state.isLoading && character"
+    >
       <h2>Characterdex entry: {{ character.id }}</h2>
-      <CharacterCard class="profile-card" :character="character" />
-      <CharacterInfo class="profile-card" :character="character" />
-      <div class="profile-card">
-        <EpisodeInfo
-          v-if="character.episode.length"
-          :url="character.episode[0]"
-          :characterId="character.id"
-        />
-      </div>
+      <CharacterCard
+        class="profile-card character-card"
+        :character="character"
+      />
+      <CharacterInfo
+        class="profile-card character-info"
+        :character="character"
+      />
+      <EpisodeInfo
+        class="profile-card character-episode"
+        v-if="character.episode.length"
+        :url="character.episode[0]"
+        :characterId="character.id"
+      />
     </div>
   </transition>
 </template>
@@ -72,8 +80,75 @@ export default CharacterProfile;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  max-width: 1200px;
+  .character-info {
+    margin: 1rem;
+  }
 }
 .profile-card {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
+}
+@media screen and (min-width: 805px) {
+  .profile-container {
+    margin: 0 auto;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    h2 {
+      display: block;
+      width: 100%;
+    }
+    .character-card {
+      margin-bottom:8px;
+    }
+    .character-info {
+      margin: 0;
+      height: 100%;
+      flex-grow: 1;
+      position: relative;
+      margin-left: 50px;
+      max-width: 400px;
+      &::before {
+        content: '';
+        display: block;
+        height: 10px;
+        width: 150px;
+        position: absolute;
+        z-index: -1;
+        background-color: rgba(0,0,0,0.5);
+        margin-left: -100px;
+        margin-top: 125px;
+        animation: swell 5s ease 1s infinite;
+      }
+      &::after {
+        content: '';
+        display: block;
+        width: 10px;
+        height: 150px;
+        position: absolute;
+        z-index: -1;
+        background-color: rgba(0,0,0,0.5);
+        margin-left: 125px;
+        animation: swell 5s ease 1s infinite;
+      }
+    }
+    .character-episode {
+      min-width: 51%;
+      width: 80%;
+      max-width: 1200px;
+    }
+  }
+}
+@keyframes swell {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>

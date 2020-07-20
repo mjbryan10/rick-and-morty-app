@@ -17,7 +17,7 @@ export default {
 </script>
 <style scoped lang="scss">
 h1 {
-  font-size: 4em;
+  font-size: 4rem;
 }
 h1,
 h2 {
@@ -34,5 +34,9 @@ li {
   list-style: none;
   width: 300px;
 }
-
+@media screen and (max-width: 350px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
 </style>
