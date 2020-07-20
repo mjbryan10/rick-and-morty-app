@@ -2,11 +2,11 @@
   <div class="card-container">
 
     <h3>Details</h3>
-    <p>Species: {{character.species}} </p>
+    <p><span>Species: </span>{{character.species}} </p>
     <p v-if="character.type">Type: {{character.type}} </p>
-    <p>Gender: {{character.gender}} </p>
-    <p>Origin: {{character.origin.name}} </p>
-    <p>Location: {{character.location.name}} </p>
+    <p><span>Gender: </span>{{character.gender}} </p>
+    <p><span>Origin: </span>{{character.origin.name}} </p>
+    <p><span>Location: </span>{{character.location.name}} </p>
 
   </div>
 </template>
@@ -32,10 +32,12 @@ export default CharacterInfo;
   border-radius: 5px;
   border: 2px solid black;
   text-align: left;
-  margin: 1rem;
   padding: 0.5rem;
   h3 {
     text-align: center;
+  }
+  p span {
+    font-weight: bold;
   }
 }
 </style>

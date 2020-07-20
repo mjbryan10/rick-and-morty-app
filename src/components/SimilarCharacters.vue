@@ -5,9 +5,10 @@
       :perPage="1"
       :paginationActiveColor="'#827b7f'"
       :paginationColor="'#c3bdba'"
+      :perPageCustom="[[768, 3]]"
     >
       <Slide v-for="character in fetchResult" :key="character.id">
-        <CharacterCard :character="character" :imgSize="200" />
+        <CharacterCard :style="{margin: '0 auto'}" :character="character" :imgSize="200" />
       </Slide>
     </Carousel>
   </div>

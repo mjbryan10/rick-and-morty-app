@@ -55,7 +55,7 @@ export default CharacterCard;
   align-items: center;
   overflow: hidden;
   position: relative;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   width: 100%; //Responsive test.
   /* Color */
   background-color: #f5f5f5;

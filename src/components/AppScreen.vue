@@ -62,7 +62,7 @@ export default AppScreen;
   border: solid black 2px;
   text-align: center;
   padding-bottom: 50px;
-
+  z-index: 1;
   main {
     min-height: 85vh;
     margin-bottom: 25vh;
