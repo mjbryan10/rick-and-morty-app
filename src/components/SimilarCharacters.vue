@@ -21,7 +21,7 @@
 <script lang="ts">
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import { Slide, Carousel } from 'vue-carousel'; // @see https://ssense.github.io/vue-carousel
-import { RnmApiResponse } from '@/types/Interfaces';
+import { Character } from '@/types/Interfaces';
 import { PropType } from 'vue';
 import CharacterCard from './CharacterCard.vue';
 
@@ -68,8 +68,8 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
      * Getter that returns the Episode data from the fetchResult
      * or null if there is none.
      */
-    characters(): RnmApiResponse | null {
-      return this.fetchResult; // TODO
+    characters(): Character[] | null {
+      return this.fetchResult;
     },
     /**
      * Returns an array of character ids from the required episodeCharactersUrls prop.

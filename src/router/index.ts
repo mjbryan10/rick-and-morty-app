@@ -2,32 +2,9 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 
-// TODO: See if can get dynamic importation of routes.
-
-// import JSONRoutes from './routes.json';
-// import jsonFile from './routes.json';
-
-// interface JSONRoute {
-//   path: string;
-//   name: string;
-//   location: string;
-//   props?: boolean;
-// }
-// const JSONRoutes = jsonFile;
-
-// const routes: Array<RouteConfig> = JSONRoutes.map((route: JSONRoute) => {
-//   const newRoute: RouteConfig = {
-//     path: route.path,
-//     name: route.name,
-//     component: () => import(/* webpackChunkName: "[request]" */ route.location),
-//   };
-//   if (route.props) newRoute.props = true;
-//   return newRoute;
-// });
-
 Vue.use(VueRouter);
 
-const routes: Array<RouteConfig> = [
+export const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
