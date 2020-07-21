@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/",
+    "name": "Home"
+  },
+  {
+    "path": "/categories",
+    "name": "Categories"
+  },
+  {
+    "path": "/character/:id",
+    "name": "Details"
+  },
+  {
+    "path": "/Characters/",
+    "name": "Characters"
+  },
+  {
+    "path": "/random",
+    "name": "Random"
+  }
+]
