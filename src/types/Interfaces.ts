@@ -1,21 +1,13 @@
 /**
  * The properties of an Episode from the Rick and Morty API.
  */
-export interface Episode {
-  /** Unique indentifier for an Episode */
-  id: number;
-  /** The title of the Episode */
-  name: string;
+export interface Episode extends ApiEntry {
   /** String date for when the Episode was first broadcast */
   air_date: string;
   /** The season and episode number, in the format e.g. S01E01 */
   episode: string;
   /** An array of string Urls to fetch data for the characters in the episode */
   characters: string[];
-  /** Link to the episode's own endpoint. */
-  url: string;
-  /** Time at which the episode was created in the database.*/
-  created: string;
 }
 /**
  * The response from the Rick and Morty characters API.
@@ -30,6 +22,8 @@ export interface CharactersAPIResponse {
   info: ApiInfo;
   /** An array of Characters returned from the Database */
   results: Character[];
+  /** A string response should a request be invalid */
+  error?: string;
 }
 /**
  * The info field on the Characters API response.
@@ -47,11 +41,7 @@ export interface ApiInfo {
 /**
  * The properties of a Character from the Rick and Morty API
  */
-export interface Character {
-  /** Unique indentifier for a character */
-  id: number;
-  /** The given name for the character */
-  name: string;
+export interface Character extends ApiEntry {
   /** The living status of the character */
   status: string;
   /** What species the character is */
@@ -66,10 +56,6 @@ export interface Character {
   image: string;
   /** Array of episode Urls for which the character is in */
   episode: string[];
-  /** Link to the character's own endpoint. */
-  url: string;
-  /** Time at which the character was created in the database. */
-  created: string;
 }
 /**
  * Properties of an Origin, found on a Character from the Rick and Morty API.
@@ -83,21 +69,29 @@ interface Origin {
 /**
  * Properties of a Location from the Rick and Morty API.
  */
-export interface Location {
-  /** Unique indentifier for the location */
-  id: number;
-  /** The title of the location */
-  name: string;
-  /** The type of location e.g. 'Planet' or 'Space Station' */
+export interface Location extends ApiEntry {
   type: string;
   /** The dimension in which the location is located. */
   dimension: string;
   /** List of characters who have been last seen in the location. */
   residents: string[];
-  /** Link to the location's own endpoint. */
-  url: string;
   /** Time at which the location was created in the database. */
+}
+/**
+ * The common interface for Database entries for the 
+ * Rick and Morty Public API
+ */
+interface ApiEntry {
+  /** Unique indentifier for the entry */
+  id: number;
+  /** The title of the entry */
+  name: string;
+  /** Link to the entry's own endpoint. */
+  url: string;
+  /** Time at which the entry was created in the database. */
   created: string;
+  /** A string response should a request be invalid */
+  error?: string;
 }
 /**
  * Possible responses from the Rick and Morty API.

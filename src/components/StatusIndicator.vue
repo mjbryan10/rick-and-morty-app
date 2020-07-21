@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <span class="status-icon" v-bind:class="serverStatus"></span>
+    <span
+      class="status-icon"
+      v-bind:class="this.$store.state.serverStatus"
+    ></span>
   </div>
 </template>
 
@@ -14,16 +17,15 @@ interface State {
 /**
  * A dynamic server status indicator.
  *
- * The component tests the server response with an API request. Depending on the
- * response it changes the color of the icon.
+ * The component tests the server response with an API request.
+ *
+ * The indicator changes color depending on the server status.
+ *  - Red = 'offline', no longer receiving requests from the server.
+ *  - Yellow = 'warning', server is giving responses but response threw an error.
+ *  - Green = OK. Server working and not giving errors.
  */
 const StatusIndicator = Vue.extend({
   name: 'StatusIndicator',
-  data(): State {
-    return {
-      serverStatus: 'warning',
-    };
-  },
   /** Upon component creation triggers the testDatabase function */
   created() {
     this.testDatabase();
@@ -37,7 +39,9 @@ const StatusIndicator = Vue.extend({
       const url = 'https://rickandmortyapi.com/api/character/1';
       const response = await fetch(url);
       if (response.status === 200) {
-        this.serverStatus = 'good';
+        this.$store.commit('setServerStatus', 'OK');
+      } else {
+        this.$store.commit('setServerStatus', 'offline');
       }
     },
   },
@@ -64,7 +68,7 @@ export default StatusIndicator;
     rgba(255, 0, 0, 1) 100%
   );
 }
-.good {
+.OK {
   background: rgb(255, 255, 255);
   background: linear-gradient(
     133deg,

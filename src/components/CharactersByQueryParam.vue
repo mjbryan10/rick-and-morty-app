@@ -1,22 +1,24 @@
 <template>
   <transition name="fade">
-    <div v-if="!this.$store.state.isLoading">
-      <CharactersResultPage
-        v-if="characters && !this.$store.state.isLoading"
-        :characters="characters"
-        ref="characterResults"
-      />
+    <div v-if="!this.$store.state.isLoading && characters">
+      <CharactersResultPage :characters="characters" ref="characterResults" />
       <div v-if="nextUrl || prevUrl" class="pagination-controls">
-        <button :disabled="!prevUrl" class="app-btn" @click="loadData(prevUrl)">Prev Page</button>
-        <button :disabled="!nextUrl" class="app-btn" @click="loadData(nextUrl)">Next Page</button>
+        <button :disabled="!prevUrl" class="app-btn" @click="loadData(prevUrl)">
+          Prev Page
+        </button>
+        <button :disabled="!nextUrl" class="app-btn" @click="loadData(nextUrl)">
+          Next Page
+        </button>
       </div>
     </div>
+    <ErrorMessage v-else-if="this.error.length" />
   </transition>
 </template>
 
 <script lang="ts">
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import CharactersResultPage from '@/components/CharactersResultsPage.vue';
+import ErrorMessage from '@/components/ErrorMessage.vue';
 import { Character, CharactersAPIResponse } from '@/types/Interfaces';
 
 /** Local state for the component */
@@ -33,6 +35,7 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
 
   components: {
     CharactersResultPage,
+    ErrorMessage,
   },
   data(): State {
     return {
@@ -81,15 +84,21 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
      * @param {string} url The url of which to retrieve data from API
      */
     loadData(url: string) {
-      this.loading = true;
+      this.error = '';
       this.$store.commit('toggleIsLoading');
       this.fetchDataByUrl<CharactersAPIResponse>(url)
         .then((result) => {
+          if (result.error) throw new Error('invalid request');
           this.fetchResult = result;
-          this.loading = false;
+          this.$store.commit('setServerStatus', 'OK');
         })
         .catch((error) => {
           this.error = error.toString();
+          if (error.message === 'invalid request') {
+            this.$store.commit('setServerStatus', 'warning');
+          } else {
+            this.$store.commit('setServerStatus', 'offline');
+          }
         })
         .finally(() => {
           setTimeout(() => {

@@ -20,6 +20,7 @@
         :characterId="character.id"
       />
     </div>
+    <ErrorMessage v-else-if="this.error.length" />
   </transition>
 </template>
 
@@ -29,6 +30,7 @@ import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import CharacterCard from './CharacterCard.vue';
 import EpisodeInfo from './EpisodeInfo.vue';
 import CharacterInfo from './CharacterInfo.vue';
+import ErrorMessage from './ErrorMessage.vue';
 
 type ApiResponse = Character | Episode;
 
@@ -51,6 +53,7 @@ const CharacterProfile = VueWithFetchHelpers.extend({
     EpisodeInfo,
     CharacterCard,
     CharacterInfo,
+    ErrorMessage,
   },
   computed: {
     /**
@@ -67,12 +70,20 @@ const CharacterProfile = VueWithFetchHelpers.extend({
    */
   created() {
     this.$store.commit('toggleIsLoading');
+    this.error = '';
     this.fetchCharacterById(this.id)
       .then((result) => {
+        if (result.error) throw new Error('invalid request');
         this.fetchResult = result;
+        this.$store.commit('setServerStatus', 'OK');
       })
       .catch((error) => {
         this.error = error.toString();
+        if (error.message === 'invalid request') {
+          this.$store.commit('setServerStatus', 'warning');
+        } else {
+          this.$store.commit('setServerStatus', 'offline');
+        }
       })
       .finally(() => {
         setTimeout(() => {
