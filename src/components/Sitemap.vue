@@ -18,6 +18,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { routes } from '@/router';
+import { RouteConfig } from 'vue-router';
 
 /** Local state for the component */
 interface State {
@@ -30,14 +32,13 @@ interface SitemapEntry {
   /** Link to route */
   url: string;
 }
-const Routes = ['/', '/random', '/characters', '/categories']; // TODO
+const routePaths = routes.map((route: RouteConfig) => route.path);
 
 /**
  * Vue component that renders a sitemap, list of possibile routes, for the application
  */
 const Sitemap = Vue.extend({
   name: 'Sitemap',
-  // TODO FINISH THIS
   data(): State {
     return {
       sitemapEntries: [],
@@ -45,7 +46,7 @@ const Sitemap = Vue.extend({
   },
   /** Upon creation updates sitemapEntries data field. */
   created() {
-    this.sitemapEntries = this.createUrlArray(Routes);
+    this.sitemapEntries = this.createUrlArray(routePaths);
   },
   methods: {
     /**
@@ -57,12 +58,14 @@ const Sitemap = Vue.extend({
     createUrlArray(paths: string[], baseUrl = ''): SitemapEntry[] {
       if (!paths.length) return [];
       const newArray: SitemapEntry[] = [];
-      paths.forEach((slug) => {
-        newArray.push({
-          title: slug.split('/')[1] || 'Home',
-          url: baseUrl + slug,
+      paths
+        .filter((path) => !path.includes(':')) // Removes paths which require params
+        .forEach((slug) => {
+          newArray.push({
+            title: slug.split('/')[1] || 'Home',
+            url: baseUrl + slug,
+          });
         });
-      });
       return newArray;
     },
     /**
