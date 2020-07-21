@@ -70,7 +70,7 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
      * Getter that returns the Episode data from the fetchResult,
      * or will return null if the fetched data is not an array.
      *
-     * Fetched data can be an object with key of error, if there was invalid request, 
+     * Fetched data can be an object with key of error, if there was invalid request,
      * or null if no response.
      */
     characters(): Character[] | null {
