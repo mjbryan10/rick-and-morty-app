@@ -9,6 +9,7 @@
 <script>
 import Vue from 'vue';
 
+/** A vue component to render the Rick and Morty title */
 const RickAndMortyHeader = Vue.extend({
   name: 'RickAndMortyHeader',
 });

@@ -14,6 +14,9 @@ import HeaderBar from '@/components/HeaderBar.vue';
 import AppScreen from '@/components/AppScreen.vue';
 import store from '@/store';
 
+/**
+ * Primary vue render for the application.
+ */
 const App = Vue.extend({
   name: 'App',
   store,
@@ -27,6 +30,9 @@ export default App;
 </script>
 
 <style lang="scss">
+/*
+* Global Styles
+*/
 @font-face {
   font-family: 'get_schwifty';
   /* Fonts moved to public folder to allow preload */
@@ -40,7 +46,6 @@ body {
   box-sizing: border-box;
   margin: 0;
 }
-
 *,
 *:before,
 *:after {
@@ -49,6 +54,79 @@ body {
 .hidden {
   display: none;
 }
+/* Generic button style */
+.app-btn {
+  display: block;
+  padding: 1em;
+  border-radius: 5rem;
+  border: 2px black solid;
+  text-decoration: none;
+  color: inherit;
+  background-color: rgba(#c3bdba, 0.1);
+  transition: 0.2s ease-out;
+  cursor: pointer;
+  &:hover,
+  &:active {
+    background-color: rgba(#242222, 0.7);
+    color: white;
+  }
+  &:disabled,
+  &:disabled:hover {
+    // fades button out and resets cursor, to show is non-reactive.
+    cursor: auto;
+    background-color: rgba(#c3bdba, 0.1);
+    color: rgba(#242222, 0.3);
+    border: rgba(#242222, 0.3) 2px solid;
+  }
+}
+/*
+* Scroll Bars Styles
+* Microsoft Edge currently not supported
+*/
+/* Chrome/Safari */
+// Width
+*::-webkit-scrollbar {
+  width: 8px;
+}
+// Track
+*::-webkit-scrollbar-track {
+  width: 8px;
+}
+// Handle
+*::-webkit-scrollbar-thumb {
+  background: #827b7f;
+  width: 4px;
+  border-radius: 4px;
+  /* Gives spacing
+  * @see https://stackoverflow.com/a/21684424/12873927
+  */
+  border: 3px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+}
+// Handle on hover
+*::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:active {
+  background: #827b7f;
+}
+// Button
+*::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+// Corner
+*::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+/* Firefox */
+* {
+  scrollbar-width: thin; /* "auto" or "thin"  */
+  scrollbar-color: #827b7f rgba(0, 0, 0, 0); /* scroll thumb & track */
+}
+
+/*
+* Component Styles
+*/
 #app {
   font-family: 'letter-gothic-std', 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
@@ -66,45 +144,15 @@ body {
   background-color: #c3bdba;
   width: 100vw;
   min-height: 100vh;
-  /* max-width: 600px; */
   min-width: 250px;
   margin: 0 auto;
   padding: 1rem;
   border-radius: 5px;
 }
-/*
-* Generic button style for global use
- */
-.app-btn {
-  display: block;
-  padding: 1em;
-  border-radius: 5rem;
-  border: 2px black solid;
-  text-decoration: none;
-  color: inherit;
-  background-color: rgba(#c3bdba, 0.1);
-  transition: 0.2s ease-out;
-  cursor: pointer;
-  &:hover,
-  &:active {
-    background-color: rgba(#242222, 0.7);
-    color: white;
-  }
-  &:disabled {
-    // TODO
-    cursor: auto;
-    /* background-color: grey; */
-    color: rgba(#c3bdba, 0.7);
-    border: rgba(#c3bdba, 0.7) 2px solid;
-    &:hover {
-      color: rgba(#c3bdba, 1);
-      background-color: rgba(#c3bdba, 0.1);
-    }
-  }
-}
+
 /*
 * Transitions
-*@See https://vuejs.org/v2/guide/transitions.html
+* @See https://vuejs.org/v2/guide/transitions.html
 */
 .fade-enter-active,
 .fade-leave-active {

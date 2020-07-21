@@ -5,7 +5,7 @@
     <p>Created by Matthew Bryan</p>
     <h3>API</h3>
     <p>
-      The Rick and Morty API is a RESTful and GraphQL API based on the
+      The <a href="https://rickandmortyapi.com/">Rick and Morty API</a> is a RESTful and GraphQL API based on the
       television show Rick and Morty, created by Axel Fuhrmann.
     </p>
     <h3>Copyright</h3>
@@ -20,6 +20,15 @@
 <script>
 import Sitemap from '@/components/Sitemap.vue';
 
+/**
+ * Footer component for the application.
+ *
+ * Displays:
+ *  - Sitemap
+ *  - Website information
+ *  - API information
+ *  - Copyright information
+ */
 export default {
   name: 'Footer',
   components: { Sitemap },
@@ -29,5 +38,6 @@ export default {
 footer {
   padding: 1rem;
   border-top: dashed rgba(0,0,0, 0.5) 2px;
+  margin-bottom: 100px;
 }
 </style>

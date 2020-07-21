@@ -7,9 +7,16 @@
 <script lang="ts">
 import Vue from 'vue';
 
+/** Local state for the component */
 interface State {
   serverStatus: string;
 }
+/**
+ * A dynamic server status indicator.
+ *
+ * The component tests the server response with an API request. Depending on the
+ * response it changes the color of the icon.
+ */
 const StatusIndicator = Vue.extend({
   name: 'StatusIndicator',
   data(): State {
@@ -17,10 +24,15 @@ const StatusIndicator = Vue.extend({
       serverStatus: 'warning',
     };
   },
+  /** Upon component creation triggers the testDatabase function */
   created() {
     this.testDatabase();
   },
   methods: {
+    /**
+     * Asynchronous function that sends a request to the API and updates the serverStatus
+     * property depending on the result.
+     */
     async testDatabase() {
       const url = 'https://rickandmortyapi.com/api/character/1';
       const response = await fetch(url);
@@ -60,13 +72,6 @@ export default StatusIndicator;
     rgba(9, 121, 24, 1) 35%,
     rgba(0, 255, 63, 1) 100%
   );
-  /* background: rgb(255, 255, 255);
-  background: linear-gradient(
-    137deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(28, 167, 22, 1) 35%,
-    rgba(5, 255, 0, 1) 100%
-  ); */
 }
 .warning {
   background: rgb(255, 255, 255);

@@ -12,11 +12,18 @@
     <Footer v-if="!this.$store.state.isLoading" />
   </div>
 </template>
+
 <script lang="ts">
 import Vue from 'vue';
 import Footer from '@/components/Footer.vue';
 import Spinner from '@/components/Spinner.vue';
 
+/**
+ * The main compnent for displaying the application renders.
+ *
+ * Displays the spinner, when the global isLoading is true.
+ * Otherwise displays the current router-view and footer underneath.
+ */
 const AppScreen = Vue.extend({
   name: 'AppScreen',
   components: {
@@ -27,17 +34,18 @@ const AppScreen = Vue.extend({
     /**
      * Returns the Vuex store isLoading property.
      */
-    storeIsLoading() {
+    storeIsLoading(): boolean {
       return this.$store.state.isLoading;
     },
   },
   watch: {
     /**
      * Uses storeIsLoading computed property to watch for
-     * changes on the global isLoading property.
+     * changes on the Vuex isLoading property.
      *
-     * If global stat isLoading, then it resets the scrollTop of
+     * If global state isLoading, then it resets the scrollTop of
      * the app-screen.
+     * This helps improve UX, with smoother transitions between loads.
      */
     storeIsLoading() {
       if (this.$store.state.isLoading) {
@@ -55,7 +63,6 @@ export default AppScreen;
   position: relative;
   background-color: rgba(#7d9f53, 0.86);
   height: 85vh;
-  /* max-width: 600px; */
   overflow-y: scroll;
   overflow-x: hidden;
   border-radius: 5px;

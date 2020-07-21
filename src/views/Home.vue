@@ -5,9 +5,11 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import LandingPage from '@/components/LandingPage.vue';
 
+/**
+ * Vue page view for the index landing page.
+ */
 export default {
   name: 'Home',
   components: {

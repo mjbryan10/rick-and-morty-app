@@ -19,10 +19,15 @@ import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import CharactersResultPage from '@/components/CharactersResultsPage.vue';
 import { Character, CharactersAPIResponse } from '@/types/Interfaces';
 
+/** Local state for the component */
 interface State {
   fetchResult: CharactersAPIResponse | null;
 }
 
+/**
+ * Vue component that fetches  and displays characters from the Rick and Morty API that match
+ * the query parameters in the url.
+ */
 const CharactersByQueryParam = VueWithFetchHelpers.extend({
   name: 'CharactersByQueryParam',
 
@@ -49,10 +54,18 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
       if (!this.fetchResult) return null;
       return this.fetchResult.results;
     },
+    /**
+     * Returns a string URL for the next array of characters.
+     * Or null if there is none/no result.
+     */
     nextUrl(): string | null {
       if (!this.fetchResult) return null;
       return this.fetchResult.info.next;
     },
+    /**
+     * Returns a string URL for the previous array of characters.
+     * Or null if there is none/no result.
+     */
     prevUrl(): string | null {
       if (!this.fetchResult) return null;
       return this.fetchResult.info.prev;
@@ -65,7 +78,7 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
      *
      * Otherwise populates the error field with the error result stringified.
      *
-     * @param url String value, should be the url of which to retrieve data from API
+     * @param {string} url The url of which to retrieve data from API
      */
     loadData(url: string) {
       this.loading = true;
@@ -79,7 +92,6 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
           this.error = error.toString();
         })
         .finally(() => {
-          // this.$refs.characterResults.scrollTop = 0; // TODO
           setTimeout(() => {
             this.$store.commit('toggleIsLoading');
           }, 1000);
@@ -91,16 +103,16 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
      * If there are no queries, uses the default url for all characters.
      */
     generateUrlByParam(): string {
-      let result = 'https://rickandmortyapi.com/api/character';
+      let url = 'https://rickandmortyapi.com/api/character';
       const { query } = this.$route;
-      if (Object.keys(query).length) result += '/?';
+      if (Object.keys(query).length) url += '/?';
       Object.keys(query).forEach((key, index) => {
         if (index > 0) {
-          result += '&';
+          url += '&';
         }
-        result += `${key}=${query[key]}`;
+        url += `${key}=${query[key]}`;
       });
-      return result;
+      return url;
     },
   },
 });
@@ -108,9 +120,6 @@ export default CharactersByQueryParam;
 </script>
 
 <style scoped lang="scss">
-div {
-  position: relative;
-}
 .pagination-controls {
   display: flex;
   margin: 0 auto;

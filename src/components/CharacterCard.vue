@@ -5,7 +5,11 @@
     :to="`/character/${character.id}`"
     exact
   >
-    <ImageWithFadeIn :style="imgStyles" :imgSrc="character.image" :imgAlt="character.name" />
+    <ImageWithFadeIn
+      :style="imgStyles"
+      :imgSrc="character.image"
+      :imgAlt="character.name"
+    />
     <h4>{{ character.name }}</h4>
   </router-link>
 </template>
@@ -15,6 +19,13 @@ import Vue, { PropType } from 'vue';
 import { Character } from '@/types/Interfaces';
 import ImageWithFadeIn from './ImageWithFadeIn.vue';
 
+/**
+ * A vue component for displaying a character card.
+ * Displays the character image, with their name underneath.
+ *
+ * @props character The character information from the Rick and Morty API
+ * @props imgSize The imgSize for which the card show display, defaults to 300px.
+ */
 const CharacterCard = Vue.extend({
   name: 'CharacterCard',
   props: {
@@ -28,6 +39,10 @@ const CharacterCard = Vue.extend({
     ImageWithFadeIn,
   },
   computed: {
+    /**
+     * Returns the max-width and max-height for use in inline Styles.
+     * Uses the imgSize component prop to compute the style.
+     */
     imgStyles() {
       const pxString = `${this.imgSize}px`;
       return {
@@ -35,6 +50,10 @@ const CharacterCard = Vue.extend({
         maxHeight: pxString,
       };
     },
+    /**
+     * Returns the max-width for use in inline Styles.
+     * Uses the imgSize component prop to compute the style.
+     */
     linkStyles() {
       const pxString = `${this.imgSize}px`;
       return {
@@ -55,15 +74,14 @@ export default CharacterCard;
   align-items: center;
   overflow: hidden;
   position: relative;
-  /* margin: 0 auto; */
-  width: 100%; //Responsive test.
+  width: 100%;
   /* Color */
   background-color: #f5f5f5;
   /* Text */
   color: inherit;
   text-decoration: none;
   text-align: center;
-  font-weight: bold; // TODO: check bold styles.
+  font-weight: bold;
   /*Border styles */
   border-radius: 0.5rem;
   border: 2px solid black;
@@ -83,7 +101,7 @@ export default CharacterCard;
     transform: scale(0.9);
   }
 }
-/* Remove link styles if route matches link ref. */
+/* Removes link styles if route matches link ref. */
 .router-link-active {
   cursor: auto;
   &:hover {
