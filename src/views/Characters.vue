@@ -16,8 +16,12 @@
 <script lang="ts">
 import CharactersByQueryParam from '@/components/CharactersByQueryParam.vue';
 
+/**
+ * Vue page view for the characters route.
+ * Renders content depending on the query parameters.
+ */
 export default {
-  name: 'Search',
+  name: 'Characters',
   components: {
     CharactersByQueryParam,
   },

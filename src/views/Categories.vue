@@ -8,6 +8,9 @@
 <script lang="ts">
 import CategorySelector from '@/components/CategorySelector.vue';
 
+/**
+ * Vue page view for the categories route.
+ */
 export default {
   name: 'Categories',
   components: {

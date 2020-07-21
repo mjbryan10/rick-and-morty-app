@@ -14,6 +14,9 @@ import HeaderBar from '@/components/HeaderBar.vue';
 import AppScreen from '@/components/AppScreen.vue';
 import store from '@/store';
 
+/**
+ * Primary vue render for the application.
+ */
 const App = Vue.extend({
   name: 'App',
   store,
@@ -77,7 +80,7 @@ body {
   }
 }
 /*
-* Scroll Bars
+* Scroll Bars Styles
 * Microsoft Edge currently not supported
 */
 /* Chrome/Safari */
