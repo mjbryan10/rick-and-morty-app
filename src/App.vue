@@ -27,6 +27,9 @@ export default App;
 </script>
 
 <style lang="scss">
+/*
+* Global Styles
+*/
 @font-face {
   font-family: 'get_schwifty';
   /* Fonts moved to public folder to allow preload */
@@ -49,32 +52,52 @@ body {
 .hidden {
   display: none;
 }
-#app {
-  font-family: 'letter-gothic-std', 'Helvetica Neue', Helvetica, Arial,
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  h1 {
-    font-family: 'get_schwifty', 'letter-gothic-std', 'Helvetica Neue',
-      Helvetica, Arial, sans-serif;
-  }
-  background-color: #f5f5f5;
-  padding: 0;
-  margin: 0;
-}
-.app-shell {
-  background-color: #c3bdba;
-  width: 100vw;
-  min-height: 100vh;
-  /* max-width: 600px; */
-  min-width: 250px;
-  margin: 0 auto;
-  padding: 1rem;
-  border-radius: 5px;
-}
+
 /*
-* Generic button style for global use
- */
+* Scroll Bars
+* Microsoft Edge currently not supported
+*/
+/* Chrome/Safari */
+// Width
+*::-webkit-scrollbar {
+  width: 8px;
+}
+// Track
+*::-webkit-scrollbar-track {
+  width: 8px;
+}
+// Handle
+*::-webkit-scrollbar-thumb {
+  background: #827b7f;
+  width: 4px;
+  border-radius: 4px;
+  /* Gives spacing
+  * @see https://stackoverflow.com/a/21684424/12873927
+  */
+  border: 3px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+}
+// Handle on hover
+*::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:active {
+  background: #827b7f;
+}
+// Button
+*::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+}
+// Corner
+*::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+/* Firefox */
+* {
+  scrollbar-width: thin; /* "auto" or "thin"  */
+  scrollbar-color: #827b7f rgba(0, 0, 0, 0); /* scroll thumb & track */
+}
+/* Generic button style */
 .app-btn {
   display: block;
   padding: 1em;
@@ -103,8 +126,34 @@ body {
   }
 }
 /*
+* Component Styles
+*/
+#app {
+  font-family: 'letter-gothic-std', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  h1 {
+    font-family: 'get_schwifty', 'letter-gothic-std', 'Helvetica Neue',
+      Helvetica, Arial, sans-serif;
+  }
+  background-color: #f5f5f5;
+  padding: 0;
+  margin: 0;
+}
+.app-shell {
+  background-color: #c3bdba;
+  width: 100vw;
+  min-height: 100vh;
+  min-width: 250px;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+/*
 * Transitions
-*@See https://vuejs.org/v2/guide/transitions.html
+* @See https://vuejs.org/v2/guide/transitions.html
 */
 .fade-enter-active,
 .fade-leave-active {

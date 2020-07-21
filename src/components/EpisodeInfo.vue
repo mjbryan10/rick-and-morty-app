@@ -23,7 +23,7 @@ const EpisodeInfo = VueWithFetchHelpers.extend({
   },
   computed: {
     /**
-     * Getter that returns the Episode data from the fetchResult
+     * Returns the Episode data from the fetchResult
      * or null if there is none.
      */
     episode(): RnmApiResponse | null {
@@ -68,7 +68,6 @@ export default EpisodeInfo;
   border-radius: 5px;
   border: 2px solid black;
   text-align: left;
-  /* margin: 1rem; */
   padding: 0.5rem;
   width: 100%;
   max-width: 300px;

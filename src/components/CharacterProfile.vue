@@ -46,9 +46,7 @@ const CharacterProfile = VueWithFetchHelpers.extend({
      * Returns the properties and values of a character or null if there is none;
      */
     character(): RnmApiResponse | null {
-      if (this.fetchResult) {
-        return this.fetchResult;
-      }
+      if (this.fetchResult) return this.fetchResult;
       return null;
     },
   },
@@ -100,7 +98,7 @@ export default CharacterProfile;
       width: 100%;
     }
     .character-card {
-      margin-bottom:8px;
+      margin-bottom: 8px;
     }
     .character-info {
       margin: 0;
@@ -109,29 +107,30 @@ export default CharacterProfile;
       position: relative;
       margin-left: 50px;
       max-width: 400px;
-      &::before {
+
+      /* Pipe effects to connect (visually) components */
+      @mixin pipe {
         content: '';
         display: block;
+        position: absolute;
+        z-index: -1;
+        background-color: rgba(0, 0, 0, 0.5);
+        animation: pulse 5s ease 1s infinite;
+      }
+      &::before {
+        @include pipe();
         height: 10px;
         width: 150px;
-        position: absolute;
-        z-index: -1;
-        background-color: rgba(0,0,0,0.5);
         margin-left: -100px;
         margin-top: 125px;
-        animation: swell 5s ease 1s infinite;
       }
       &::after {
-        content: '';
-        display: block;
+        @include pipe();
         width: 10px;
         height: 150px;
-        position: absolute;
-        z-index: -1;
-        background-color: rgba(0,0,0,0.5);
         margin-left: 125px;
-        animation: swell 5s ease 1s infinite;
       }
+      /* end */
     }
     .character-episode {
       min-width: 51%;
@@ -140,7 +139,10 @@ export default CharacterProfile;
     }
   }
 }
-@keyframes swell {
+/*
+* Fades from opaque to transparent and back.
+*/
+@keyframes pulse {
   0% {
     opacity: 1;
   }

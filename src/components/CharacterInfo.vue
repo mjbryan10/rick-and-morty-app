@@ -27,12 +27,12 @@ export default CharacterInfo;
 <style scoped lang="scss">
 .card-container {
   display: block;
+  padding: 0.5rem;
   background-color: #f5f5f5;
   color: inherit;
+  text-align: left;
   border-radius: 5px;
   border: 2px solid black;
-  text-align: left;
-  padding: 0.5rem;
   h3 {
     text-align: center;
   }

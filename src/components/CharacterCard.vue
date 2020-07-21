@@ -28,6 +28,10 @@ const CharacterCard = Vue.extend({
     ImageWithFadeIn,
   },
   computed: {
+    /**
+     * Returns the max-width and max-height for use in inline Styles.
+     * Uses the imgSize component prop to compute the style.
+     */
     imgStyles() {
       const pxString = `${this.imgSize}px`;
       return {
@@ -35,6 +39,10 @@ const CharacterCard = Vue.extend({
         maxHeight: pxString,
       };
     },
+    /**
+     * Returns the max-width for use in inline Styles.
+     * Uses the imgSize component prop to compute the style.
+     */
     linkStyles() {
       const pxString = `${this.imgSize}px`;
       return {
@@ -55,15 +63,14 @@ export default CharacterCard;
   align-items: center;
   overflow: hidden;
   position: relative;
-  /* margin: 0 auto; */
-  width: 100%; //Responsive test.
+  width: 100%;
   /* Color */
   background-color: #f5f5f5;
   /* Text */
   color: inherit;
   text-decoration: none;
   text-align: center;
-  font-weight: bold; // TODO: check bold styles.
+  font-weight: bold;
   /*Border styles */
   border-radius: 0.5rem;
   border: 2px solid black;
@@ -83,7 +90,7 @@ export default CharacterCard;
     transform: scale(0.9);
   }
 }
-/* Remove link styles if route matches link ref. */
+/* Removes link styles if route matches link ref. */
 .router-link-active {
   cursor: auto;
   &:hover {

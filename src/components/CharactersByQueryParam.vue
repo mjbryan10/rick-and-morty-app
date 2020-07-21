@@ -49,10 +49,18 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
       if (!this.fetchResult) return null;
       return this.fetchResult.results;
     },
+    /**
+     * Returns a string URL for the next array of characters.
+     * Or null if there is none/no result.
+     */
     nextUrl(): string | null {
       if (!this.fetchResult) return null;
       return this.fetchResult.info.next;
     },
+    /**
+     * Returns a string URL for the previous array of characters.
+     * Or null if there is none/no result.
+     */
     prevUrl(): string | null {
       if (!this.fetchResult) return null;
       return this.fetchResult.info.prev;
@@ -79,7 +87,6 @@ const CharactersByQueryParam = VueWithFetchHelpers.extend({
           this.error = error.toString();
         })
         .finally(() => {
-          // this.$refs.characterResults.scrollTop = 0; // TODO
           setTimeout(() => {
             this.$store.commit('toggleIsLoading');
           }, 1000);
@@ -108,9 +115,6 @@ export default CharactersByQueryParam;
 </script>
 
 <style scoped lang="scss">
-div {
-  position: relative;
-}
 .pagination-controls {
   display: flex;
   margin: 0 auto;

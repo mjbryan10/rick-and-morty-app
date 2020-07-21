@@ -47,7 +47,7 @@ const HomePageCharacters = VueWithFetchHelpers.extend({
   },
   computed: {
     /**
-     * Returns an array of 10 characters fetched from the database, or null if none.
+     * Returns an array of 10 characters fetched from the API, or null if none.
      */
     characters(): Character[] | null {
       if (this.fetchResult) return this.fetchResult.results.splice(0, 10);
