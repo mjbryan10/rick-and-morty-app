@@ -1,5 +1,5 @@
 <template>
-  <div v-if="fetchResult" class="similar-characters-container">
+  <div v-if="characters" class="similar-characters-container">
     <h4>Characters also from this episode:</h4>
     <Carousel
       :perPage="1"
@@ -7,7 +7,7 @@
       :paginationColor="'#c3bdba'"
       :perPageCustom="[[805, 3]]"
     >
-      <Slide v-for="character in fetchResult" :key="character.id">
+      <Slide v-for="character in characters" :key="character.id">
         <CharacterCard
           :style="{ margin: '0 auto' }"
           :character="character"
@@ -54,7 +54,9 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
   created() {
     const ids = this.filteredIds.toString();
     this.loading = true;
-    this.fetchDataByUrl(`https://rickandmortyapi.com/api/character/${ids}`)
+    this.fetchDataByUrl<Character[]>(
+      `https://rickandmortyapi.com/api/character/${ids}`,
+    )
       .then((result) => {
         this.fetchResult = result;
         this.loading = false;
@@ -65,11 +67,15 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
   },
   computed: {
     /**
-     * Getter that returns the Episode data from the fetchResult
-     * or null if there is none.
+     * Getter that returns the Episode data from the fetchResult,
+     * or will return null if the fetched data is not an array.
+     *
+     * Fetched data can be an object with key of error, if there was invalid request, 
+     * or null if no response.
      */
     characters(): Character[] | null {
-      return this.fetchResult;
+      if (Array.isArray(this.fetchResult)) return this.fetchResult;
+      return null;
     },
     /**
      * Returns an array of character ids from the required episodeCharactersUrls prop.

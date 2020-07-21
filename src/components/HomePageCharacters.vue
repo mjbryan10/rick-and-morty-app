@@ -3,11 +3,13 @@
     v-if="characters && !this.$store.state.isLoading"
     :characters="characters"
   />
+  <ErrorMessage v-else-if="this.error.length" />
 </template>
 
 <script lang="ts">
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import CharactersResultPage from '@/components/CharactersResultsPage.vue';
+import ErrorMessage from '@/components/ErrorMessage.vue';
 import { Character, CharactersAPIResponse } from '@/types/Interfaces';
 
 /** Local state for the component */
@@ -23,6 +25,7 @@ const HomePageCharacters = VueWithFetchHelpers.extend({
 
   components: {
     CharactersResultPage,
+    ErrorMessage,
   },
   data(): State {
     return {
@@ -33,15 +36,21 @@ const HomePageCharacters = VueWithFetchHelpers.extend({
    * On component created lifecycle, fetches the API data and populates data fields.
    */
   created() {
-    this.loading = true;
+    this.error = '';
     this.$store.commit('toggleIsLoading');
     this.fetchCharactersByPage()
       .then((result) => {
+        if (result.error) throw new Error('invalid request');
         this.fetchResult = result;
-        this.loading = false;
+        this.$store.commit('setServerStatus', 'OK');
       })
       .catch((error) => {
         this.error = error.toString();
+        if (error.message === 'invalid request') {
+          this.$store.commit('setServerStatus', 'warning');
+        } else {
+          this.$store.commit('setServerStatus', 'offline');
+        }
       })
       .finally(() => {
         setTimeout(() => {
@@ -54,7 +63,9 @@ const HomePageCharacters = VueWithFetchHelpers.extend({
      * Returns an array of 10 characters fetched from the API, or null if none.
      */
     characters(): Character[] | null {
-      if (this.fetchResult) return this.fetchResult.results.splice(0, 10);
+      if (this.fetchResult && !this.fetchResult.error) {
+        return this.fetchResult.results.splice(0, 10);
+      }
       return null;
     },
   },
