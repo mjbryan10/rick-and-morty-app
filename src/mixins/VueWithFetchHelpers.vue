@@ -1,10 +1,10 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Character, CharactersAPIResponse } from '@/types/Interfaces';
-import { ApiFetchData } from './types';
+import { FetchHelperState } from './types';
 
 const VueWithFetchHelpers = Vue.extend({
-  data(): ApiFetchData {
+  data(): FetchHelperState {
     return {
       error: '',
       loading: true,

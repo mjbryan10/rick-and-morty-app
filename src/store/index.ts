@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     randomizerKey: 0,
     isLoading: false,
+    serverStatus: 'warning',
   },
   mutations: {
     /**
@@ -26,6 +27,17 @@ export default new Vuex.Store({
      */
     toggleIsLoading(state: StoreState) {
       state.isLoading = !state.isLoading;
+    },
+    /**
+     * Sets the serverStatus to the presented status.
+     * @param state state The store state
+     * @param payload String value to set the serverStatus to. Must be `'OK'` ,
+     * `'warning'` or `'offline'`
+     */
+    setServerStatus(state: StoreState, payload: 'OK' | 'warning' | 'offline') {
+      if (payload === 'OK' || payload === 'warning' || payload === 'offline') {
+        state.serverStatus = payload;
+      }
     },
   },
   actions: {},
