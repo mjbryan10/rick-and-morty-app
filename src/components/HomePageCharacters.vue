@@ -10,10 +10,14 @@ import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import CharactersResultPage from '@/components/CharactersResultsPage.vue';
 import { Character, CharactersAPIResponse } from '@/types/Interfaces';
 
+/** Local state for the component */
 interface State {
   fetchResult: CharactersAPIResponse | null;
 }
 
+/**
+ * Vue component that displays the first 10 characters from the Rick and Morty API.
+ */
 const HomePageCharacters = VueWithFetchHelpers.extend({
   name: 'HomePageCharacters',
 
@@ -58,5 +62,4 @@ const HomePageCharacters = VueWithFetchHelpers.extend({
 export default HomePageCharacters;
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss"></style>

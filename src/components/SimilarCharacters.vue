@@ -8,7 +8,11 @@
       :perPageCustom="[[805, 3]]"
     >
       <Slide v-for="character in fetchResult" :key="character.id">
-        <CharacterCard :style="{margin: '0 auto'}" :character="character" :imgSize="200" />
+        <CharacterCard
+          :style="{ margin: '0 auto' }"
+          :character="character"
+          :imgSize="200"
+        />
       </Slide>
     </Carousel>
   </div>
@@ -21,6 +25,14 @@ import { RnmApiResponse } from '@/types/Interfaces';
 import { PropType } from 'vue';
 import CharacterCard from './CharacterCard.vue';
 
+/**
+ * A vue component to render a carousel of characters that feature also in the
+ * episode as the characterId passed in props.
+ *
+ * Carousel responsively shows all characters or operates as carousel depending on page size.
+ * @props episodeCharactersUrls - The Urls of characters from a Rick and Morty episode.
+ * @props characterId - The id of the character that will not be displayed.
+ */
 const SimilarCharacters = VueWithFetchHelpers.extend({
   name: 'SimilarCharacters',
   props: {
@@ -35,6 +47,10 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
     Carousel,
     Slide,
   },
+  /**
+   * Upon component creation fetches 3 characters from the Rick and Morty Api.
+   * Places fetched results in the fetchResult field.
+   */
   created() {
     const ids = this.filteredIds.toString();
     this.loading = true;
@@ -56,7 +72,7 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
       return this.fetchResult; // TODO
     },
     /**
-     * Returns an array of character Ids (number) from the required episodeCharactersUrls prop.
+     * Returns an array of character ids from the required episodeCharactersUrls prop.
      */
     characterIds(): number[] {
       const characterIds: number[] = [];
@@ -67,9 +83,11 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
       return characterIds;
     },
     /**
-     * Returns the filtered Array of character Ids, containing 3 Ids.
-     * If ID passed as prop then it will filter it out of the list of IDs.
-     * Then it will shuffle the array of IDs and then return 3 remaining.
+     * Returns the filtered Array of character ids, containing 3 Ids.
+     *
+     * If a characterId is passed as prop, then it will filter it out of the list of IDs.
+     *
+     * Then it will shuffle the array of ids and then return 3.
      */
     filteredIds(): number[] {
       let filteredIds: number[] = this.characterId
@@ -85,7 +103,7 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
     /**
      * Takes an array of any kind and reorders it using Array.sort and Math.random.
      * Note: Mutates original array.
-     * @param arr An array of any kind.
+     * @param arr An array of unknown kind.
      */
     shuffleArray(arr: unknown[]) {
       arr.sort(() => Math.random() - 0.5);
@@ -98,11 +116,11 @@ export default SimilarCharacters;
 <style scoped lang="scss">
 .similar-characters-container {
   &::before {
-    content:"";
-    display:block;
+    content: '';
+    display: block;
     width: 60%;
     margin: 0 auto;
-    border-top: 2px dashed rgba(0,0,0,0.3);
+    border-top: 2px dashed rgba(0, 0, 0, 0.3);
   }
 }
 h4 {

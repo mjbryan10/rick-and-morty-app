@@ -27,6 +27,10 @@
 <script lang="ts">
 import Vue from 'vue';
 
+/**
+ * Component that displays some possible categories from the Rick and Morty API.
+ * Provides links to the relevant routes to render the chosen content.
+ */
 const CategorySelector = Vue.extend({
   name: 'CategorySelector',
 });

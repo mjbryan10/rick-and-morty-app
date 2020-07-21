@@ -15,6 +15,11 @@
 <script lang="ts">
 import Vue from 'vue';
 
+/**
+ * Vue component for a spinner/loading icon.
+ *
+ * Styled to be inkeeping with the Rick and Morty theme.
+ */
 const Spinner = Vue.extend({
   name: 'Spinner',
 });

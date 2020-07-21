@@ -19,15 +19,22 @@
 <script lang="ts">
 import Vue from 'vue';
 
+/** Local state for the component */
 interface State {
   sitemapEntries: SitemapEntry[];
 }
+/** Sitemap entry information */
 interface SitemapEntry {
+  /** Name of the entry */
   title: string;
+  /** Link to route */
   url: string;
 }
-const Routes = ['/', '/random', '/characters', '/categories'];
+const Routes = ['/', '/random', '/characters', '/categories']; // TODO
 
+/**
+ * Vue component that renders a sitemap, list of possibile routes, for the application
+ */
 const Sitemap = Vue.extend({
   name: 'Sitemap',
   // TODO FINISH THIS
@@ -36,10 +43,17 @@ const Sitemap = Vue.extend({
       sitemapEntries: [],
     };
   },
+  /** Upon creation updates sitemapEntries data field. */
   created() {
     this.sitemapEntries = this.createUrlArray(Routes);
   },
   methods: {
+    /**
+     * Takes an array of string paths and returns an array of objects containing
+     * the url link and the appropiate name.
+     * @param paths An array of string paths to be processed.
+     * @param baseUrl An optional string to be added to the front of any path.
+     */
     createUrlArray(paths: string[], baseUrl = ''): SitemapEntry[] {
       if (!paths.length) return [];
       const newArray: SitemapEntry[] = [];
@@ -51,6 +65,10 @@ const Sitemap = Vue.extend({
       });
       return newArray;
     },
+    /**
+     * Takes a string and returns it capatalized.
+     * @param string The string to be capatilized.
+     */
     capatalize(string: string): string {
       return string[0].toUpperCase() + string.slice(1);
     },
@@ -61,7 +79,6 @@ export default Sitemap;
 
 <style scoped lang="scss">
 .sitemap-container {
-  /* text-align: left; */
   ul {
     display: flex;
     flex-flow: row wrap;
@@ -70,7 +87,6 @@ export default Sitemap;
     li {
       min-width: 140px;
       width: 45%;
-      /* max-width: 45%; */
       max-width: 400px;
       margin: 2px;
       list-style-type: none;

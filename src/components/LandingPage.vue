@@ -9,8 +9,8 @@
       <span v-else>Initialising . . .</span>
     </div>
     <div v-else>
-        <RickAndMortyHeader />
-        <HomePageCharacters />
+      <RickAndMortyHeader />
+      <HomePageCharacters />
     </div>
   </div>
 </template>
@@ -20,11 +20,15 @@ import Vue from 'vue';
 import RickAndMortyHeader from './RickAndMortyHeader.vue';
 import HomePageCharacters from './HomePageCharacters.vue';
 
+/** Local state for the component */
 interface State {
   appIntro: boolean;
   isInitialising: boolean;
 }
 
+/**
+ * Vue component for the initial page a user defaults to via index.
+ */
 const LandingPage = Vue.extend({
   name: 'LandingPage',
 
@@ -54,10 +58,20 @@ const LandingPage = Vue.extend({
         this.isInitialising = false;
       });
     },
+    /**
+     * Loads an image from the given url
+     * @param {string} url The link for the image.
+     */
     preLoadImg(url: string): void {
       const img = new Image();
       img.src = url;
     },
+    /**
+     * Asynchronous loader for multiple images.
+     *
+     * Takes and uknown amount of url strings as argument and loads them.
+     * @param {array<string>} args Array of image urls.
+     */
     async preLoadImages(...args: string[]): Promise<void> {
       if (!args.length) return;
       args.forEach((url) => this.preLoadImg(url));

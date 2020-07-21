@@ -9,10 +9,14 @@
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import CharacterProfile from '@/components/CharacterProfile.vue';
 
+/** Local state for the component */
 interface State {
   randomId: number | null;
   totalCount: number;
 }
+/**
+ * Vue component for displaying a random character from the Rick and Morty API.
+ */
 const Randomizer = VueWithFetchHelpers.extend({
   name: 'Randomizer',
   components: {
@@ -24,6 +28,9 @@ const Randomizer = VueWithFetchHelpers.extend({
       totalCount: 0,
     };
   },
+  /**
+   * On component creation generates a random ID for passing to the CharacterProfile.
+   */
   created() {
     this.populateRandomId();
   },
@@ -31,7 +38,8 @@ const Randomizer = VueWithFetchHelpers.extend({
     /**
      * Fetches the total amount of results from the API,
      * then choses a random number from the count.
-     * Ids are incrementally related to results count.
+     *
+     * Note: Ids are incrementally related to results count.
      */
     populateRandomId(): void {
       this.fetchCharactersByPage()

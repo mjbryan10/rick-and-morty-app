@@ -24,11 +24,16 @@ import Vue, { PropType } from 'vue';
 import { Character } from '@/types/Interfaces';
 import CharacterCard from '@/components/CharacterCard.vue';
 
+/** Local state for the component */
 interface State {
-  listingOrder: string;
   isAtoZ: boolean;
 }
 
+/**
+ * Vue component that renders the list characters passed to it via props.
+ *
+ * @props characters An array of characters from the Rick and Morty API.
+ */
 const CharactersResultsPage = Vue.extend({
   name: 'CharactersResultsPage',
 
@@ -37,7 +42,6 @@ const CharactersResultsPage = Vue.extend({
   },
   data(): State {
     return {
-      listingOrder: 'AtoZ',
       isAtoZ: true,
     };
   },

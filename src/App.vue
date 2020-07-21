@@ -43,7 +43,6 @@ body {
   box-sizing: border-box;
   margin: 0;
 }
-
 *,
 *:before,
 *:after {
@@ -52,7 +51,31 @@ body {
 .hidden {
   display: none;
 }
-
+/* Generic button style */
+.app-btn {
+  display: block;
+  padding: 1em;
+  border-radius: 5rem;
+  border: 2px black solid;
+  text-decoration: none;
+  color: inherit;
+  background-color: rgba(#c3bdba, 0.1);
+  transition: 0.2s ease-out;
+  cursor: pointer;
+  &:hover,
+  &:active {
+    background-color: rgba(#242222, 0.7);
+    color: white;
+  }
+  &:disabled,
+  &:disabled:hover {
+    // fades button out and resets cursor, to show is non-reactive.
+    cursor: auto;
+    background-color: rgba(#c3bdba, 0.1);
+    color: rgba(#242222, 0.3);
+    border: rgba(#242222, 0.3) 2px solid;
+  }
+}
 /*
 * Scroll Bars
 * Microsoft Edge currently not supported
@@ -84,47 +107,20 @@ body {
 }
 // Button
 *::-webkit-scrollbar-button {
-    width: 0;
-    height: 0;
-    display: none;
+  width: 0;
+  height: 0;
+  display: none;
 }
 // Corner
 *::-webkit-scrollbar-corner {
-    background-color: transparent;
+  background-color: transparent;
 }
 /* Firefox */
 * {
   scrollbar-width: thin; /* "auto" or "thin"  */
   scrollbar-color: #827b7f rgba(0, 0, 0, 0); /* scroll thumb & track */
 }
-/* Generic button style */
-.app-btn {
-  display: block;
-  padding: 1em;
-  border-radius: 5rem;
-  border: 2px black solid;
-  text-decoration: none;
-  color: inherit;
-  background-color: rgba(#c3bdba, 0.1);
-  transition: 0.2s ease-out;
-  cursor: pointer;
-  &:hover,
-  &:active {
-    background-color: rgba(#242222, 0.7);
-    color: white;
-  }
-  &:disabled {
-    // TODO
-    cursor: auto;
-    /* background-color: grey; */
-    color: rgba(#c3bdba, 0.7);
-    border: rgba(#c3bdba, 0.7) 2px solid;
-    &:hover {
-      color: rgba(#c3bdba, 1);
-      background-color: rgba(#c3bdba, 0.1);
-    }
-  }
-}
+
 /*
 * Component Styles
 */

@@ -18,6 +18,12 @@ import Vue from 'vue';
 import Footer from '@/components/Footer.vue';
 import Spinner from '@/components/Spinner.vue';
 
+/**
+ * The main compnent for displaying the application renders.
+ *
+ * Displays the spinner, when the global isLoading is true.
+ * Otherwise displays the current router-view and footer underneath.
+ */
 const AppScreen = Vue.extend({
   name: 'AppScreen',
   components: {
@@ -28,7 +34,7 @@ const AppScreen = Vue.extend({
     /**
      * Returns the Vuex store isLoading property.
      */
-    storeIsLoading() {
+    storeIsLoading(): boolean {
       return this.$store.state.isLoading;
     },
   },

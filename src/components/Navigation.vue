@@ -15,9 +15,18 @@
 <script lang="ts">
 import Vue from 'vue';
 
+/**
+ * Vue component for the Navigation of the application.
+ *
+ * Contains links for the home page, categories page and for the Randomizer.
+ */
 const Navigation = Vue.extend({
   name: 'Navigation',
   methods: {
+    /**
+     * Increments the vuex global stores randomizerKey
+     * to allow for same route re-rendering through shallow comparison.
+     */
     incrementRandomizerKey(): void {
       this.$store.commit('incrementRandomizerKey');
     },
@@ -66,7 +75,6 @@ export default Navigation;
     }
     &.router-link-exact-active,
     &:hover {
-      /* color: #42b983; */
       &::before {
         @include inset-shadow();
       }

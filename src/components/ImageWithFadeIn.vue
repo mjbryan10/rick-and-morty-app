@@ -6,6 +6,14 @@
 <script>
 import Vue from 'vue';
 
+/**
+ * Vue component for display images, with a smooth transition.
+ *
+ * Initially loads the image before fading it into view.
+ *
+ * @props imgSrc The url string from which to retrieve the image.
+ * @props imgAlt The string value for the html img alt property.
+ */
 const ImageWithFadeIn = Vue.extend({
   name: 'ImageWithFadeIn',
   props: {
@@ -18,6 +26,11 @@ const ImageWithFadeIn = Vue.extend({
     };
   },
   methods: {
+    /**
+     * Toggles the imgLoaded property to true.
+     *
+     * Thereby, making use of vue's `v-show`, to only show the image once it has loaded
+     */
     onLoaded() {
       this.imgLoaded = true;
     },

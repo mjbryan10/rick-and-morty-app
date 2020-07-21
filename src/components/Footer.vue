@@ -20,6 +20,15 @@
 <script>
 import Sitemap from '@/components/Sitemap.vue';
 
+/**
+ * Footer component for the application.
+ *
+ * Displays:
+ *  - Sitemap
+ *  - Website information
+ *  - API information
+ *  - Copyright information
+ */
 export default {
   name: 'Footer',
   components: { Sitemap },

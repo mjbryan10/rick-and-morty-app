@@ -24,13 +24,24 @@
 </template>
 
 <script lang="ts">
-import { Character, Episode, RnmApiResponse } from '@/types/Interfaces';
+import { Character, Episode } from '@/types/Interfaces';
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
 import CharacterCard from './CharacterCard.vue';
 import EpisodeInfo from './EpisodeInfo.vue';
 import CharacterInfo from './CharacterInfo.vue';
 
 type ApiResponse = Character | Episode;
+
+/**
+ * A vue component for displaying all the information related to a Rick and Morty character,
+ * after fetching it from the API.
+ *
+ * Displays the character's:
+ * - image
+ * - name
+ * - details
+ * - first episode info
+ */
 const CharacterProfile = VueWithFetchHelpers.extend({
   name: 'CharacterProfile',
   props: {
@@ -43,9 +54,9 @@ const CharacterProfile = VueWithFetchHelpers.extend({
   },
   computed: {
     /**
-     * Returns the properties and values of a character or null if there is none;
+     * Returns the properties and values of a character or null if there is none.
      */
-    character(): RnmApiResponse | null {
+    character(): Character | null {
       if (this.fetchResult) return this.fetchResult;
       return null;
     },

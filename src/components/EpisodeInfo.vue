@@ -9,9 +9,17 @@
 
 <script lang="ts">
 import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
-import { RnmApiResponse, Episode } from '@/types/Interfaces';
+import { Episode } from '@/types/Interfaces';
 import SimilarCharacters from './SimilarCharacters.vue';
 
+/**
+ * Vue compoent that fetches and displays information regarding a specific episode
+ * from the Rick and Morty API.
+ *
+ * @props url The string url link for which to retrieve the episode data.
+ * @props characterId The numeric id for the character who is in the episode.
+ * This is then passed to the `SimilarCharacters` component for filtering.
+ */
 const EpisodeInfo = VueWithFetchHelpers.extend({
   name: 'EpisodeInfo',
   props: {
@@ -26,7 +34,7 @@ const EpisodeInfo = VueWithFetchHelpers.extend({
      * Returns the Episode data from the fetchResult
      * or null if there is none.
      */
-    episode(): RnmApiResponse | null {
+    episode(): Episode | null {
       return this.fetchResult;
     },
     /**

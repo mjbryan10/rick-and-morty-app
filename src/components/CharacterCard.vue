@@ -5,7 +5,11 @@
     :to="`/character/${character.id}`"
     exact
   >
-    <ImageWithFadeIn :style="imgStyles" :imgSrc="character.image" :imgAlt="character.name" />
+    <ImageWithFadeIn
+      :style="imgStyles"
+      :imgSrc="character.image"
+      :imgAlt="character.name"
+    />
     <h4>{{ character.name }}</h4>
   </router-link>
 </template>
@@ -15,6 +19,13 @@ import Vue, { PropType } from 'vue';
 import { Character } from '@/types/Interfaces';
 import ImageWithFadeIn from './ImageWithFadeIn.vue';
 
+/**
+ * A vue component for displaying a character card.
+ * Displays the character image, with their name underneath.
+ *
+ * @props character The character information from the Rick and Morty API
+ * @props imgSize The imgSize for which the card show display, defaults to 300px.
+ */
 const CharacterCard = Vue.extend({
   name: 'CharacterCard',
   props: {
