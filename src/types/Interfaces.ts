@@ -98,6 +98,9 @@ interface ApiEntry {
  */
 export type RnmApiResponse = CharactersAPIResponse | Episode | Location | Character;
 
+/**
+ * Interface for the query format.
+ */
 export interface ApiQuery {
   [key: string]: string;
 }

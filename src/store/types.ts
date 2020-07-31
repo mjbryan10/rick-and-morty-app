@@ -28,8 +28,3 @@ export interface ModuleCharacterState {
   error: string;
   result: Character | null;
 }
-
-export interface ModuleCharacterContext {
-  dispatch?: any;
-  commit?: any;
-}

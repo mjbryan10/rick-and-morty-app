@@ -70,30 +70,9 @@ const CharacterProfile = Vue.extend({
   },
   /**
    * Function triggers on created lifecycle.
-   * Fetches a character by Id and populates the fetchResult data field.
+   * Triggers vuex store to retrieve character from database and populate state.
    */
   created() {
-    // this.$store.commit('toggleIsLoading');
-    // this.error = '';
-    // this.fetchCharacterById(this.id)
-    //   .then((result) => {
-    //     if (result.error) throw new Error('invalid request');
-    //     this.fetchResult = result;
-    //     this.$store.commit('setServerStatus', 'OK');
-    //   })
-    //   .catch((error) => {
-    //     this.error = error.toString();
-    //     if (error.message === 'invalid request') {
-    //       this.$store.commit('setServerStatus', 'warning');
-    //     } else {
-    //       this.$store.commit('setServerStatus', 'offline');
-    //     }
-    //   })
-    //   .finally(() => {
-    //     setTimeout(() => {
-    //       this.$store.commit('toggleIsLoading');
-    //     }, 1000);
-    //   });
     this.$store.dispatch('character/loadCharacter', this.id);
   },
 });

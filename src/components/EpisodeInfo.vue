@@ -44,7 +44,13 @@ const EpisodeInfo = Vue.extend({
      */
     episode(): Episode | null {
       const { error, result } = this.$store.state.episode;
-      return (!error.length && result) ? result : null;
+      return !error.length && result ? result : null;
+    },
+    /**
+     * Getter that returns the error field from the episode store.
+     */
+    error(): string {
+      return this.$store.state.episode.error;
     },
   },
   /**

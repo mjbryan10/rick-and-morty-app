@@ -4,6 +4,7 @@ import { RootState, ServerStatusTypes } from './types';
 import CharacterModule from './modules/CharacterModule';
 import CharactersModule from './modules/CharactersModule';
 import EpisodeModule from './modules/EpisodeModule';
+import SimilarCharactersModule from './modules/SimilarCharacters';
 
 Vue.use(Vuex);
 
@@ -64,5 +65,6 @@ export default new Vuex.Store({
     character: CharacterModule,
     characters: CharactersModule,
     episode: EpisodeModule,
+    similarCharacters: SimilarCharactersModule,
   },
 });

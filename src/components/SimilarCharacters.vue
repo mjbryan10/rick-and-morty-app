@@ -1,5 +1,5 @@
 <template>
-  <div v-if="characters" class="similar-characters-container">
+  <div v-if="characters.length" class="similar-characters-container">
     <h4>Characters also from this episode:</h4>
     <Carousel
       :perPage="1"
@@ -19,10 +19,9 @@
 </template>
 
 <script lang="ts">
-import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
+import Vue, { PropType } from 'vue';
 import { Slide, Carousel } from 'vue-carousel'; // @see https://ssense.github.io/vue-carousel
 import { Character } from '@/types/Interfaces';
-import { PropType } from 'vue';
 import CharacterCard from './CharacterCard.vue';
 
 /**
@@ -33,7 +32,7 @@ import CharacterCard from './CharacterCard.vue';
  * @props episodeCharactersUrls - The Urls of characters from a Rick and Morty episode.
  * @props characterId - The id of the character that will not be displayed.
  */
-const SimilarCharacters = VueWithFetchHelpers.extend({
+const SimilarCharacters = Vue.extend({
   name: 'SimilarCharacters',
   props: {
     episodeCharactersUrls: {
@@ -52,18 +51,10 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
    * Places fetched results in the fetchResult field.
    */
   created() {
-    const ids = this.filteredIds.toString();
-    this.loading = true;
-    this.fetchDataByUrl<Character[]>(
-      `https://rickandmortyapi.com/api/character/${ids}`,
-    )
-      .then((result) => {
-        this.fetchResult = result;
-        this.loading = false;
-      })
-      .catch((error) => {
-        this.error = error.toString();
-      });
+    this.$store.dispatch(
+      'similarCharacters/loadCharactersByIds',
+      this.filteredIds,
+    );
   },
   computed: {
     /**
@@ -73,15 +64,11 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
       return window.innerWidth < 300 ? 150 : 200;
     },
     /**
-     * Getter that returns the Episode data from the fetchResult,
-     * or will return null if the fetched data is not an array.
-     *
-     * Fetched data can be an object with key of error, if there was invalid request,
-     * or null if no response.
+     * Getter that returns the characters array from the SimilarCharactersModule
+     * within the vuex store.
      */
     characters(): Character[] | null {
-      if (Array.isArray(this.fetchResult)) return this.fetchResult;
-      return null;
+      return this.$store.state.similarCharacters.results;
     },
     /**
      * Returns an array of character ids from the required episodeCharactersUrls prop.
