@@ -5,12 +5,11 @@ import CharacterModule from './modules/CharacterModule';
 import CharactersModule from './modules/CharactersModule';
 import EpisodeModule from './modules/EpisodeModule';
 import SimilarCharactersModule from './modules/SimilarCharacters';
+import RandomizerModule from './modules/RandomizerModule';
 
 Vue.use(Vuex);
 
 class State implements RootState {
-  randomizerKey = 0;
-
   isLoadingGlobal = false;
 
   serverStatus: ServerStatusTypes = 'warning';
@@ -20,14 +19,12 @@ class State implements RootState {
 
 const mutations = {
   /**
-   * Increments the randomizerKey value by amount given, or 1 if none given.
-   *
-   * Allows for shallow comparison for same route re-renders.
-   * @param state The store state
-   * @param payload Numeric value to increment by, defaults to 1.
+   * Sets the error value to the provided string.
+   * @param state ModuleState
+   * @param payload String value to set the error value to.
    */
-  incrementRandomizerKey(state: RootState, payload = 1) {
-    state.randomizerKey += payload;
+  setErrorValue(state: RootState, payload: string) {
+    state.error = payload;
   },
   /**
    * Sets the boolean isLoadingGlobal state to true.
@@ -66,5 +63,6 @@ export default new Vuex.Store({
     characters: CharactersModule,
     episode: EpisodeModule,
     similarCharacters: SimilarCharactersModule,
+    randomizer: RandomizerModule,
   },
 });

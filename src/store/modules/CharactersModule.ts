@@ -14,18 +14,34 @@ import {
   fetchDataByUrl,
 } from '../helpers';
 
-// Module State
+/**
+ * Module State
+ */
 class ModuleState {
+  /**
+   * Boolean field to inform if the data is in the process of possible change.
+   */
   isLoading = false;
 
+  /**
+   * String field that provides further information regarding a failed API request.
+   */
   error = '';
 
+  /**
+   * Information regarding the API request, including pagination and result details.
+   */
   info: ApiInfo | null = null;
 
+  /**
+   * An array of Rick and Morty characters retrieved from a successful API request.
+   */
   results: Character[] = [];
 }
 
-// Module Mutations
+/**
+ * Module Mutations
+ */
 const mutations: MutationTree<ModuleState> = {
   /**
    * Sets the boolean isLoading state to true.
@@ -58,13 +74,17 @@ const mutations: MutationTree<ModuleState> = {
   },
 };
 
-// Module Actions
+/**
+ * Module Actions
+ */
 const actions = {
   /**
    * Loads a page of characters from the Rick and Morty API.
-   * Uses an optional page paramater, will load first page if not provided.
+   * Uses an optional page paramater, which will load first page if not provided.
    *
-   * Toggles loading status before and after the request.
+   * Toggles both root and module loading statuses before and after the request.
+   *
+   * Updates the root serverStatus depending on request result.
    * @requires serverStatus The serverStatus string field from the global store.
    * @param ActionContext
    * @param id Number ID for the character in the database.
@@ -81,7 +101,7 @@ const actions = {
         commit('requestSuccess', result);
         commit('setServerStatus', 'OK');
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         commit('requestFailure', error.toString());
         if (error.message === 'invalid request') {
           commit('setServerStatus', 'warning');
@@ -93,7 +113,15 @@ const actions = {
         commit('setIsNotLoadingGlobal', null, { root: true });
       });
   },
-
+  /**
+   * Loads an array of characters by the given url string.
+   *
+   * Toggles both root and module loading statuses before and after request.
+   *
+   * Updates root serverStatus depending on the type of result.
+   * @param ActionContext Destructured properties from the action context.
+   * @param url Required string url to load characters from the API.
+   */
   async loadCharactersByUrl(
     { commit }: ActionContext<ModuleState, RootState>,
     url: string,
@@ -118,7 +146,17 @@ const actions = {
         commit('setIsNotLoadingGlobal', null, { root: true });
       });
   },
-
+  /**
+   * Retrieves characters from the Rick and Morty API database which match the query
+   * terms.
+   *
+   * Toggles both root and module loading statuses before and after the request.
+   *
+   * Updates root serverStatus depending on the type of result.
+   * @param ActionContext Destructured properties from the action context.
+   * @param query Required string query for which to retrieve specified data from the
+   * Rick and Morty API
+   */
   async loadCharactersByQuery(
     { commit }: ActionContext<ModuleState, RootState>,
     query: ApiQuery,
@@ -145,7 +183,9 @@ const actions = {
   },
 } as ActionTree<ModuleState, RootState>;
 
-// Module compiled
+/**
+ * A Vuex Module for a multiple Characters from the Rick and Morty API.
+ */
 const CharactersModule: Module<ModuleState, any> = {
   namespaced: true,
   state: new ModuleState(),

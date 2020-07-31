@@ -47,8 +47,8 @@ const SimilarCharacters = Vue.extend({
     Slide,
   },
   /**
-   * Upon component creation fetches 3 characters from the Rick and Morty Api.
-   * Places fetched results in the fetchResult field.
+   * Upon component creation fetches 3 characters that share an episode,
+   * but are not the featured character, from the Rick and Morty Api.
    */
   created() {
     this.$store.dispatch(

@@ -69,11 +69,11 @@ const CharacterProfile = Vue.extend({
     },
   },
   /**
-   * Function triggers on created lifecycle.
-   * Triggers vuex store to retrieve character from database and populate state.
+   * On created lifecycle triggers vuex store to retrieve character from database
+   * and populate state.
    */
   created() {
-    this.$store.dispatch('character/loadCharacter', this.id);
+    this.$store.dispatch('character/loadCharacterById', this.id);
   },
 });
 export default CharacterProfile;

@@ -5,17 +5,29 @@ import { Character } from '@/types/Interfaces';
 import { RootState } from '../types';
 import { fetchDataByUrl } from '../helpers';
 
-// https://stackoverflow.com/a/59041769/12873927
-// Module State
+/**
+ * Module State
+ */
 class ModuleState {
+  /**
+   * Boolean field to inform if the data is in the process of possible change.
+   */
   isLoading = false;
 
+  /**
+   * String field that provides further information regarding a failed API request.
+   */
   error = '';
 
+  /**
+   * An array of Rick and Morty Characters.
+   */
   results: Character[] = [];
 }
 
-// Module Mutations
+/**
+ * Module mutations
+ */
 const mutations: MutationTree<ModuleState> = {
   /**
    * Sets the boolean isLoading state to true.
@@ -46,13 +58,16 @@ const mutations: MutationTree<ModuleState> = {
   },
 };
 
-// Module Actions
+/**
+ * Module Actions
+ */
 const actions = {
   /**
    * Loads an Episode from the Rick and Morty API by url.
-   * Toggles loading and server status before and after the request.
    *
-   * Note: This does not affect the global loading field.
+   * Toggles module loading  before and after the request.
+   *
+   * Updates root serverStatus depending on the type of result.
    * @param ActionContext
    * @param url The url for which to retrieve the Episode from the database.
    */
@@ -68,7 +83,7 @@ const actions = {
         commit('requestSuccess', result);
         commit('setServerStatus', 'OK', { root: true });
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         commit('requestFailure', error.toString());
         if (error.message === 'invalid request') {
           commit('setServerStatus', 'warning', { root: true });
@@ -79,7 +94,11 @@ const actions = {
   },
 } as ActionTree<ModuleState, RootState>;
 
-// Module compiled
+/**
+ * A Vuex Module for a an array of similar characters from the Rick and Morty API.
+ *
+ * Characters share episode information.
+ */
 const SimilarCharactersModule: Module<ModuleState, RootState> = {
   namespaced: true,
   state: new ModuleState(),

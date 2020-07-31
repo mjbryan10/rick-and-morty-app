@@ -1,12 +1,26 @@
 <template>
   <transition name="fade">
-    <div v-if="!this.$store.state.isLoadingGlobal && characters">
+    <div
+      v-if="
+        (!this.$store.state.isLoadingGlobal &&
+          !this.$store.state.characters.isLoading) &&
+          characters
+      "
+    >
       <CharactersResultPage :characters="characters" ref="characterResults" />
       <div v-if="nextUrl || prevUrl" class="pagination-controls">
-        <button :disabled="!prevUrl" class="app-btn" @click="loadPageData(prevUrl)">
+        <button
+          :disabled="!prevUrl"
+          class="app-btn"
+          @click="loadPageData(prevUrl)"
+        >
           Prev Page
         </button>
-        <button :disabled="!nextUrl" class="app-btn" @click="loadPageData(nextUrl)">
+        <button
+          :disabled="!nextUrl"
+          class="app-btn"
+          @click="loadPageData(nextUrl)"
+        >
           Next Page
         </button>
       </div>

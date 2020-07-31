@@ -28,7 +28,7 @@ const Navigation = Vue.extend({
      * to allow for same route re-rendering through shallow comparison.
      */
     incrementRandomizerKey(): void {
-      this.$store.commit('incrementRandomizerKey');
+      this.$store.commit('randomizer/incrementRandomizerKey');
     },
   },
 });

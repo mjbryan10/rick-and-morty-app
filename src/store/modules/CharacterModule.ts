@@ -5,17 +5,29 @@ import { Character } from '@/types/Interfaces';
 import { RootState } from '../types';
 import { fetchCharacterById } from '../helpers';
 
-// https://stackoverflow.com/a/59041769/12873927
-// Module State
+/**
+ * Module State
+ */
 class ModuleState {
+  /**
+   * Boolean field to inform if the data is in the process of possible change.
+   */
   isLoading = false;
 
+  /**
+   * String field that provides further information regarding a failed API request.
+   */
   error = '';
 
+  /**
+   * The result of a successful API request. A Character from the Rick and Morty API.
+   */
   result: Character | null = null;
 }
 
-// Module Mutations
+/**
+ * Module mutations
+ */
 const mutations: MutationTree<ModuleState> = {
   /**
    * Sets the boolean isLoading state to true.
@@ -45,16 +57,20 @@ const mutations: MutationTree<ModuleState> = {
   },
 };
 
-// Module Actions
+/**
+ * Module Actions
+ */
 const actions = {
   /**
-   * Loads a character from the Rick and Morty API by ID.
-   * Toggles loading status before and after the request.
-   * @requires serverStatus The serverStatus string field from the global store.
-   * @param ActionContext
+   * Loads a character from the Rick and Morty API by ID and populates the state.
+   *
+   * Toggles both root and module loading statuses before and after the request.
+   *
+   * Updates root serverStatus depending on the type of result.
+   * @param ActionContext Destructured properties from the action context.
    * @param id Number ID for the character in the database.
    */
-  async loadCharacter(
+  async loadCharacterById(
     { commit }: ActionContext<ModuleState, RootState>,
     id: number,
   ): Promise<void> {
@@ -66,7 +82,7 @@ const actions = {
         commit('requestSuccess', result);
         commit('setServerStatus', 'OK', { root: true });
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         commit('requestFailure', error.toString());
         if (error.message === 'invalid request') {
           commit('setServerStatus', 'warning', { root: true });
@@ -80,7 +96,9 @@ const actions = {
   },
 } as ActionTree<ModuleState, RootState>;
 
-// Module compiled
+/**
+ * A Vuex Module for a single Character from the Rick and Morty API.
+ */
 const CharacterModule: Module<ModuleState, RootState> = {
   namespaced: true,
   state: new ModuleState(),
