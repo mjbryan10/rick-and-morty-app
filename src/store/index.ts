@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { StoreState } from './types';
+import { Character } from '@/types/Interfaces';
+import { RootState } from './types';
+import CharacterModule from './modules/CharacterModule';
 
 Vue.use(Vuex);
 
@@ -9,6 +11,11 @@ export default new Vuex.Store({
     randomizerKey: 0,
     isLoading: false,
     serverStatus: 'warning',
+    error: '',
+    character: null,
+    characters: [],
+    episode: null,
+    similarCharacters: [],
   },
   mutations: {
     /**
@@ -18,15 +25,33 @@ export default new Vuex.Store({
      * @param state The store state
      * @param payload Numeric value to increment by, defaults to 1.
      */
-    incrementRandomizerKey(state: StoreState, payload = 1) {
+    incrementRandomizerKey(state: RootState, payload = 1) {
       state.randomizerKey += payload;
     },
     /**
-     * Toggles the boolean isLoading state.
+     * Sets the boolean isLoading state to true.
      * @param state The store state.
      */
-    toggleIsLoading(state: StoreState) {
-      state.isLoading = !state.isLoading;
+    setIsLoading(state: RootState) {
+      state.isLoading = true;
+    },
+    /**
+     * Sets the boolean isLoading state to false.
+     * @param state The store state.
+     */
+    setIsNotLoading(state: RootState) {
+      state.isLoading = false;
+    },
+    /**
+     * Updates the global store error state to the provided string.
+     * @param state The store state.
+     * @param payload A string representation of the current request error.
+     */
+    updateErrorString(state: RootState, payload: string) {
+      state.error = payload;
+    },
+    updateCharacter(state: RootState, payload: Character | null = null) {
+      state.character = payload;
     },
     /**
      * Sets the serverStatus to the presented status.
@@ -34,12 +59,14 @@ export default new Vuex.Store({
      * @param payload String value to set the serverStatus to. Must be `'OK'` ,
      * `'warning'` or `'offline'`
      */
-    setServerStatus(state: StoreState, payload: 'OK' | 'warning' | 'offline') {
+    setServerStatus(state: RootState, payload: 'OK' | 'warning' | 'offline') {
       if (payload === 'OK' || payload === 'warning' || payload === 'offline') {
         state.serverStatus = payload;
       }
     },
   },
   actions: {},
-  modules: {},
+  modules: {
+    character: CharacterModule,
+  },
 });

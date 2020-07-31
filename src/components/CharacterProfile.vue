@@ -2,7 +2,7 @@
   <transition name="fade">
     <div
       class="profile-container"
-      v-if="!this.$store.state.isLoading && character"
+      v-if="!this.$store.state.character.isLoading && character"
     >
       <h2>Characterdex entry: {{ character.id }}</h2>
       <CharacterCard
@@ -60,8 +60,8 @@ const CharacterProfile = VueWithFetchHelpers.extend({
      * Returns the properties and values of a character or null if there is none.
      */
     character(): Character | null {
-      if (this.fetchResult) return this.fetchResult;
-      return null;
+      return this.$store.state.character.result || null;
+      // return result ? result : null;
     },
   },
   /**
@@ -69,27 +69,28 @@ const CharacterProfile = VueWithFetchHelpers.extend({
    * Fetches a character by Id and populates the fetchResult data field.
    */
   created() {
-    this.$store.commit('toggleIsLoading');
-    this.error = '';
-    this.fetchCharacterById(this.id)
-      .then((result) => {
-        if (result.error) throw new Error('invalid request');
-        this.fetchResult = result;
-        this.$store.commit('setServerStatus', 'OK');
-      })
-      .catch((error) => {
-        this.error = error.toString();
-        if (error.message === 'invalid request') {
-          this.$store.commit('setServerStatus', 'warning');
-        } else {
-          this.$store.commit('setServerStatus', 'offline');
-        }
-      })
-      .finally(() => {
-        setTimeout(() => {
-          this.$store.commit('toggleIsLoading');
-        }, 1000);
-      });
+    // this.$store.commit('toggleIsLoading');
+    // this.error = '';
+    // this.fetchCharacterById(this.id)
+    //   .then((result) => {
+    //     if (result.error) throw new Error('invalid request');
+    //     this.fetchResult = result;
+    //     this.$store.commit('setServerStatus', 'OK');
+    //   })
+    //   .catch((error) => {
+    //     this.error = error.toString();
+    //     if (error.message === 'invalid request') {
+    //       this.$store.commit('setServerStatus', 'warning');
+    //     } else {
+    //       this.$store.commit('setServerStatus', 'offline');
+    //     }
+    //   })
+    //   .finally(() => {
+    //     setTimeout(() => {
+    //       this.$store.commit('toggleIsLoading');
+    //     }, 1000);
+    //   });
+    this.$store.dispatch('character/loadCharacter', this.id);
   },
 });
 export default CharacterProfile;
