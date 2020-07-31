@@ -6,13 +6,13 @@
 </template>
 
 <script lang="ts">
-import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
+import Vue from 'vue';
 import CharacterProfile from '@/components/CharacterProfile.vue';
 
 /**
  * Vue component for displaying a random character from the Rick and Morty API.
  */
-const Randomizer = VueWithFetchHelpers.extend({
+const Randomizer = Vue.extend({
   name: 'Randomizer',
   components: {
     CharacterProfile,
