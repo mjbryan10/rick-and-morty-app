@@ -2,14 +2,14 @@
   <div class="app-screen" ref="appScreen">
     <main>
       <transition name="zoom">
-        <Spinner v-if="this.$store.state.isLoading" />
+        <Spinner v-if="this.$store.state.isLoadingGlobal" />
       </transition>
       <router-view
         :key="$route.name + ($route.params.id || '')"
         style="{minHeight: 80vh}"
       />
     </main>
-    <Footer v-if="!this.$store.state.isLoading" />
+    <Footer v-if="!this.$store.state.isLoadingGlobal" />
   </div>
 </template>
 

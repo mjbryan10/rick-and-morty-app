@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.$store.state.isLoading" class="loading-spinner">
+  <div v-if="this.$store.state.isLoadingGlobal" class="loading-spinner">
       <div
         class="portal"
         :style="{ backgroundImage: 'url(' + require('@/assets/images/portal.png') + ')' }"

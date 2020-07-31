@@ -13,40 +13,7 @@ class ModuleState {
 
   result: Character | null = null;
 }
-// Module Actions
-const actions = {
-  /**
-   * Loads a character from the Rick and Morty API by ID.
-   * Toggles loading status before and after the request.
-   *
-   * @requires serverStatus The serverStatus string field from the global store.
-   * @param ActionContext
-   * @param id Number ID for the character in the database.
-   */
-  async loadCharacter(
-    { commit }: ActionContext<ModuleState, RootState>,
-    id: number,
-  ): Promise<void> {
-    commit('setIsLoading');
-    const uri = `https://rickandmortyapi.com/api/character/${id}`;
-    const response = await fetch(uri);
-    await response
-      .json()
-      .then((result: Character) => {
-        if (result.error) throw new Error('invalid request');
-        commit('requestSuccess', result);
-        commit('setServerStatus', 'OK', { root: true });
-      })
-      .catch((error: any) => {
-        commit('requestFailure', error.toString());
-        if (error.message === 'invalid request') {
-          commit('setServerStatus', 'warning', { root: true });
-        } else {
-          commit('setServerStatus', 'offline', { root: true });
-        }
-      });
-  },
-} as ActionTree<ModuleState, RootState>;
+
 // Module Mutations
 const mutations: MutationTree<ModuleState> = {
   /**
@@ -66,10 +33,8 @@ const mutations: MutationTree<ModuleState> = {
    * @param payload The error string related to the request failure.
    */
   requestFailure(state, payload: string) {
-    setTimeout(() => {
-      state.isLoading = false;
-      state.error = payload;
-    }, 1000);
+    state.isLoading = false;
+    state.error = payload;
   },
   /**
    * Updates the state upon a successful API request.
@@ -79,12 +44,50 @@ const mutations: MutationTree<ModuleState> = {
    * @param payload The character result from the API request
    */
   requestSuccess(state, payload: Character | null) {
-    setTimeout(() => {
-      state.isLoading = false;
-      state.result = payload;
-    }, 1000);
+    state.isLoading = false;
+    state.result = payload;
   },
 };
+
+// Module Actions
+const actions = {
+  /**
+   * Loads a character from the Rick and Morty API by ID.
+   * Toggles loading status before and after the request.
+   *
+   * @requires serverStatus The serverStatus string field from the global store.
+   * @param ActionContext
+   * @param id Number ID for the character in the database.
+   */
+  async loadCharacter(
+    { commit }: ActionContext<ModuleState, RootState>,
+    id: number,
+  ): Promise<void> {
+    commit('setIsLoading');
+    commit('setIsLoadingGlobal', null, { root: true });
+    const uri = `https://rickandmortyapi.com/api/character/${id}`;
+    const response = await fetch(uri);
+    await response
+      .json()
+      .then((result: Character) => {
+        if (result.error) throw new Error('invalid request');
+        commit('requestSuccess', result);
+        commit('setServerStatus', 'OK', { root: true });
+      })
+      .catch((error: any) => {
+        commit('requestFailure', error.toString());
+        if (error.message === 'invalid request') {
+          commit('setServerStatus', 'warning', { root: true });
+        } else {
+          commit('setServerStatus', 'offline', { root: true });
+        }
+      })
+      .finally(() => {
+        commit('setIsNotLoadingGlobal', null, { root: true });
+      });
+  },
+} as ActionTree<ModuleState, RootState>;
+
 // Module compiled
 const CharacterModule: Module<ModuleState, RootState> = {
   namespaced: true,

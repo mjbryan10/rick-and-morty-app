@@ -2,7 +2,11 @@
   <transition name="fade">
     <div
       class="profile-container"
-      v-if="!this.$store.state.character.isLoading && character"
+      v-if="
+        !this.$store.state.character.isLoading &&
+          !this.$store.state.isLoadingGlobal &&
+          character
+      "
     >
       <h2>Characterdex entry: {{ character.id }}</h2>
       <CharacterCard
