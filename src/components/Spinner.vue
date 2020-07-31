@@ -34,7 +34,7 @@ export default Spinner;
   justify-content: center;
   align-items: center;
   $size: 200px;
-  height: $size + 20px;
+  height: $size + 10px;
   width: $size;
   /* Sets el to center of the containing area */
   top: 50%;
