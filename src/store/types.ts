@@ -1,9 +1,13 @@
 /** The global Vuex store state */
-export interface StoreState {
-  /** Numeric value to allow re-rendering of same route with shallow comparison */
-  randomizerKey: number;
+export interface RootState {
   /** Boolean value to indicate if the app is busy with loading content */
-  isLoading: boolean;
+  isLoadingGlobal: boolean;
   /** String value to indicate the current status of the connection with the API */
-  serverStatus: 'OK' | 'warning' | 'offline';
+  serverStatus: ServerStatusTypes;
+  /** String value to inform of any current errors */
+  error: string;
 }
+/**
+ * These are the possible string options for the serverStatus
+ */
+export type ServerStatusTypes = 'OK' | 'warning' | 'offline';

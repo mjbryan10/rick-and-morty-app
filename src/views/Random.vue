@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Randomizer :key="this.$store.state.randomizerKey" />
+    <Randomizer :key="this.$store.state.randomizer.randomizerKey" />
   </div>
 </template>
 

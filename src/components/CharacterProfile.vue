@@ -2,7 +2,11 @@
   <transition name="fade">
     <div
       class="profile-container"
-      v-if="!this.$store.state.isLoading && character"
+      v-if="
+        !this.$store.state.character.isLoading &&
+          !this.$store.state.isLoadingGlobal &&
+          character
+      "
     >
       <h2>Characterdex entry: {{ character.id }}</h2>
       <CharacterCard
@@ -20,13 +24,13 @@
         :characterId="character.id"
       />
     </div>
-    <ErrorMessage v-else-if="this.error.length" />
+    <ErrorMessage v-else-if="this.$store.state.error.length" />
   </transition>
 </template>
 
 <script lang="ts">
 import { Character, Episode } from '@/types/Interfaces';
-import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
+import Vue from 'vue';
 import CharacterCard from './CharacterCard.vue';
 import EpisodeInfo from './EpisodeInfo.vue';
 import CharacterInfo from './CharacterInfo.vue';
@@ -44,7 +48,7 @@ type ApiResponse = Character | Episode;
  * - details
  * - first episode info
  */
-const CharacterProfile = VueWithFetchHelpers.extend({
+const CharacterProfile = Vue.extend({
   name: 'CharacterProfile',
   props: {
     id: [String, Number],
@@ -60,36 +64,16 @@ const CharacterProfile = VueWithFetchHelpers.extend({
      * Returns the properties and values of a character or null if there is none.
      */
     character(): Character | null {
-      if (this.fetchResult) return this.fetchResult;
-      return null;
+      return this.$store.state.character.result || null;
+      // return result ? result : null;
     },
   },
   /**
-   * Function triggers on created lifecycle.
-   * Fetches a character by Id and populates the fetchResult data field.
+   * On created lifecycle triggers vuex store to retrieve character from database
+   * and populate state.
    */
   created() {
-    this.$store.commit('toggleIsLoading');
-    this.error = '';
-    this.fetchCharacterById(this.id)
-      .then((result) => {
-        if (result.error) throw new Error('invalid request');
-        this.fetchResult = result;
-        this.$store.commit('setServerStatus', 'OK');
-      })
-      .catch((error) => {
-        this.error = error.toString();
-        if (error.message === 'invalid request') {
-          this.$store.commit('setServerStatus', 'warning');
-        } else {
-          this.$store.commit('setServerStatus', 'offline');
-        }
-      })
-      .finally(() => {
-        setTimeout(() => {
-          this.$store.commit('toggleIsLoading');
-        }, 1000);
-      });
+    this.$store.dispatch('character/loadCharacterById', this.id);
   },
 });
 export default CharacterProfile;

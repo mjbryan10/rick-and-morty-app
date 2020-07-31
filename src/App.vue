@@ -84,39 +84,43 @@ body {
 * Microsoft Edge currently not supported
 */
 /* Chrome/Safari */
-// Width
-*::-webkit-scrollbar {
-  width: 8px;
-}
-// Track
-*::-webkit-scrollbar-track {
-  width: 8px;
-}
-// Handle
-*::-webkit-scrollbar-thumb {
-  background: #827b7f;
-  width: 4px;
-  border-radius: 4px;
-  /* Gives spacing
+// Only applies on non-mobile sizes, otherwise interferes with page display.
+@media screen and (min-width: 568px) {
+  $size: 5px;
+  // Width
+  *::-webkit-scrollbar {
+    width: $size;
+  }
+  // Track
+  *::-webkit-scrollbar-track {
+    width: $size;
+  }
+  // Handle
+  *::-webkit-scrollbar-thumb {
+    background: #827b7f;
+    width: 4px;
+    border-radius: 4px;
+    /* Gives spacing
   * @see https://stackoverflow.com/a/21684424/12873927
   */
-  border: 3px solid rgba(0, 0, 0, 0);
-  background-clip: padding-box;
-}
-// Handle on hover
-*::-webkit-scrollbar-thumb:hover,
-*::-webkit-scrollbar-thumb:active {
-  background: #827b7f;
-}
-// Button
-*::-webkit-scrollbar-button {
-  width: 0;
-  height: 0;
-  display: none;
-}
-// Corner
-*::-webkit-scrollbar-corner {
-  background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+  }
+  // Handle on hover
+  *::-webkit-scrollbar-thumb:hover,
+  *::-webkit-scrollbar-thumb:active {
+    background: #827b7f;
+  }
+  // Button
+  *::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+  // Corner
+  *::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
 }
 /* Firefox */
 * {

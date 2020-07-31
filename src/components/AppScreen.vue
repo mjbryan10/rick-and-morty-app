@@ -2,14 +2,14 @@
   <div class="app-screen" ref="appScreen">
     <main>
       <transition name="zoom">
-        <Spinner v-if="this.$store.state.isLoading" />
+        <Spinner v-if="this.$store.state.isLoadingGlobal" />
       </transition>
       <router-view
         :key="$route.name + ($route.params.id || '')"
         style="{minHeight: 80vh}"
       />
     </main>
-    <Footer v-if="!this.$store.state.isLoading" />
+    <Footer v-if="!this.$store.state.isLoadingGlobal" />
   </div>
 </template>
 
@@ -35,20 +35,20 @@ const AppScreen = Vue.extend({
      * Returns the Vuex store isLoading property.
      */
     storeIsLoading(): boolean {
-      return this.$store.state.isLoading;
+      return this.$store.state.isLoadingGlobal;
     },
   },
   watch: {
     /**
      * Uses storeIsLoading computed property to watch for
-     * changes on the Vuex isLoading property.
+     * changes on the Vuex isLoadingGlobal property.
      *
-     * If global state isLoading, then it resets the scrollTop of
+     * If global state isLoadingGlobal, then it resets the scrollTop of
      * the app-screen.
      * This helps improve UX, with smoother transitions between loads.
      */
     storeIsLoading() {
-      if (this.$store.state.isLoading) {
+      if (this.$store.state.isLoadingGlobal) {
         const appScreen = this.$refs.appScreen as HTMLDivElement;
         appScreen.scrollTop = 0;
       }
@@ -68,12 +68,14 @@ export default AppScreen;
   border-radius: 5px;
   border: solid black 2px;
   text-align: center;
-  padding-left: 8px; //Added padding to balance page from custom scroller
+  padding: 0 8px; //Added padding to balance page from custom scroller
   padding-bottom: 50px;
   z-index: 1;
   main {
     min-height: 85vh;
     margin-bottom: 25vh;
+    display: block;
+    margin: 0 auto;
   }
 }
 @media screen and (max-height: 740px) {

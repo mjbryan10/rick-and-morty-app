@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.$store.state.isLoading" class="loading-spinner">
+  <div v-if="this.$store.state.isLoadingGlobal" class="loading-spinner">
       <div
         class="portal"
         :style="{ backgroundImage: 'url(' + require('@/assets/images/portal.png') + ')' }"
@@ -34,7 +34,7 @@ export default Spinner;
   justify-content: center;
   align-items: center;
   $size: 200px;
-  height: $size + 20px;
+  height: $size + 10px;
   width: $size;
   /* Sets el to center of the containing area */
   top: 50%;
@@ -43,7 +43,6 @@ export default Spinner;
   margin-left: -($size/2);
   .portal,
   .portal-inner {
-    /* animation: portal-enter 0.2s; */
     width: 100%;
     height: 100%;
     background-size: cover;

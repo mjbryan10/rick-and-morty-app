@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
+import Vue from 'vue';
 import { Episode } from '@/types/Interfaces';
 import SimilarCharacters from './SimilarCharacters.vue';
 import ErrorMessage from './ErrorMessage.vue';
@@ -27,7 +27,7 @@ import ErrorMessage from './ErrorMessage.vue';
  * @props characterId The numeric id for the character who is in the episode.
  * This is then passed to the `SimilarCharacters` component for filtering.
  */
-const EpisodeInfo = VueWithFetchHelpers.extend({
+const EpisodeInfo = Vue.extend({
   name: 'EpisodeInfo',
   props: {
     url: String,
@@ -43,16 +43,14 @@ const EpisodeInfo = VueWithFetchHelpers.extend({
      * or null if there is none.
      */
     episode(): Episode | null {
-      if (!this.fetchResult || this.fetchResult.error) return null;
-      return this.fetchResult;
+      const { error, result } = this.$store.state.episode;
+      return !error.length && result ? result : null;
     },
     /**
-     * Returns an array of string URLs for the Rick and Morty API,
-     * for each character that is also in this episode.
+     * Getter that returns the error field from the episode store.
      */
-    charactersInEpisode(): string[] | null {
-      if (!this.fetchResult) return null;
-      return this.fetchResult.characters;
+    error(): string {
+      return this.$store.state.episode.error;
     },
   },
   /**
@@ -62,21 +60,7 @@ const EpisodeInfo = VueWithFetchHelpers.extend({
    * If there is an error populates the error property appropiately.
    */
   created() {
-    this.error = '';
-    this.fetchDataByUrl<Episode>(this.url)
-      .then((result) => {
-        if (result.error) throw new Error('invalid request');
-        this.fetchResult = result;
-        this.$store.commit('setServerStatus', 'OK');
-      })
-      .catch((error) => {
-        if (error.message === 'invalid request') {
-          this.$store.commit('setServerStatus', 'warning');
-        } else {
-          this.$store.commit('setServerStatus', 'offline');
-        }
-        this.error = error.toString();
-      });
+    this.$store.dispatch('episode/loadEpisode', this.url);
   },
 });
 export default EpisodeInfo;

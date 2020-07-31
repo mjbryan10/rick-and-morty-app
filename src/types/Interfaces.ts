@@ -97,3 +97,10 @@ interface ApiEntry {
  * Possible responses from the Rick and Morty API.
  */
 export type RnmApiResponse = CharactersAPIResponse | Episode | Location | Character;
+
+/**
+ * Interface for the query format.
+ */
+export interface ApiQuery {
+  [key: string]: string;
+}
