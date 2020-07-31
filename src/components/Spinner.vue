@@ -43,7 +43,6 @@ export default Spinner;
   margin-left: -($size/2);
   .portal,
   .portal-inner {
-    /* animation: portal-enter 0.2s; */
     width: 100%;
     height: 100%;
     background-size: cover;
