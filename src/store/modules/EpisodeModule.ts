@@ -1,9 +1,9 @@
 import {
   Module, ActionContext, ActionTree, MutationTree,
 } from 'vuex';
-import { Character } from '@/types/Interfaces';
+import { Episode } from '@/types/Interfaces';
 import { RootState } from '../types';
-import { fetchCharacterById } from '../helpers';
+import { fetchDataByUrl } from '../helpers';
 
 // https://stackoverflow.com/a/59041769/12873927
 // Module State
@@ -12,7 +12,7 @@ class ModuleState {
 
   error = '';
 
-  result: Character | null = null;
+  result: Episode | null = null;
 }
 
 // Module Mutations
@@ -39,7 +39,7 @@ const mutations: MutationTree<ModuleState> = {
    * @param state The module state
    * @param payload The character result from the API request
    */
-  requestSuccess(state, payload: Character | null) {
+  requestSuccess(state, payload: Episode | null) {
     state.isLoading = false;
     state.result = payload;
   },
@@ -48,20 +48,20 @@ const mutations: MutationTree<ModuleState> = {
 // Module Actions
 const actions = {
   /**
-   * Loads a character from the Rick and Morty API by ID.
-   * Toggles loading status before and after the request.
-   * @requires serverStatus The serverStatus string field from the global store.
+   * Loads an Episode from the Rick and Morty API by url.
+   * Toggles loading and server status before and after the request.
+   *
+   * Note: This does not affect the global loading field.
    * @param ActionContext
-   * @param id Number ID for the character in the database.
+   * @param url The url for which to retrieve the Episode from the database.
    */
-  async loadCharacter(
+  async loadEpisode(
     { commit }: ActionContext<ModuleState, RootState>,
-    id: number,
+    url: string,
   ): Promise<void> {
     commit('setIsLoading');
-    commit('setIsLoadingGlobal', null, { root: true });
-    fetchCharacterById(id)
-      .then((result: Character) => {
+    fetchDataByUrl<Episode>(url)
+      .then((result) => {
         if (result.error) throw new Error('invalid request');
         commit('requestSuccess', result);
         commit('setServerStatus', 'OK', { root: true });
@@ -73,18 +73,15 @@ const actions = {
         } else {
           commit('setServerStatus', 'offline', { root: true });
         }
-      })
-      .finally(() => {
-        commit('setIsNotLoadingGlobal', null, { root: true });
       });
   },
 } as ActionTree<ModuleState, RootState>;
 
 // Module compiled
-const CharacterModule: Module<ModuleState, RootState> = {
+const EpisodeModule: Module<ModuleState, RootState> = {
   namespaced: true,
   state: new ModuleState(),
   mutations,
   actions,
 };
-export default CharacterModule;
+export default EpisodeModule;

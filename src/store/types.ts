@@ -1,4 +1,4 @@
-import { Character, Episode } from '@/types/Interfaces';
+import { Character } from '@/types/Interfaces';
 
 /** The global Vuex store state */
 export interface RootState {

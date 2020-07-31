@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Vuex, { MutationTree } from 'vuex';
 import { RootState, ServerStatusTypes } from './types';
 import CharacterModule from './modules/CharacterModule';
+import CharactersModule from './modules/CharactersModule';
+import EpisodeModule from './modules/EpisodeModule';
 
 Vue.use(Vuex);
 
@@ -60,5 +62,7 @@ export default new Vuex.Store({
   mutations,
   modules: {
     character: CharacterModule,
+    characters: CharactersModule,
+    episode: EpisodeModule,
   },
 });
