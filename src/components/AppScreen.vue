@@ -68,14 +68,12 @@ export default AppScreen;
   border-radius: 5px;
   border: solid black 2px;
   text-align: center;
-  padding: 0 8px; //Added padding to balance page from custom scroller
-  padding-bottom: 50px;
+  padding: 0 8px 50px 8px;
   z-index: 1;
   main {
     min-height: 85vh;
-    margin-bottom: 25vh;
+    margin: 0 auto 25vh auto;
     display: block;
-    margin: 0 auto;
   }
 }
 @media screen and (max-height: 740px) {
