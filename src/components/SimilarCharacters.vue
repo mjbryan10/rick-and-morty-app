@@ -11,7 +11,7 @@
         <CharacterCard
           :style="{ margin: '0 auto' }"
           :character="character"
-          :imgSize="200"
+          :imgSize="characterCardImgSize"
         />
       </Slide>
     </Carousel>
@@ -66,6 +66,12 @@ const SimilarCharacters = VueWithFetchHelpers.extend({
       });
   },
   computed: {
+    /**
+     * Returns appropiate images size for characterCard depending on screen size.
+     */
+    characterCardImgSize(): number {
+      return window.innerWidth < 300 ? 150 : 200;
+    },
     /**
      * Getter that returns the Episode data from the fetchResult,
      * or will return null if the fetched data is not an array.
