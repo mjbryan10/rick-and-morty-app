@@ -95,6 +95,9 @@ ul {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  span {
+    display: block;
+  }
 }
 
 @media screen and (min-width: 800px) {
@@ -104,6 +107,11 @@ ul {
   }
   li {
     width: auto;
+  }
+  .sort-btn {
+    span {
+      display: inline;
+    }
   }
 }
 </style>

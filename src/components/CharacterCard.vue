@@ -32,7 +32,7 @@ const CharacterCard = Vue.extend({
     character: { type: Object as PropType<Character>, required: true },
     imgSize: {
       type: Number,
-      default: 300, // Review
+      default: 300,
     },
   },
   components: {
