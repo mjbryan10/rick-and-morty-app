@@ -24,13 +24,13 @@
         :characterId="character.id"
       />
     </div>
-    <ErrorMessage v-else-if="this.error.length" />
+    <ErrorMessage v-else-if="this.$store.state.error.length" />
   </transition>
 </template>
 
 <script lang="ts">
 import { Character, Episode } from '@/types/Interfaces';
-import VueWithFetchHelpers from '@/mixins/VueWithFetchHelpers.vue';
+import Vue from 'vue';
 import CharacterCard from './CharacterCard.vue';
 import EpisodeInfo from './EpisodeInfo.vue';
 import CharacterInfo from './CharacterInfo.vue';
@@ -48,7 +48,7 @@ type ApiResponse = Character | Episode;
  * - details
  * - first episode info
  */
-const CharacterProfile = VueWithFetchHelpers.extend({
+const CharacterProfile = Vue.extend({
   name: 'CharacterProfile',
   props: {
     id: [String, Number],

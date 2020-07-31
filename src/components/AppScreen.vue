@@ -35,20 +35,20 @@ const AppScreen = Vue.extend({
      * Returns the Vuex store isLoading property.
      */
     storeIsLoading(): boolean {
-      return this.$store.state.isLoading;
+      return this.$store.state.isLoadingGlobal;
     },
   },
   watch: {
     /**
      * Uses storeIsLoading computed property to watch for
-     * changes on the Vuex isLoading property.
+     * changes on the Vuex isLoadingGlobal property.
      *
-     * If global state isLoading, then it resets the scrollTop of
+     * If global state isLoadingGlobal, then it resets the scrollTop of
      * the app-screen.
      * This helps improve UX, with smoother transitions between loads.
      */
     storeIsLoading() {
-      if (this.$store.state.isLoading) {
+      if (this.$store.state.isLoadingGlobal) {
         const appScreen = this.$refs.appScreen as HTMLDivElement;
         appScreen.scrollTop = 0;
       }
