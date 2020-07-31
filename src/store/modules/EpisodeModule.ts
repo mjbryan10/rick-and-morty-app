@@ -24,6 +24,7 @@ const mutations: MutationTree<ModuleState> = {
   setIsLoading(state) {
     state.isLoading = true;
     state.error = '';
+    state.result = null;
   },
   /**
    * Updates the state in case of request error.
