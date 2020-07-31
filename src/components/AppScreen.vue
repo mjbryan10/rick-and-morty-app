@@ -68,6 +68,7 @@ export default AppScreen;
   border-radius: 5px;
   border: solid black 2px;
   text-align: center;
+  padding-left: 8px; //Added padding to balance page from custom scroller
   padding-bottom: 50px;
   z-index: 1;
   main {

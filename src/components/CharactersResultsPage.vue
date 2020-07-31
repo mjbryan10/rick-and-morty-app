@@ -78,7 +78,10 @@ ul {
   padding: 0;
 }
 li {
-  display: inline-block;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 100%;
   margin: 8px 10px;
 }
 div,
@@ -86,16 +89,21 @@ ul {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  width: 100%;
 }
 .sort-btn {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
 }
+
 @media screen and (min-width: 800px) {
   ul {
     flex-flow: row wrap;
     justify-content: center;
+  }
+  li {
+    width: auto;
   }
 }
 </style>
