@@ -36,8 +36,6 @@ import EpisodeInfo from './EpisodeInfo.vue';
 import CharacterInfo from './CharacterInfo.vue';
 import ErrorMessage from './ErrorMessage.vue';
 
-type ApiResponse = Character | Episode;
-
 /**
  * A vue component for displaying all the information related to a Rick and Morty character,
  * after fetching it from the API.
