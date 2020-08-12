@@ -9,7 +9,7 @@ import Vue from 'vue';
 import StatusIndicator from '@/components/StatusIndicator.vue';
 
 /**
- * Vue component that renders the header bar for the applicationbundleRenderer.renderToStream
+ * Vue component that renders the header bar for the application
  *
  * Contains a status indicator, for server status.
  */

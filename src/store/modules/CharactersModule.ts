@@ -45,6 +45,8 @@ class ModuleState {
 const mutations: MutationTree<ModuleState> = {
   /**
    * Sets the boolean isLoading state to true.
+   * 
+   * Resets the other state values.
    * @param state The store state.
    */
   setIsLoading(state) {

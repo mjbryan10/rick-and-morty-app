@@ -33,12 +33,7 @@
 import Vue from 'vue';
 import CharactersResultPage from '@/components/CharactersResultsPage.vue';
 import ErrorMessage from '@/components/ErrorMessage.vue';
-import { Character, CharactersAPIResponse } from '@/types/Interfaces';
-
-/** Local state for the component */
-interface State {
-  fetchResult: CharactersAPIResponse | null;
-}
+import { Character } from '@/types/Interfaces';
 
 /**
  * Vue component that fetches  and displays characters from the Rick and Morty API that match
@@ -52,14 +47,17 @@ const CharactersByQueryParam = Vue.extend({
     ErrorMessage,
   },
   /**
-   * On component created lifecycle, fetches the API data and populates data fields.
+   * On component created lifecycle, asks store to fetch and populate characters
+   * data from the database based on query parameters.
    */
   created() {
     this.$store.dispatch('characters/loadCharactersByQuery', this.$route.query);
   },
   computed: {
     /**
-     * Returns an array of 10 characters fetched from the database, or null if none.
+     * Getter function for the result from the database fetch query.
+     *
+     * Returns either an array of characters or null
      */
     characters(): Character[] | null {
       if (!this.$store.state.characters.results) return null;
@@ -90,6 +88,10 @@ const CharactersByQueryParam = Vue.extend({
     },
   },
   methods: {
+    /**
+     * Dispatches a request to the store to load characters by the
+     * given url.
+     */
     loadPageData(url: string) {
       this.$store.dispatch('characters/loadCharactersByUrl', url);
     },

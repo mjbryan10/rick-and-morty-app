@@ -22,7 +22,7 @@ interface State {
  * The indicator changes color depending on the server status.
  *  - Red = 'offline', no longer receiving requests from the server.
  *  - Yellow = 'warning', server is giving responses but response threw an error.
- *  - Green = OK. Server working and not giving errors.
+ *  - Green = 'OK'. Server working and not giving errors.
  */
 const StatusIndicator = Vue.extend({
   name: 'StatusIndicator',
