@@ -59,14 +59,6 @@ const LandingPage = Vue.extend({
       });
     },
     /**
-     * Loads an image from the given url
-     * @param {string} url The link for the image.
-     */
-    preLoadImg(url: string): void {
-      const img = new Image();
-      img.src = url;
-    },
-    /**
      * Asynchronous loader for multiple images.
      *
      * Takes and uknown amount of url strings as argument and loads them.
@@ -74,7 +66,10 @@ const LandingPage = Vue.extend({
      */
     async preLoadImages(...args: string[]): Promise<void> {
       if (!args.length) return;
-      args.forEach((url) => this.preLoadImg(url));
+      args.forEach((url) => {
+        const img = new Image();
+        img.src = url;
+      });
     },
   },
 });
